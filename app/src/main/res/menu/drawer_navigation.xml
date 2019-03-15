@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home"
+            android:title="Home">
+
+        </item>
+        <item
+            android:id="@+id/nav_manage_money"
+            android:icon="@drawable/ic_manage_money"
+            android:title="Manage Money">
+
+        </item>
+        <item
+            android:id="@+id/nav_chart"
+            android:icon="@drawable/ic_chart"
+            android:title="Chart">
+
+        </item>
+        <item
+            android:id="@+id/nav_wallet"
+            android:icon="@drawable/ic_wallet"
+            android:title="Wallet">
+
+        </item>
+        <item
+            android:id="@+id/nav_debt"
+            android:icon="@drawable/ic_debt"
+            android:title="Debt">
+
+        </item>
+        <item
+            android:id="@+id/nav_account"
+            android:icon="@drawable/ic_account"
+            android:title="Account">
+
+        </item>
+    </group>
+
+</menu>

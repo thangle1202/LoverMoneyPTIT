@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ManageMoneyFragment"
+    android:orientation="horizontal"
+    android:background="@color/colorBlue"
+    android:gravity="center">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <Button
+        android:id="@+id/btn_revenues"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Thu tien"/>
+    <Button
+        android:id="@+id/btn_expenses"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Chi tien"/>
+
+</LinearLayout>
