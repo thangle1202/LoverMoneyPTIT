@@ -13,7 +13,8 @@ import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
         AddDealFragment.OnFragmentInteractionListener,
-        SelectWalletFragment.OnFragmentInteractionListener{
+        SelectWalletFragment.OnFragmentInteractionListener,
+        SelectGroupFragment.OnFragmentInteractionListener{
 
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;

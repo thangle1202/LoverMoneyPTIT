@@ -4,9 +4,17 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.lovermoneyptit.adapter.SelectWalletAdapter;
+import com.example.lovermoneyptit.models.Wallet;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,6 +33,10 @@ public class SelectWalletFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private RecyclerView rcvSelectWallet;
+    private SelectWalletAdapter selectWalletAdapter;
+    private List<Wallet> wallets;
 
     private OnFragmentInteractionListener mListener;
 
@@ -62,8 +74,41 @@ public class SelectWalletFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_select_wallet, container, false);
+        View view = inflater.inflate(R.layout.fragment_select_wallet, container, false);
+        rcvSelectWallet = view.findViewById(R.id.rcvSelectWallet);
+
+        wallets = new ArrayList<Wallet>();
+
+        Wallet wallet1 = new Wallet();
+        wallet1.setWalletName("tiền mặt");
+        wallet1.setAmount(1234567l);
+        wallets.add(wallet1);
+
+        Wallet wallet2 = new Wallet();
+        wallet2.setWalletName("tiền mặt");
+        wallet2.setAmount(1234567l);
+        wallets.add(wallet2);
+
+        Wallet wallet3 = new Wallet();
+        wallet3.setWalletName("tiền mặt");
+        wallet3.setAmount(1234567l);
+        wallets.add(wallet3);
+
+        Wallet wallet4 = new Wallet();
+        wallet4.setWalletName("tiền mặt");
+        wallet4.setAmount(1234567l);
+        wallets.add(wallet4);
+
+        Wallet wallet5 = new Wallet();
+        wallet5.setWalletName("tiền mặt");
+        wallet5.setAmount(1234567l);
+        wallets.add(wallet5);
+
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this.getContext());
+        rcvSelectWallet.setLayoutManager(layoutManager);
+        selectWalletAdapter = new SelectWalletAdapter(wallets, this.getContext());
+        rcvSelectWallet.setAdapter(selectWalletAdapter);
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

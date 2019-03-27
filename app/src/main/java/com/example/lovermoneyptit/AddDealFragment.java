@@ -35,7 +35,7 @@ public class AddDealFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    private LinearLayout selectWalletLayout, datePickerlayout;
+    private LinearLayout selectWalletLayout, datePickerlayout, selectGrouplayout;
 
     public AddDealFragment() {
         // Required empty public constructor
@@ -84,6 +84,19 @@ public class AddDealFragment extends Fragment {
             public void onClick(View v) {
                 DialogFragment newFragment = new DatePickerActivity();
                 newFragment.show(getFragmentManager(), "date picker");
+            }
+        });
+
+        selectGrouplayout = view.findViewById(R.id.selectGroupLayout);
+        selectGrouplayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fm = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fm.beginTransaction();
+                fragmentTransaction.replace(R.id.frame_container, new SelectGroupFragment(), null);
+                fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
             }
         });
 
