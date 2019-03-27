@@ -63,6 +63,7 @@ public class ManageMoneyFragment extends Fragment{
             public void onClick(View v) {
                 FragmentManager fm = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fm.beginTransaction();
+                // testAddDeal
                 fragmentTransaction.replace(R.id.frame_container, new AddDealFragment(), null);
                 fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 fragmentTransaction.addToBackStack(null);

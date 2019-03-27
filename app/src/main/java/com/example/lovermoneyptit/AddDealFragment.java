@@ -5,9 +5,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.Date;
@@ -32,18 +35,18 @@ public class AddDealFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    private TextView txtCreate;
+    private LinearLayout selectWalletLayout, datePickerlayout;
 
     public AddDealFragment() {
         // Required empty public constructor
     }
 
-    public static AddDealFragment newInstance() {
+    public static AddDealFragment newInstance(String param1, String param2) {
         AddDealFragment fragment = new AddDealFragment();
         Bundle args = new Bundle();
-//        args.putString(ARG_PARAM1, param1);
-//        args.putString(ARG_PARAM2, param2);
-//        fragment.setArguments(args);
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
         return fragment;
     }
 
@@ -61,17 +64,29 @@ public class AddDealFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_deal, container, false);
-        txtCreate = view.findViewById(R.id.txtCreate);
 
-        txtCreate.setText(new Date().toString());
+        selectWalletLayout = view.findViewById(R.id.selectWalletLayout);
+        selectWalletLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fm = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fm.beginTransaction();
+                fragmentTransaction.replace(R.id.frame_container, new SelectWalletFragment(), null);
+                fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
 
-        txtCreate.setOnClickListener(new View.OnClickListener() {
+        datePickerlayout = view.findViewById(R.id.datePickerLayout);
+        datePickerlayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DialogFragment newFragment = new DatePickerActivity();
                 newFragment.show(getFragmentManager(), "date picker");
             }
         });
+
         return view;
     }
 
@@ -113,4 +128,5 @@ public class AddDealFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
 }
