@@ -3,27 +3,28 @@ package com.example.lovermoneyptit;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
-import java.util.Date;
+import com.example.lovermoneyptit.adapter.SelectWalletAdapter;
+import com.example.lovermoneyptit.models.Wallet;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link AddDealFragment.OnFragmentInteractionListener} interface
+ * {@link SelectWalletFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link AddDealFragment#newInstance} factory method to
+ * Use the {@link SelectWalletFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AddDealFragment extends Fragment {
+public class SelectWalletFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -33,16 +34,27 @@ public class AddDealFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    private RecyclerView rcvSelectWallet;
+    private SelectWalletAdapter selectWalletAdapter;
+    private List<Wallet> wallets;
+
     private OnFragmentInteractionListener mListener;
 
-    private LinearLayout selectWalletLayout, datePickerlayout, selectGrouplayout;
-
-    public AddDealFragment() {
+    public SelectWalletFragment() {
         // Required empty public constructor
     }
 
-    public static AddDealFragment newInstance(String param1, String param2) {
-        AddDealFragment fragment = new AddDealFragment();
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @param param1 Parameter 1.
+     * @param param2 Parameter 2.
+     * @return A new instance of fragment SelectWalletFragment.
+     */
+    // TODO: Rename and change types and number of parameters
+    public static SelectWalletFragment newInstance(String param1, String param2) {
+        SelectWalletFragment fragment = new SelectWalletFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -62,44 +74,40 @@ public class AddDealFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_add_deal, container, false);
+        View view = inflater.inflate(R.layout.fragment_select_wallet, container, false);
+        rcvSelectWallet = view.findViewById(R.id.rcvSelectWallet);
 
-        selectWalletLayout = view.findViewById(R.id.selectWalletLayout);
-        selectWalletLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentManager fm = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fm.beginTransaction();
-                fragmentTransaction.replace(R.id.frame_container, new SelectWalletFragment(), null);
-                fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
-            }
-        });
+        wallets = new ArrayList<Wallet>();
 
-        datePickerlayout = view.findViewById(R.id.datePickerLayout);
-        datePickerlayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DialogFragment newFragment = new DatePickerActivity();
-                newFragment.show(getFragmentManager(), "date picker");
-            }
-        });
+        Wallet wallet1 = new Wallet();
+        wallet1.setWalletName("tiền mặt");
+        wallet1.setAmount(1234567l);
+        wallets.add(wallet1);
 
-        selectGrouplayout = view.findViewById(R.id.selectGroupLayout);
-        selectGrouplayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentManager fm = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fm.beginTransaction();
-                fragmentTransaction.replace(R.id.frame_container, new SelectGroupFragment(), null);
-                fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
-            }
-        });
+        Wallet wallet2 = new Wallet();
+        wallet2.setWalletName("tiền mặt");
+        wallet2.setAmount(1234567l);
+        wallets.add(wallet2);
 
+        Wallet wallet3 = new Wallet();
+        wallet3.setWalletName("tiền mặt");
+        wallet3.setAmount(1234567l);
+        wallets.add(wallet3);
+
+        Wallet wallet4 = new Wallet();
+        wallet4.setWalletName("tiền mặt");
+        wallet4.setAmount(1234567l);
+        wallets.add(wallet4);
+
+        Wallet wallet5 = new Wallet();
+        wallet5.setWalletName("tiền mặt");
+        wallet5.setAmount(1234567l);
+        wallets.add(wallet5);
+
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this.getContext());
+        rcvSelectWallet.setLayoutManager(layoutManager);
+        selectWalletAdapter = new SelectWalletAdapter(wallets, this.getContext());
+        rcvSelectWallet.setAdapter(selectWalletAdapter);
         return view;
     }
 
@@ -141,5 +149,4 @@ public class AddDealFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
-
 }

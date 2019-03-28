@@ -3,27 +3,20 @@ package com.example.lovermoneyptit;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-
-import java.util.Date;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link AddDealFragment.OnFragmentInteractionListener} interface
+ * {@link CashInFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link AddDealFragment#newInstance} factory method to
+ * Use the {@link CashInFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AddDealFragment extends Fragment {
+public class CashInFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -35,14 +28,21 @@ public class AddDealFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    private LinearLayout selectWalletLayout, datePickerlayout, selectGrouplayout;
-
-    public AddDealFragment() {
+    public CashInFragment() {
         // Required empty public constructor
     }
 
-    public static AddDealFragment newInstance(String param1, String param2) {
-        AddDealFragment fragment = new AddDealFragment();
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @param param1 Parameter 1.
+     * @param param2 Parameter 2.
+     * @return A new instance of fragment CashInFragment.
+     */
+    // TODO: Rename and change types and number of parameters
+    public static CashInFragment newInstance(String param1, String param2) {
+        CashInFragment fragment = new CashInFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -63,44 +63,7 @@ public class AddDealFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_add_deal, container, false);
-
-        selectWalletLayout = view.findViewById(R.id.selectWalletLayout);
-        selectWalletLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentManager fm = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fm.beginTransaction();
-                fragmentTransaction.replace(R.id.frame_container, new SelectWalletFragment(), null);
-                fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
-            }
-        });
-
-        datePickerlayout = view.findViewById(R.id.datePickerLayout);
-        datePickerlayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DialogFragment newFragment = new DatePickerActivity();
-                newFragment.show(getFragmentManager(), "date picker");
-            }
-        });
-
-        selectGrouplayout = view.findViewById(R.id.selectGroupLayout);
-        selectGrouplayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentManager fm = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fm.beginTransaction();
-                fragmentTransaction.replace(R.id.frame_container, new SelectGroupFragment(), null);
-                fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
-            }
-        });
-
-        return view;
+        return inflater.inflate(R.layout.fragment_cash_in, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -141,5 +104,4 @@ public class AddDealFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
-
 }

@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="20dp"
-    android:layout_marginBottom="3dp"
     android:layout_marginLeft="6dp"
+    android:layout_marginTop="20dp"
     android:layout_marginRight="6dp"
+    android:layout_marginBottom="3dp"
     app:cardCornerRadius="8dp">
 
     <LinearLayout
@@ -18,92 +18,107 @@
             android:layout_width="100dp"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
             <ImageView
-                android:src="@mipmap/icons8_note"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/height_icon_fragment_add_deal" />
+                android:layout_height="@dimen/height_icon_fragment_add_deal"
+                android:src="@mipmap/icon_borrow" />
+
             <ImageView
-                android:src="@mipmap/icons_selecdt_gr"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/height_icon_fragment_add_deal" />
+                android:layout_height="@dimen/height_icon_fragment_add_deal"
+                android:src="@mipmap/icon_debt" />
+
             <ImageView
-                android:src="@mipmap/icons8_note"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/height_icon_fragment_add_deal" />
+                android:layout_height="@dimen/height_icon_fragment_add_deal"
+                android:src="@mipmap/icon_loan" />
+
             <ImageView
-                android:src="@mipmap/icons8_date_picker"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/height_icon_fragment_add_deal" />
-            <ImageView
-                android:src="@mipmap/icons8_wallet"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/height_icon_fragment_add_deal" />
+                android:layout_height="@dimen/height_icon_fragment_add_deal"
+                android:src="@mipmap/icon_pay" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="500dp"
             android:layout_height="match_parent"
             android:orientation="vertical">
-            <EditText
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/height_icon_fragment_add_deal"
-                android:layout_marginBottom="0dp"
-                android:inputType="number"/>
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_icon_fragment_add_deal"
+                    android:layout_marginBottom="0dp"
+                    android:gravity="left"
+                    android:text="@string/txtBorrow"
+                    android:textSize="24sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/black" />
+
             <LinearLayout
                 android:id="@+id/selectGroupLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-                <TextView
-                    android:hint="@string/hint_select_group"
-                    android:gravity="center_vertical"
-                    android:textSize="24sp"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/height_icon_fragment_add_deal"
-                    android:layout_marginBottom="0dp"/>
-            </LinearLayout>
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/height_icon_fragment_add_deal"
-                android:layout_marginBottom="0dp"
-                android:hint="@string/note"
-                android:textSize="24sp"/>
-            <LinearLayout
-                android:id="@+id/datePickerLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_icon_fragment_add_deal"
                     android:layout_marginBottom="0dp"
-                    android:hint="@string/hint_select_date"
-                    android:gravity="center_vertical"
-                    android:textSize="24sp"/>
+                    android:gravity="left"
+                    android:hint="@string/txtDebt"
+                    android:textSize="24sp" />
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/black" />
+
             <LinearLayout
-                android:id="@+id/selectWalletLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <TextView
-                    android:layout_marginBottom="0dp"
-                    android:hint="@string/hint_select_wallet"
-                    android:textSize="24sp"
-                    android:gravity="center_vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/height_icon_fragment_add_deal" />
+                    android:layout_height="@dimen/height_icon_fragment_add_deal"
+                    android:layout_marginBottom="0dp"
+                    android:gravity="left"
+                    android:text="@string/txtLoan"
+                    android:textSize="24sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/black" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_icon_fragment_add_deal"
+                    android:layout_marginBottom="0dp"
+                    android:gravity="left"
+                    android:hint="@string/txtPay"
+                    android:textSize="24sp" />
             </LinearLayout>
         </LinearLayout>
 
     </LinearLayout>
 
 
-
 </android.support.v7.widget.CardView>
 
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="add deal fragment" />
 
 

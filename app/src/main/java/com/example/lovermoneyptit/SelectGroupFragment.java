@@ -3,27 +3,24 @@ package com.example.lovermoneyptit;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
-import java.util.Date;
+import com.example.lovermoneyptit.adapter.SelectGroupPageAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link AddDealFragment.OnFragmentInteractionListener} interface
+ * {@link SelectGroupFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link AddDealFragment#newInstance} factory method to
+ * Use the {@link SelectGroupFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AddDealFragment extends Fragment {
+public class SelectGroupFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -35,14 +32,21 @@ public class AddDealFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    private LinearLayout selectWalletLayout, datePickerlayout, selectGrouplayout;
-
-    public AddDealFragment() {
+    public SelectGroupFragment() {
         // Required empty public constructor
     }
 
-    public static AddDealFragment newInstance(String param1, String param2) {
-        AddDealFragment fragment = new AddDealFragment();
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @param param1 Parameter 1.
+     * @param param2 Parameter 2.
+     * @return A new instance of fragment SelectGroupFragment.
+     */
+    // TODO: Rename and change types and number of parameters
+    public static SelectGroupFragment newInstance(String param1, String param2) {
+        SelectGroupFragment fragment = new SelectGroupFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -63,43 +67,20 @@ public class AddDealFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_add_deal, container, false);
+        View view = inflater.inflate(R.layout.fragment_select_group, container, false);
+        // view page
+        ViewPager viewPager = view.findViewById(R.id.selectGroupPager);
+        SelectGroupPageAdapter selectGroupPageAdapter = new SelectGroupPageAdapter(getFragmentManager());
+        selectGroupPageAdapter.add(new borrowLoanFragment(), "đi vay & cho vay");
+        selectGroupPageAdapter.add(new CashInFragment(), "khoản chi");
+        selectGroupPageAdapter.add(new CashOutFragment(), "khoản thu");
+        viewPager.setAdapter(selectGroupPageAdapter);
 
-        selectWalletLayout = view.findViewById(R.id.selectWalletLayout);
-        selectWalletLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentManager fm = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fm.beginTransaction();
-                fragmentTransaction.replace(R.id.frame_container, new SelectWalletFragment(), null);
-                fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
-            }
-        });
-
-        datePickerlayout = view.findViewById(R.id.datePickerLayout);
-        datePickerlayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DialogFragment newFragment = new DatePickerActivity();
-                newFragment.show(getFragmentManager(), "date picker");
-            }
-        });
-
-        selectGrouplayout = view.findViewById(R.id.selectGroupLayout);
-        selectGrouplayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentManager fm = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fm.beginTransaction();
-                fragmentTransaction.replace(R.id.frame_container, new SelectGroupFragment(), null);
-                fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
-            }
-        });
-
+        // tab layout
+        TabLayout tab = view.findViewById(R.id.tabSelectGroup);
+        tab.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorTabSelected));
+        tab.setBackgroundColor(getResources().getColor(R.color.colorWhite));
+        tab.setupWithViewPager(viewPager);
         return view;
     }
 
