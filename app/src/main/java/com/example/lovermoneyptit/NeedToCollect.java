@@ -13,11 +13,12 @@ import android.widget.Button;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NeedToPay extends Fragment {
+public class NeedToCollect extends Fragment {
 
-    Button btnAddPay;
+
+    Button btnAddCollect;
     View view;
-    public NeedToPay() {
+    public NeedToCollect() {
         // Required empty public constructor
     }
 
@@ -26,12 +27,12 @@ public class NeedToPay extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view=inflater.inflate(R.layout.fragment_need_to_pay, container, false);
-        btnAddPay=view.findViewById(R.id.btn_add_pay);
-        btnAddPay.setOnClickListener(new View.OnClickListener() {
+        view=inflater.inflate(R.layout.fragment_need_to_collect, container, false);
+        btnAddCollect=view.findViewById(R.id.btn_add_collect);
+        btnAddCollect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(getActivity(),AddCollectActivity.class);
+                Intent intent=new Intent(getActivity(), AddPayActivity.class);
                 startActivity(intent);
             }
         });

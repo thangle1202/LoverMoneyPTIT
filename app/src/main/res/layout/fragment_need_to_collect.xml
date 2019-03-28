@@ -2,8 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.lovermoneyptit.NeedToPay"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context="com.example.lovermoneyptit.NeedToCollect">
 
     <!-- TODO: Update blank fragment layout -->
     <android.support.v7.widget.RecyclerView
@@ -17,19 +17,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Đã trả "
+        android:text="Đã thu "
         />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="00.00 đ"
+        android:text="10.00 đ"
         />
     <Button
-        android:id="@+id/btn_add_pay"
+        android:id="@+id/btn_add_collect"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add"/>
+
 </LinearLayout>
