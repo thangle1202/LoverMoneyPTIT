@@ -10,4 +10,9 @@
     <string name="hint_select_date">chọn ngày</string>
     <string name="hint_select_wallet">chọn ví</string>
     <string name="hint_select_group">chọn nhóm</string>
+    <string name="txtPay">Trả nợ</string>
+    <string name="txtDebt">Thu nợ</string>
+    <string name="txtLoan">Cho vay</string>
+    <string name="txtBorrow">Đi vay</string>
+    <string name="txtAddRevenue">Nhóm thu mới</string>
 </resources>

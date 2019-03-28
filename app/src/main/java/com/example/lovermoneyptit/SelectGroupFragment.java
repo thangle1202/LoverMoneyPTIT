@@ -3,10 +3,14 @@ package com.example.lovermoneyptit;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.lovermoneyptit.adapter.SelectGroupPageAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -63,7 +67,21 @@ public class SelectGroupFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_select_group, container, false);
+        View view = inflater.inflate(R.layout.fragment_select_group, container, false);
+        // view page
+        ViewPager viewPager = view.findViewById(R.id.selectGroupPager);
+        SelectGroupPageAdapter selectGroupPageAdapter = new SelectGroupPageAdapter(getFragmentManager());
+        selectGroupPageAdapter.add(new borrowLoanFragment(), "đi vay & cho vay");
+        selectGroupPageAdapter.add(new CashInFragment(), "khoản chi");
+        selectGroupPageAdapter.add(new CashOutFragment(), "khoản thu");
+        viewPager.setAdapter(selectGroupPageAdapter);
+
+        // tab layout
+        TabLayout tab = view.findViewById(R.id.tabSelectGroup);
+        tab.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorTabSelected));
+        tab.setBackgroundColor(getResources().getColor(R.color.colorWhite));
+        tab.setupWithViewPager(viewPager);
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -104,4 +122,5 @@ public class SelectGroupFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
 }

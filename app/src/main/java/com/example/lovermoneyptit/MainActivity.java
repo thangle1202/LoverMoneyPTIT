@@ -14,59 +14,64 @@ import android.view.MenuItem;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
         AddDealFragment.OnFragmentInteractionListener,
         SelectWalletFragment.OnFragmentInteractionListener,
-        SelectGroupFragment.OnFragmentInteractionListener{
+        SelectGroupFragment.OnFragmentInteractionListener,
+        borrowLoanFragment.OnFragmentInteractionListener,
+        CashInFragment.OnFragmentInteractionListener,
+        CashOutFragment.OnFragmentInteractionListener {
 
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         init();
         setSupportActionBar(toolbar);
-        ActionBarDrawerToggle toggle=new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.open_drawer,R.string.close_drawer);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_drawer, R.string.close_drawer);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-        getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,new HomeFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new HomeFragment()).commit();
 
     }
-    private void init(){
-        toolbar=findViewById(R.id.toolbar);
-        drawerLayout=findViewById(R.id.drawer_layout);
-        navigationView=findViewById(R.id.drawer_nav);
+
+    private void init() {
+        toolbar = findViewById(R.id.toolbar);
+        drawerLayout = findViewById(R.id.drawer_layout);
+        navigationView = findViewById(R.id.drawer_nav);
         navigationView.setNavigationItemSelectedListener(this);
     }
 
     @Override
     public void onBackPressed() {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)){
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
-        }else {
+        } else {
             super.onBackPressed();
         }
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        switch (menuItem.getItemId()){
+        switch (menuItem.getItemId()) {
             case R.id.nav_home:
-                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,new HomeFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new HomeFragment()).commit();
                 break;
             case R.id.nav_manage_money:
-                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,new ManageMoneyFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new ManageMoneyFragment()).commit();
                 break;
             case R.id.nav_chart:
-                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,new ChartFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new ChartFragment()).commit();
                 break;
             case R.id.nav_wallet:
-                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,new WalletFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new WalletFragment()).commit();
                 break;
             case R.id.nav_debt:
-                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,new DebtFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new DebtFragment()).commit();
                 break;
             case R.id.nav_account:
-                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,new AccountFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new AccountFragment()).commit();
                 break;
         }
         drawerLayout.closeDrawer(GravityCompat.START);
