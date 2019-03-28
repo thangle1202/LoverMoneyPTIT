@@ -47,14 +47,15 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height_icon_fragment_add_deal"
-                android:layout_marginBottom="0dp"/>
+                android:layout_marginBottom="0dp"
+                android:inputType="number"/>
             <LinearLayout
                 android:id="@+id/selectGroupLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
                     android:hint="@string/hint_select_group"
-                    android:gravity="center"
+                    android:gravity="center_vertical"
                     android:textSize="24sp"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_icon_fragment_add_deal"
@@ -63,7 +64,9 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height_icon_fragment_add_deal"
-                android:layout_marginBottom="0dp"/>
+                android:layout_marginBottom="0dp"
+                android:hint="@string/note"
+                android:textSize="24sp"/>
             <LinearLayout
                 android:id="@+id/datePickerLayout"
                 android:layout_width="match_parent"
@@ -73,7 +76,7 @@
                     android:layout_height="@dimen/height_icon_fragment_add_deal"
                     android:layout_marginBottom="0dp"
                     android:hint="@string/hint_select_date"
-                    android:gravity="center"
+                    android:gravity="center_vertical"
                     android:textSize="24sp"/>
             </LinearLayout>
             <LinearLayout
@@ -84,7 +87,7 @@
                     android:layout_marginBottom="0dp"
                     android:hint="@string/hint_select_wallet"
                     android:textSize="24sp"
-                    android:gravity="center"
+                    android:gravity="center_vertical"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_icon_fragment_add_deal" />
             </LinearLayout>

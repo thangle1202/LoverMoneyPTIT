@@ -42,9 +42,9 @@
             <ImageButton
                 android:layout_width="80dp"
                 android:layout_height="@dimen/height_icon_fragment_add_deal"
-                android:src="@mipmap/ic_add"
+                android:layout_gravity="center"
                 android:background="@drawable/round_add_deal_button"
-                android:layout_gravity="center"/>
+                android:src="@mipmap/ic_add" />
         </LinearLayout>
 
         <LinearLayout
@@ -60,7 +60,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_icon_fragment_add_deal"
                     android:layout_marginBottom="0dp"
-                    android:gravity="center"
+                    android:gravity="center_vertical"
                     android:text="@string/txtBorrow"
                     android:textSize="24sp" />
             </LinearLayout>
@@ -79,7 +79,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_icon_fragment_add_deal"
                     android:layout_marginBottom="0dp"
-                    android:gravity="center"
+                    android:gravity="center_vertical"
                     android:hint="@string/txtDebt"
                     android:textSize="24sp" />
             </LinearLayout>
@@ -97,7 +97,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_icon_fragment_add_deal"
                     android:layout_marginBottom="0dp"
-                    android:gravity="center"
+                    android:gravity="center_vertical"
                     android:text="@string/txtLoan"
                     android:textSize="24sp" />
             </LinearLayout>
@@ -115,7 +115,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_icon_fragment_add_deal"
                     android:layout_marginBottom="0dp"
-                    android:gravity="center"
+                    android:gravity="center_vertical"
                     android:hint="@string/txtPay"
                     android:textSize="24sp" />
             </LinearLayout>
@@ -128,10 +128,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_icon_fragment_add_deal"
                     android:layout_marginBottom="0dp"
-                    android:gravity="center"
+                    android:gravity="center_vertical"
                     android:hint="@string/txtAddRevenue"
-                    android:textSize="24sp"
-                    android:textColor="@color/colorTabSelected"/>
+                    android:textColor="@color/colorTabSelected"
+                    android:textSize="24sp" />
             </LinearLayout>
         </LinearLayout>
 

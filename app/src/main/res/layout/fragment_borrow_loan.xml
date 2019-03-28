@@ -53,7 +53,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_icon_fragment_add_deal"
                     android:layout_marginBottom="0dp"
-                    android:gravity="center"
+                    android:gravity="left"
                     android:text="@string/txtBorrow"
                     android:textSize="24sp" />
             </LinearLayout>
@@ -72,7 +72,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_icon_fragment_add_deal"
                     android:layout_marginBottom="0dp"
-                    android:gravity="center"
+                    android:gravity="left"
                     android:hint="@string/txtDebt"
                     android:textSize="24sp" />
             </LinearLayout>
@@ -90,7 +90,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_icon_fragment_add_deal"
                     android:layout_marginBottom="0dp"
-                    android:gravity="center"
+                    android:gravity="left"
                     android:text="@string/txtLoan"
                     android:textSize="24sp" />
             </LinearLayout>
@@ -108,7 +108,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_icon_fragment_add_deal"
                     android:layout_marginBottom="0dp"
-                    android:gravity="center"
+                    android:gravity="left"
                     android:hint="@string/txtPay"
                     android:textSize="24sp" />
             </LinearLayout>

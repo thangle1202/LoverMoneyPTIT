@@ -15,4 +15,5 @@
     <string name="txtLoan">Cho vay</string>
     <string name="txtBorrow">Đi vay</string>
     <string name="txtAddRevenue">Nhóm thu mới</string>
+    <string name="note">Ghi chú</string>
 </resources>
