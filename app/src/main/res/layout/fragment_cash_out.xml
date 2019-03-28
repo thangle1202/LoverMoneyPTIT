@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="6dp"
+    android:layout_marginTop="20dp"
+    android:layout_marginRight="6dp"
+    android:layout_marginBottom="3dp"
+    app:cardCornerRadius="8dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_icon_fragment_add_deal"
+                android:src="@mipmap/icon_borrow" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_icon_fragment_add_deal"
+                android:src="@mipmap/icon_debt" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_icon_fragment_add_deal"
+                android:src="@mipmap/icon_loan" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_icon_fragment_add_deal"
+                android:src="@mipmap/icon_pay" />
+
+            <ImageButton
+                android:layout_width="80dp"
+                android:layout_height="@dimen/height_icon_fragment_add_deal"
+                android:src="@mipmap/ic_add"
+                android:background="@drawable/round_add_deal_button"
+                android:layout_gravity="center"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="500dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_icon_fragment_add_deal"
+                    android:layout_marginBottom="0dp"
+                    android:gravity="center"
+                    android:text="@string/txtBorrow"
+                    android:textSize="24sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/black" />
+
+            <LinearLayout
+                android:id="@+id/selectGroupLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_icon_fragment_add_deal"
+                    android:layout_marginBottom="0dp"
+                    android:gravity="center"
+                    android:hint="@string/txtDebt"
+                    android:textSize="24sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/black" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_icon_fragment_add_deal"
+                    android:layout_marginBottom="0dp"
+                    android:gravity="center"
+                    android:text="@string/txtLoan"
+                    android:textSize="24sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/black" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_icon_fragment_add_deal"
+                    android:layout_marginBottom="0dp"
+                    android:gravity="center"
+                    android:hint="@string/txtPay"
+                    android:textSize="24sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_icon_fragment_add_deal"
+                    android:layout_marginBottom="0dp"
+                    android:gravity="center"
+                    android:hint="@string/txtAddRevenue"
+                    android:textSize="24sp"
+                    android:textColor="@color/colorTabSelected"/>
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</android.support.v7.widget.CardView>
+
+
+
+
+
