@@ -5,4 +5,11 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="wallet_title">Quan ly vi</string>
+
+    <string name="add_button_title">Them</string>
+    <string name="edit_button_title">Sua</string>
+    <string name="delete_button_title">Xoa</string>
+
 </resources>
