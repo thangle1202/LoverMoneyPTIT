@@ -39,6 +39,12 @@
             android:title="Account">
 
         </item>
+        <item
+            android:id="@+id/nav_group"
+            android:icon="@drawable/ic_group"
+            android:title="Group">
+
+        </item>
     </group>
 
 </menu>

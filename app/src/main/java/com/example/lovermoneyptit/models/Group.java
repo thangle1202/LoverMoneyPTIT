@@ -7,14 +7,19 @@ import java.io.Serializable;
  */
 
 public class Group implements Serializable {
-    private int id;
+    private static int id;
     private String groupName;
-    private String image; // anh dai dien cua nhom giao dich
+    private int image; // anh dai dien cua nhom giao dich
 
     public Group() {
     }
 
-    public Group(int id, String groupName, String image) {
+    public Group(String groupName, int image) {
+        this.groupName = groupName;
+        this.image = image;
+    }
+
+    public Group(int id, String groupName, int image) {
         this.id = id;
         this.groupName = groupName;
         this.image = image;
@@ -36,11 +41,11 @@ public class Group implements Serializable {
         this.groupName = groupName;
     }
 
-    public String getImage() {
+    public int getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(int image) {
         this.image = image;
     }
 }
