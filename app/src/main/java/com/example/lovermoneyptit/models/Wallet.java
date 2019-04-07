@@ -16,10 +16,16 @@ public class Wallet extends RealmObject implements Serializable {
     private long id;
     private String walletName;
     @Required
-    private Long amount; // ngan sach cua vi
+    private Double balance; // ngan sach cua vi
     private String desc;
 
     public Wallet() {
+    }
+
+    public Wallet(String walletName, Double balance, String desc) {
+        this.walletName = walletName;
+        this.balance = balance;
+        this.desc = desc;
     }
 
     public long getId() {
@@ -38,12 +44,12 @@ public class Wallet extends RealmObject implements Serializable {
         this.walletName = walletName;
     }
 
-    public Long getAmount() {
-        return amount;
+    public Double getBalance() {
+        return balance;
     }
 
-    public void setAmount(Long amount) {
-        this.amount = amount;
+    public void setBalance(Double balance) {
+        this.balance = balance;
     }
 
     public String getDesc() {
