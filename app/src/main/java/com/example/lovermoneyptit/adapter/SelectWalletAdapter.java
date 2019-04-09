@@ -18,6 +18,7 @@ public class SelectWalletAdapter extends RecyclerView.Adapter{
 
     private List<Wallet> wallets;
     private Context mContext;
+    private View.OnClickListener mOnItemClickListener;
 
     public SelectWalletAdapter(List<Wallet> wallets, Context mContext) {
         this.wallets = wallets;
@@ -34,12 +35,20 @@ public class SelectWalletAdapter extends RecyclerView.Adapter{
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         SelectWalletAdapter.MyViewHolder myViewHolder = (SelectWalletAdapter.MyViewHolder) holder;
         myViewHolder.txtWalletName.setText(wallets.get(position).getWalletName());
-        myViewHolder.txtAmount.setText(String.valueOf(wallets.get(position).getAmount()));
+        myViewHolder.txtAmount.setText(String.valueOf(wallets.get(position).getBalance()));
     }
 
     @Override
     public int getItemCount() {
         return wallets.size();
+    }
+
+    public View.OnClickListener getmOnItemClickListener() {
+        return mOnItemClickListener;
+    }
+
+    public void setmOnItemClickListener(View.OnClickListener mOnItemClickListener) {
+        this.mOnItemClickListener = mOnItemClickListener;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -51,6 +60,8 @@ public class SelectWalletAdapter extends RecyclerView.Adapter{
             super(itemView);
             txtWalletName = itemView.findViewById(R.id.txtWalletName);
             txtAmount = itemView.findViewById(R.id.txtAmount);
+            itemView.setTag(this);
+            itemView.setOnClickListener(mOnItemClickListener);
         }
     }
 

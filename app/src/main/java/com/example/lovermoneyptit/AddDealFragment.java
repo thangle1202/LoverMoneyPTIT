@@ -7,11 +7,14 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Date;
 
@@ -33,6 +36,11 @@ public class AddDealFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    // Views
+    private TextView txtDealCreatedDate, txtDesc, txtDealValue, txtGroup;
+
+    private TextView txtSelectWallet;
+
     private OnFragmentInteractionListener mListener;
 
     private LinearLayout selectWalletLayout, datePickerlayout, selectGrouplayout;
@@ -53,9 +61,9 @@ public class AddDealFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+        if (this.getArguments() != null) {
+            txtSelectWallet.setText(this.getArguments().getString("walletName"));
+            Toast.makeText(getActivity(), "wallet selected: " + this.getArguments().getString("walletName"), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -65,13 +73,20 @@ public class AddDealFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_deal, container, false);
 
+        txtSelectWallet = view.findViewById(R.id.txtSelectWallet);
+        txtDealCreatedDate = view.findViewById(R.id.txtDealCreatedDate);
+        txtGroup = view.findViewById(R.id.txtGroup);
+        txtDesc = view.findViewById(R.id.txtDesc);
+        txtDealValue = view.findViewById(R.id.txtDealValue);
+
         selectWalletLayout = view.findViewById(R.id.selectWalletLayout);
         selectWalletLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentManager fm = getFragmentManager();
+                SelectWalletFragment selectWalletFragment = SelectWalletFragment.newInstance();
                 FragmentTransaction fragmentTransaction = fm.beginTransaction();
-                fragmentTransaction.replace(R.id.frame_container, new SelectWalletFragment(), null);
+                fragmentTransaction.replace(R.id.frame_container, selectWalletFragment, null);
                 fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
@@ -142,4 +157,14 @@ public class AddDealFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        // get wallet selected from selectWalletFragment
+        SelectWalletFragment selectWalletFragment = SelectWalletFragment.newInstance();
+        Bundle selectWalletBundle = selectWalletFragment.getArguments();
+        if(selectWalletBundle != null){
+            txtSelectWallet.setText(selectWalletBundle.getString("walletName"));
+        }
+    }
 }

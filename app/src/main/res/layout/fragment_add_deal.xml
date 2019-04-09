@@ -45,6 +45,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
             <EditText
+                android:id="@+id/txtDealValue"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height_icon_fragment_add_deal"
                 android:layout_marginBottom="0dp"
@@ -54,6 +55,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
+                    android:id="@+id/txtGroup"
                     android:hint="@string/hint_select_group"
                     android:gravity="center_vertical"
                     android:textSize="24sp"
@@ -62,6 +64,7 @@
                     android:layout_marginBottom="0dp"/>
             </LinearLayout>
             <EditText
+                android:id="@+id/txtDesc"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height_icon_fragment_add_deal"
                 android:layout_marginBottom="0dp"
@@ -72,6 +75,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
+                    android:id="@+id/txtDealCreatedDate"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_icon_fragment_add_deal"
                     android:layout_marginBottom="0dp"
@@ -84,6 +88,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
+                    android:id="@+id/txtSelectWallet"
                     android:layout_marginBottom="0dp"
                     android:hint="@string/hint_select_wallet"
                     android:textSize="24sp"
