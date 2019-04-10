@@ -4,9 +4,20 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.lovermoneyptit.adapter.SelectGroupLoanAdapter;
+import com.example.lovermoneyptit.models.Group;
+import com.example.lovermoneyptit.repository.WalletRepo;
+import com.example.lovermoneyptit.utils.GroupType;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,26 +37,41 @@ public class borrowLoanFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    private List<Group> groups;
+    private SelectGroupLoanAdapter selectGroupLoanAdapter;
+    private RecyclerView rcvGroupLoan;
+    private WalletRepo walletRepo;
+
+    private static Group thisItem = new Group();
+
+    // onItemClickListener
+    private View.OnClickListener mOnItemClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) v.getTag();
+            int pos = viewHolder.getAdapterPosition();
+            thisItem = groups.get(pos);
+
+            FragmentManager fm = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fm.beginTransaction();
+            fragmentTransaction.replace(R.id.frame_container, new AddDealFragment(), null);
+            fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+        }
+    };
+
     private OnFragmentInteractionListener mListener;
 
     public borrowLoanFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment borrowLoanFragment.
-     */
     // TODO: Rename and change types and number of parameters
-    public static borrowLoanFragment newInstance(String param1, String param2) {
+    public static borrowLoanFragment newInstance() {
         borrowLoanFragment fragment = new borrowLoanFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putString("groupName", thisItem.getGroupName());
         fragment.setArguments(args);
         return fragment;
     }
@@ -62,8 +88,23 @@ public class borrowLoanFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_borrow_loan, container, false);
+        walletRepo = new WalletRepo(getActivity());
+        //bind view
+        rcvGroupLoan = view.findViewById(R.id.rcvGroupLoan);
+
+        // get data by LOAN group
+        groups = walletRepo.getGroupByType(GroupType.LOAN);
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_borrow_loan, container, false);
+        if(groups.size() >= 1){
+            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this.getContext());
+            rcvGroupLoan.setLayoutManager(layoutManager);
+            selectGroupLoanAdapter = new SelectGroupLoanAdapter(groups, this.getContext());
+            selectGroupLoanAdapter.setmOnClickListener(mOnItemClickListener);
+            rcvGroupLoan.setAdapter(selectGroupLoanAdapter);
+        }
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -104,4 +145,6 @@ public class borrowLoanFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+
 }

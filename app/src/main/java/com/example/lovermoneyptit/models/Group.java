@@ -10,14 +10,16 @@ public class Group implements Serializable {
     private int id;
     private String groupName;
     private String image; // anh dai dien cua nhom giao dich
+    private int groupType; // loai nhom
 
     public Group() {
     }
 
-    public Group(int id, String groupName, String image) {
+    public Group(int id, String groupName, String image, int groupType) {
         this.id = id;
         this.groupName = groupName;
         this.image = image;
+        this.groupType = groupType;
     }
 
     public int getId() {
@@ -42,5 +44,13 @@ public class Group implements Serializable {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public int getGroupType() {
+        return groupType;
+    }
+
+    public void setGroupType(int groupType) {
+        this.groupType = groupType;
     }
 }

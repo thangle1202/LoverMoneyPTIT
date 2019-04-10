@@ -7,16 +7,13 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.Date;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -166,5 +163,12 @@ public class AddDealFragment extends Fragment {
         if(selectWalletBundle != null){
             txtSelectWallet.setText(selectWalletBundle.getString("walletName"));
         }
+
+        borrowLoanFragment loanFragment = borrowLoanFragment.newInstance();
+        Bundle selectGroupLoanBundle = loanFragment.getArguments();
+        if(selectGroupLoanBundle != null){
+            txtGroup.setText(selectGroupLoanBundle.getString("groupName"));
+        }
+
     }
 }

@@ -1,146 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginLeft="6dp"
-    android:layout_marginTop="20dp"
-    android:layout_marginRight="6dp"
-    android:layout_marginBottom="3dp"
-    app:cardCornerRadius="8dp">
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".ManageMoneyFragment">
 
-    <LinearLayout
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rcvGroupCashOut"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <LinearLayout
-            android:layout_width="100dp"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+    <ImageButton
+        android:layout_gravity="center|bottom"
+        android:id="@+id/btnAddDeal"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="80dp"
+        android:background="@drawable/round_add_deal_button"
+        android:text="Button"
+        android:src="@mipmap/ic_add"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rcvDeal" />
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/height_icon_fragment_add_deal"
-                android:src="@mipmap/icon_borrow" />
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/height_icon_fragment_add_deal"
-                android:src="@mipmap/icon_debt" />
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/height_icon_fragment_add_deal"
-                android:src="@mipmap/icon_loan" />
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/height_icon_fragment_add_deal"
-                android:src="@mipmap/icon_pay" />
-
-            <ImageButton
-                android:layout_width="80dp"
-                android:layout_height="@dimen/height_icon_fragment_add_deal"
-                android:layout_gravity="center"
-                android:background="@drawable/round_add_deal_button"
-                android:src="@mipmap/ic_add" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="500dp"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/height_icon_fragment_add_deal"
-                    android:layout_marginBottom="0dp"
-                    android:gravity="center_vertical"
-                    android:text="@string/txtBorrow"
-                    android:textSize="24sp" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@android:color/black" />
-
-            <LinearLayout
-                android:id="@+id/selectGroupLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/height_icon_fragment_add_deal"
-                    android:layout_marginBottom="0dp"
-                    android:gravity="center_vertical"
-                    android:hint="@string/txtDebt"
-                    android:textSize="24sp" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@android:color/black" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/height_icon_fragment_add_deal"
-                    android:layout_marginBottom="0dp"
-                    android:gravity="center_vertical"
-                    android:text="@string/txtLoan"
-                    android:textSize="24sp" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@android:color/black" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/height_icon_fragment_add_deal"
-                    android:layout_marginBottom="0dp"
-                    android:gravity="center_vertical"
-                    android:hint="@string/txtPay"
-                    android:textSize="24sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/height_icon_fragment_add_deal"
-                    android:layout_marginBottom="0dp"
-                    android:gravity="center_vertical"
-                    android:hint="@string/txtAddRevenue"
-                    android:textColor="@color/colorTabSelected"
-                    android:textSize="24sp" />
-            </LinearLayout>
-        </LinearLayout>
-
-    </LinearLayout>
-
-
-</android.support.v7.widget.CardView>
-
-
-
-
-
+</FrameLayout>
