@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 import com.example.lovermoneyptit.adapter.SelectGroupLoanAdapter;
 import com.example.lovermoneyptit.models.Group;
@@ -40,6 +41,7 @@ public class borrowLoanFragment extends Fragment {
     private List<Group> groups;
     private SelectGroupLoanAdapter selectGroupLoanAdapter;
     private RecyclerView rcvGroupLoan;
+    private ImageButton btnAddgroup;
     private WalletRepo walletRepo;
 
     private static Group thisItem = new Group();
@@ -54,7 +56,7 @@ public class borrowLoanFragment extends Fragment {
 
             FragmentManager fm = getFragmentManager();
             FragmentTransaction fragmentTransaction = fm.beginTransaction();
-            fragmentTransaction.replace(R.id.frame_container, new AddDealFragment(), null);
+            fragmentTransaction.replace(R.id.add_deal_container, new AddDealFragment(), null);
             fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
@@ -92,6 +94,19 @@ public class borrowLoanFragment extends Fragment {
         walletRepo = new WalletRepo(getActivity());
         //bind view
         rcvGroupLoan = view.findViewById(R.id.rcvGroupLoan);
+        btnAddgroup = view.findViewById(R.id.btnAddGroup);
+
+        btnAddgroup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fm = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fm.beginTransaction();
+                fragmentTransaction.replace(R.id.add_deal_container, new AddGroupFragment());
+                fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
 
         // get data by LOAN group
         groups = walletRepo.getGroupByType(GroupType.LOAN);

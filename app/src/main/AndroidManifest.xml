@@ -10,7 +10,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AddCollectActivity"></activity>
+        <activity android:name=".AddDealActivity"
+            android:label="@string/addDeal"></activity>
+        <activity android:name=".AddCollectActivity" />
         <activity android:name=".AddPayActivity" />
         <activity android:name=".DatePickerActivity" />
         <activity

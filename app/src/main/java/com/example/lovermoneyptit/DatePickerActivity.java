@@ -21,16 +21,23 @@ public class DatePickerActivity extends DialogFragment {
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
         int day = c.get(Calendar.DAY_OF_MONTH);
-
-        return new DatePickerDialog(getActivity(), dateSetListener, year, month, day);
+        Bundle createdDateBunlde = new Bundle();
+        String createdDate = year + "/" + (month+1) + "/" + day;
+        createdDateBunlde.putString("createdDate", createdDate);
+        DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), dateSetListener, year, month, day);
+        setArguments(createdDateBunlde);
+        return datePickerDialog;
     }
 
     private DatePickerDialog.OnDateSetListener dateSetListener =
             new DatePickerDialog.OnDateSetListener() {
                 public void onDateSet(DatePicker view, int year, int month, int day) {
                     Toast.makeText(getActivity(), "selected date is " + view.getYear() +
-                            " / " + (view.getMonth()+1) +
+                            " / " + (view.getMonth() + 1) +
                             " / " + view.getDayOfMonth(), Toast.LENGTH_SHORT).show();
+                    String createdDate = view.getYear() +
+                            " / " + (view.getMonth() + 1) +
+                            " / " + view.getDayOfMonth();
                 }
             };
 

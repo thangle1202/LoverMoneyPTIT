@@ -22,4 +22,6 @@
     <string name="txtBorrow">Đi vay</string>
     <string name="txtAddRevenue">Nhóm thu mới</string>
     <string name="note">Ghi chú</string>
+    <string name="addDeal">Thêm giao</string>
+    <string name="save">L</string>
 </resources>

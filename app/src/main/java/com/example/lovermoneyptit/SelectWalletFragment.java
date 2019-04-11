@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.lovermoneyptit.adapter.SelectWalletAdapter;
@@ -34,6 +35,7 @@ public class SelectWalletFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     // TODO: Rename and change types of parameters
     private RecyclerView rcvSelectWallet;
+    private ImageButton btnAddWallet;
     private SelectWalletAdapter selectWalletAdapter;
     private List<Wallet> wallets;
     private OnFragmentInteractionListener mListener;
@@ -51,11 +53,10 @@ public class SelectWalletFragment extends Fragment {
 
             FragmentManager fm = getFragmentManager();
             FragmentTransaction fragmentTransaction = fm.beginTransaction();
-            fragmentTransaction.replace(R.id.frame_container, new AddDealFragment(), null);
+            fragmentTransaction.replace(R.id.add_deal_container, new AddDealFragment(), null);
             fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
-
         }
     };
 
@@ -86,6 +87,20 @@ public class SelectWalletFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_select_wallet, container, false);
         rcvSelectWallet = view.findViewById(R.id.rcvSelectWallet);
+        btnAddWallet = view.findViewById(R.id.btnAddWallet);
+
+        btnAddWallet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fm = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fm.beginTransaction();
+                fragmentTransaction.replace(R.id.add_deal_container, new AddWalletFragment(), null);
+                fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
+
         walletRepo = new WalletRepo(getActivity());
 
         // get all wallet from table wallet

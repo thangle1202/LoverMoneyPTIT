@@ -7,7 +7,11 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -62,6 +66,7 @@ public class AddDealFragment extends Fragment {
             txtSelectWallet.setText(this.getArguments().getString("walletName"));
             Toast.makeText(getActivity(), "wallet selected: " + this.getArguments().getString("walletName"), Toast.LENGTH_SHORT).show();
         }
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -76,6 +81,11 @@ public class AddDealFragment extends Fragment {
         txtDesc = view.findViewById(R.id.txtDesc);
         txtDealValue = view.findViewById(R.id.txtDealValue);
 
+        //custom actionBar
+//        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+//        actionBar.setDisplayHomeAsUpEnabled(true);
+//        actionBar.setDisplayShowHomeEnabled(true);
+
         selectWalletLayout = view.findViewById(R.id.selectWalletLayout);
         selectWalletLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,7 +93,7 @@ public class AddDealFragment extends Fragment {
                 FragmentManager fm = getFragmentManager();
                 SelectWalletFragment selectWalletFragment = SelectWalletFragment.newInstance();
                 FragmentTransaction fragmentTransaction = fm.beginTransaction();
-                fragmentTransaction.replace(R.id.frame_container, selectWalletFragment, null);
+                fragmentTransaction.replace(R.id.add_deal_container, selectWalletFragment, null);
                 fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
@@ -96,6 +106,7 @@ public class AddDealFragment extends Fragment {
             public void onClick(View v) {
                 DialogFragment newFragment = new DatePickerActivity();
                 newFragment.show(getFragmentManager(), "date picker");
+                //txtDealCreatedDate.setText(newFragment.getArguments().getString("createdDate"));
             }
         });
 
@@ -105,7 +116,7 @@ public class AddDealFragment extends Fragment {
             public void onClick(View v) {
                 FragmentManager fm = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fm.beginTransaction();
-                fragmentTransaction.replace(R.id.frame_container, new SelectGroupFragment(), null);
+                fragmentTransaction.replace(R.id.add_deal_container, new SelectGroupFragment(), null);
                 fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
@@ -127,6 +138,7 @@ public class AddDealFragment extends Fragment {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
+
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -138,6 +150,7 @@ public class AddDealFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
+
 
     /**
      * This interface must be implemented by activities that contain this
@@ -160,15 +173,25 @@ public class AddDealFragment extends Fragment {
         // get wallet selected from selectWalletFragment
         SelectWalletFragment selectWalletFragment = SelectWalletFragment.newInstance();
         Bundle selectWalletBundle = selectWalletFragment.getArguments();
-        if(selectWalletBundle != null){
+        if (selectWalletBundle != null) {
             txtSelectWallet.setText(selectWalletBundle.getString("walletName"));
         }
 
         borrowLoanFragment loanFragment = borrowLoanFragment.newInstance();
         Bundle selectGroupLoanBundle = loanFragment.getArguments();
-        if(selectGroupLoanBundle != null){
+        if (selectGroupLoanBundle != null) {
             txtGroup.setText(selectGroupLoanBundle.getString("groupName"));
         }
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            getActivity().onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
