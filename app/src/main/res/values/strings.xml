@@ -19,9 +19,16 @@
     <string name="txtPay">Trả nợ</string>
     <string name="txtDebt">Thu nợ</string>
     <string name="txtLoan">Cho vay</string>
-    <string name="txtBorrow">Đi vay</string>
+    <string name="txtBorrow">vay/nợ</string>
     <string name="txtAddRevenue">Nhóm thu mới</string>
     <string name="note">Ghi chú</string>
-    <string name="addDeal">Thêm giao</string>
-    <string name="save">L</string>
+    <string name="addDeal">Thêm giao dịch</string>
+    <string name="save">Lưu</string>
+    <string name="selectGroup">chọn nhóm</string>
+    <string name="selectWallet">chọn ví</string>
+    <string name="txtSearch">tìm kiếm</string>
+    <string name="txtCashIn">khoản thu</string>
+    <string name="txtCashOut">khoản chi</string>
+    <string name="hint_group_name">tên nhóm</string>
+    <string name="txtNewGroup">nhóm mới</string>
 </resources>

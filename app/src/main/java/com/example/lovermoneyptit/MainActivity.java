@@ -12,13 +12,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
-        AddDealFragment.OnFragmentInteractionListener,
-        SelectWalletFragment.OnFragmentInteractionListener,
-        SelectGroupFragment.OnFragmentInteractionListener,
         borrowLoanFragment.OnFragmentInteractionListener,
         CashInFragment.OnFragmentInteractionListener,
-        CashOutFragment.OnFragmentInteractionListener,
-        AddGroupFragment.OnFragmentInteractionListener{
+        CashOutFragment.OnFragmentInteractionListener{
 
     public static Toolbar toolbar;
     private DrawerLayout drawerLayout;

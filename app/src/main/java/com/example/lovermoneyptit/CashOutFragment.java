@@ -1,6 +1,7 @@
 package com.example.lovermoneyptit;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 import com.example.lovermoneyptit.adapter.SelectGroupCashOutAdapter;
 import com.example.lovermoneyptit.models.Group;
@@ -36,6 +38,7 @@ public class CashOutFragment extends Fragment {
     private String mParam2;
 
     private RecyclerView rcvGroupCashOut;
+    private ImageButton btnAddGroup;
     private List<Group> groups;
     private WalletRepo walletRepo;
     private SelectGroupCashOutAdapter selectGroupCashOutAdapter;
@@ -87,6 +90,15 @@ public class CashOutFragment extends Fragment {
 
         //bind view
         rcvGroupCashOut = view.findViewById(R.id.rcvGroupCashOut);
+        btnAddGroup = view.findViewById(R.id.btnAddGroup);
+        btnAddGroup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), AddGroupActivity.class);
+                startActivity(intent);
+            }
+        });
+
         walletRepo = new WalletRepo(getActivity());
         groups = walletRepo.getGroupByType(GroupType.CASH_OUT);
         if (groups.size() >= 1) {

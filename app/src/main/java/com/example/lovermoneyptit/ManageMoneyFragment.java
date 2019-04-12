@@ -1,6 +1,7 @@
 package com.example.lovermoneyptit;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -53,13 +54,17 @@ public class ManageMoneyFragment extends Fragment{
         btnAddDeal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentManager fm = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fm.beginTransaction();
-                // testAddDeal
-                fragmentTransaction.replace(R.id.frame_container, new AddDealFragment(), null);
-                fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+
+                Intent intent = new Intent(getActivity(), AddDealActivity.class);
+                startActivity(intent);
+
+//                FragmentManager fm = getFragmentManager();
+//                FragmentTransaction fragmentTransaction = fm.beginTransaction();
+//                // testAddDeal
+//                fragmentTransaction.replace(R.id.frame_container, new AddDealFragment(), null);
+//                fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+//                fragmentTransaction.addToBackStack(null);
+//                fragmentTransaction.commit();
             }
         });
 

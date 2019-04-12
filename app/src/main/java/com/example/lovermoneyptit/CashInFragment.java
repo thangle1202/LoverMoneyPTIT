@@ -1,6 +1,7 @@
 package com.example.lovermoneyptit;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 import com.example.lovermoneyptit.adapter.SelectGroupCashInAdapter;
 import com.example.lovermoneyptit.models.Group;
@@ -38,6 +40,7 @@ public class CashInFragment extends Fragment {
     private WalletRepo walletRepo;
     private SelectGroupCashInAdapter selectGroupCashInAdapter;
     private RecyclerView rcvGroupCashIn;
+    private ImageButton btnAddgroup;
     private List<Group> groups;
     private View.OnClickListener mOnItemClickListener = new View.OnClickListener() {
         @Override
@@ -87,6 +90,14 @@ public class CashInFragment extends Fragment {
 
         // bind view
         rcvGroupCashIn = view.findViewById(R.id.rcvGroupCashIn);
+        btnAddgroup = view.findViewById(R.id.btnAddGroup);
+        btnAddgroup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), AddGroupActivity.class);
+                startActivity(intent);
+            }
+        });
 
         walletRepo = new WalletRepo(getActivity());
         groups = walletRepo.getGroupByType(GroupType.CASH_IN);

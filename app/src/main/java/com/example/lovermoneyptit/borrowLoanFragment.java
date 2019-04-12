@@ -1,6 +1,7 @@
 package com.example.lovermoneyptit;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.example.lovermoneyptit.adapter.SelectGroupLoanAdapter;
 import com.example.lovermoneyptit.models.Group;
@@ -54,12 +56,9 @@ public class borrowLoanFragment extends Fragment {
             int pos = viewHolder.getAdapterPosition();
             thisItem = groups.get(pos);
 
-            FragmentManager fm = getFragmentManager();
-            FragmentTransaction fragmentTransaction = fm.beginTransaction();
-            fragmentTransaction.replace(R.id.add_deal_container, new AddDealFragment(), null);
-            fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-            fragmentTransaction.addToBackStack(null);
-            fragmentTransaction.commit();
+            Intent intent = new Intent(getActivity(), AddDealActivity.class);
+            intent.putExtra("groupName", thisItem.getGroupName());
+            startActivity(intent);
         }
     };
 
@@ -99,17 +98,14 @@ public class borrowLoanFragment extends Fragment {
         btnAddgroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentManager fm = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fm.beginTransaction();
-                fragmentTransaction.replace(R.id.add_deal_container, new AddGroupFragment());
-                fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+                Intent intent = new Intent(getActivity(), AddGroupActivity.class);
+                startActivity(intent);
             }
         });
 
         // get data by LOAN group
         groups = walletRepo.getGroupByType(GroupType.LOAN);
+        Toast.makeText(getActivity(), "size:" + groups.size(), Toast.LENGTH_SHORT).show();
 
         // Inflate the layout for this fragment
         if(groups.size() >= 1){
