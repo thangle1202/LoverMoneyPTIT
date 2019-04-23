@@ -19,13 +19,15 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-        android:layout_gravity="center|bottom"
+        android:layout_gravity="right|bottom"
         android:id="@+id/btnAddDeal"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginRight="50dp"
         android:layout_marginBottom="80dp"
         android:background="@drawable/round_add_deal_button"
         android:text="Button"
+        android:src="@mipmap/ic_add"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rcvDeal" />

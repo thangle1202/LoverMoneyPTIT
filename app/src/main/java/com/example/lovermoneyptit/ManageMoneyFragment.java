@@ -1,6 +1,7 @@
 package com.example.lovermoneyptit;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -38,9 +39,6 @@ public class ManageMoneyFragment extends Fragment{
     private RecyclerView recyclerView;
     private List<Deal> deals;
     private DealAdapter dealAdapter;
-    private Realm realm;
-//    private EditText edtWalletName, edtWalletAmount, edtWalletDesc;
-//    private Button btnAddWallet, btnView;
     private ImageButton btnAddDeal;
 
 
@@ -49,11 +47,6 @@ public class ManageMoneyFragment extends Fragment{
                              Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_manage_money, container, false);
         recyclerView = view.findViewById(R.id.rcvDeal);
-//        edtWalletName = view.findViewById(R.id.edtWalletName);
-//        edtWalletAmount = view.findViewById(R.id.edtWalletAmount);
-//        edtWalletDesc = view.findViewById(R.id.edtWalletDesc);
-//        btnAddWallet = view.findViewById(R.id.btnAddWallet);
-//        btnView = view.findViewById(R.id.btnView);
 
         btnAddDeal = view.findViewById(R.id.btnAddDeal);
 
@@ -61,40 +54,19 @@ public class ManageMoneyFragment extends Fragment{
         btnAddDeal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentManager fm = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fm.beginTransaction();
-                // testAddDeal
-                fragmentTransaction.replace(R.id.frame_container, new AddDealFragment(), null);
-                fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+
+                Intent intent = new Intent(getActivity(), AddDealActivity.class);
+                startActivity(intent);
+
+//                FragmentManager fm = getFragmentManager();
+//                FragmentTransaction fragmentTransaction = fm.beginTransaction();
+//                // testAddDeal
+//                fragmentTransaction.replace(R.id.frame_container, new AddDealFragment(), null);
+//                fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+//                fragmentTransaction.addToBackStack(null);
+//                fragmentTransaction.commit();
             }
         });
-
-
-
-
-        // init RealmObject
-        realm = Realm.getDefaultInstance();
-
-//        btnAddWallet.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Wallet wallet = new Wallet();
-//                wallet.setWalletName(edtWalletName.getText().toString());
-//                wallet.setAmount(Long.parseLong(edtWalletAmount.getText().toString()));
-//                wallet.setDesc(edtWalletDesc.getText().toString());
-//                RealmManager.addItem(wallet, Wallet.class);
-//            }
-//        });
-//
-//        btnView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Wallet wallet = (Wallet) RealmManager.getByFieldName("walletName", "giai tri", Wallet.class);
-//                System.out.println("id wallet:" + wallet.getId());
-//            }
-//        });
 
         // data demo for recyclerview
         deals = new ArrayList<Deal>();
@@ -154,7 +126,6 @@ public class ManageMoneyFragment extends Fragment{
     @Override
     public void onDestroy() {
         super.onDestroy();
-        realm.close();
     }
 
 }

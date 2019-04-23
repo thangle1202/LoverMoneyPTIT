@@ -12,14 +12,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
-        AddDealFragment.OnFragmentInteractionListener,
-        SelectWalletFragment.OnFragmentInteractionListener,
-        SelectGroupFragment.OnFragmentInteractionListener,
         borrowLoanFragment.OnFragmentInteractionListener,
         CashInFragment.OnFragmentInteractionListener,
-        CashOutFragment.OnFragmentInteractionListener {
+        CashOutFragment.OnFragmentInteractionListener{
 
-    private Toolbar toolbar;
+    public static Toolbar toolbar;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
 
@@ -56,21 +53,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()) {
             case R.id.nav_home:
+                toolbar.setTitle("MoneyLover");
                 getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new HomeFragment()).commit();
                 break;
             case R.id.nav_manage_money:
+                toolbar.setTitle("giao dich");
                 getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new ManageMoneyFragment()).commit();
                 break;
             case R.id.nav_chart:
+                toolbar.setTitle("xu hướng");
                 getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new ChartFragment()).commit();
                 break;
             case R.id.nav_wallet:
+                toolbar.setTitle("quản lý ví");
                 getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new WalletFragment()).commit();
                 break;
             case R.id.nav_debt:
+                toolbar.setTitle("quản lý nợ");
                 getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new DebtFragment()).commit();
                 break;
             case R.id.nav_account:
+                toolbar.setTitle("tài khoản");
                 getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new AccountFragment()).commit();
                 break;
             case R.id.nav_group:

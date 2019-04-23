@@ -6,6 +6,12 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <string name="wallet_title">Quan ly vi</string>
+
+    <string name="add_button_title">Them</string>
+    <string name="edit_button_title">Sua</string>
+    <string name="delete_button_title">Xoa</string>
+
     <!--Deal-->
     <string name="hint_select_date">chọn ngày</string>
     <string name="hint_select_wallet">chọn ví</string>
@@ -13,6 +19,16 @@
     <string name="txtPay">Trả nợ</string>
     <string name="txtDebt">Thu nợ</string>
     <string name="txtLoan">Cho vay</string>
-    <string name="txtBorrow">Đi vay</string>
+    <string name="txtBorrow">vay/nợ</string>
     <string name="txtAddRevenue">Nhóm thu mới</string>
+    <string name="note">Ghi chú</string>
+    <string name="addDeal">Thêm giao dịch</string>
+    <string name="save">Lưu</string>
+    <string name="selectGroup">chọn nhóm</string>
+    <string name="selectWallet">chọn ví</string>
+    <string name="txtSearch">tìm kiếm</string>
+    <string name="txtCashIn">khoản thu</string>
+    <string name="txtCashOut">khoản chi</string>
+    <string name="hint_group_name">tên nhóm</string>
+    <string name="txtNewGroup">nhóm mới</string>
 </resources>

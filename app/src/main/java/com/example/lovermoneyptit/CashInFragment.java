@@ -1,12 +1,23 @@
 package com.example.lovermoneyptit;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+
+import com.example.lovermoneyptit.adapter.SelectGroupCashInAdapter;
+import com.example.lovermoneyptit.models.Group;
+import com.example.lovermoneyptit.repository.WalletRepo;
+import com.example.lovermoneyptit.utils.GroupType;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,6 +36,18 @@ public class CashInFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private WalletRepo walletRepo;
+    private SelectGroupCashInAdapter selectGroupCashInAdapter;
+    private RecyclerView rcvGroupCashIn;
+    private ImageButton btnAddgroup;
+    private List<Group> groups;
+    private View.OnClickListener mOnItemClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+        }
+    };
 
     private OnFragmentInteractionListener mListener;
 
@@ -63,7 +86,31 @@ public class CashInFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_cash_in, container, false);
+        View view = inflater.inflate(R.layout.fragment_cash_in, container, false);
+
+        // bind view
+        rcvGroupCashIn = view.findViewById(R.id.rcvGroupCashIn);
+        btnAddgroup = view.findViewById(R.id.btnAddGroup);
+        btnAddgroup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), AddGroupActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        walletRepo = new WalletRepo(getActivity());
+        groups = walletRepo.getGroupByType(GroupType.CASH_IN);
+
+        if(groups.size() >= 1){
+            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this.getContext());
+            rcvGroupCashIn.setLayoutManager(layoutManager);
+            selectGroupCashInAdapter = new SelectGroupCashInAdapter(groups, this.getContext());
+            selectGroupCashInAdapter.setmOnClickListener(mOnItemClickListener);
+            rcvGroupCashIn.setAdapter(selectGroupCashInAdapter);
+        }
+
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

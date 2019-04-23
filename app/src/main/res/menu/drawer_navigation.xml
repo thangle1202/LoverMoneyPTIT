@@ -6,37 +6,37 @@
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_home"
-            android:title="Home">
+            android:title="Trang chính">
 
         </item>
         <item
             android:id="@+id/nav_manage_money"
             android:icon="@drawable/ic_manage_money"
-            android:title="Manage Money">
+            android:title="Quản lý giao dịch">
 
         </item>
         <item
             android:id="@+id/nav_chart"
             android:icon="@drawable/ic_chart"
-            android:title="Chart">
+            android:title="Xu hướng">
 
         </item>
         <item
             android:id="@+id/nav_wallet"
             android:icon="@drawable/ic_wallet"
-            android:title="Wallet">
+            android:title="Quản lý ví">
 
         </item>
         <item
             android:id="@+id/nav_debt"
             android:icon="@drawable/ic_debt"
-            android:title="Debt">
+            android:title="Quản lý nợ">
 
         </item>
         <item
             android:id="@+id/nav_account"
             android:icon="@drawable/ic_account"
-            android:title="Account">
+            android:title="Tài khoản">
 
         </item>
         <item
