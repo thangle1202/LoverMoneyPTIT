@@ -25,7 +25,9 @@ import com.example.lovermoneyptit.adapter.DealAdapter;
 import com.example.lovermoneyptit.models.Deal;
 import com.example.lovermoneyptit.models.Wallet;
 import com.example.lovermoneyptit.repository.RealmManager;
+import com.example.lovermoneyptit.repository.WalletRepo;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -34,13 +36,29 @@ import java.util.UUID;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
-public class ManageMoneyFragment extends Fragment{
+public class ManageMoneyFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private List<Deal> deals;
     private DealAdapter dealAdapter;
     private ImageButton btnAddDeal;
 
+    private WalletRepo walletRepo;
+
+    // item click
+    static Deal thisItem = new Deal();
+    private View.OnClickListener mOnClicklistener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) v.getTag();
+            int pos = viewHolder.getAdapterPosition();
+            thisItem = deals.get(pos);
+
+            Intent intent = new Intent(getActivity(), DealDetailActivity.class);
+            intent.putExtra("deal", thisItem);
+            startActivity(intent);
+        }
+    };
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -49,77 +67,30 @@ public class ManageMoneyFragment extends Fragment{
         recyclerView = view.findViewById(R.id.rcvDeal);
 
         btnAddDeal = view.findViewById(R.id.btnAddDeal);
-
+        // deal mac dinh
+        walletRepo = new WalletRepo(getContext());
+        walletRepo.initDeal();
 
         btnAddDeal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent intent = new Intent(getActivity(), AddDealActivity.class);
                 startActivity(intent);
-
-//                FragmentManager fm = getFragmentManager();
-//                FragmentTransaction fragmentTransaction = fm.beginTransaction();
-//                // testAddDeal
-//                fragmentTransaction.replace(R.id.frame_container, new AddDealFragment(), null);
-//                fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-//                fragmentTransaction.addToBackStack(null);
-//                fragmentTransaction.commit();
             }
         });
 
-        // data demo for recyclerview
-        deals = new ArrayList<Deal>();
-        Deal deal1 = new Deal();
-        deal1.setCreatedDate(new Date());
-        deal1.setValue(70000l);
+        try {
+            deals = walletRepo.getAllDeal();
+            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this.getContext());
+            recyclerView.setLayoutManager(layoutManager);
+            dealAdapter = new DealAdapter(deals, this.getContext());
+            dealAdapter.setmOnClickListener(mOnClicklistener);
+            recyclerView.setAdapter(dealAdapter);
 
-        Deal deal2 = new Deal();
-        deal2.setCreatedDate(new Date());
-        deal2.setValue(99999l);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
-        Deal deal3 = new Deal();
-        deal3.setCreatedDate(new Date());
-        deal3.setValue(99999l);
-
-        Deal deal4 = new Deal();
-        deal4.setCreatedDate(new Date());
-        deal4.setValue(99999l);
-
-        Deal deal5 = new Deal();
-        deal5.setCreatedDate(new Date());
-        deal5.setValue(99999l);
-
-        Deal deal6 = new Deal();
-        deal6.setCreatedDate(new Date());
-        deal6.setValue(99999l);
-
-        Deal deal7 = new Deal();
-        deal7.setCreatedDate(new Date());
-        deal7.setValue(99999l);
-
-        Deal deal8 = new Deal();
-        deal8.setCreatedDate(new Date());
-        deal8.setValue(99999l);
-
-        Deal deal9 = new Deal();
-        deal9.setCreatedDate(new Date());
-        deal9.setValue(99999l);
-
-        deals.add(deal1);
-        deals.add(deal2);
-        deals.add(deal3);
-        deals.add(deal4);
-        deals.add(deal5);
-        deals.add(deal6);
-        deals.add(deal7);
-        deals.add(deal8);
-        deals.add(deal9);
-
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this.getContext());
-        recyclerView.setLayoutManager(layoutManager);
-        dealAdapter = new DealAdapter(deals, this.getContext());
-        recyclerView.setAdapter(dealAdapter);
         return view;
     }
 

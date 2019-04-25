@@ -37,7 +37,6 @@ public class AddGroupActivity extends AppCompatActivity {
         toolBar = findViewById(R.id.toolbarAddGroup);
         setSupportActionBar(toolBar);
         getSupportActionBar().setTitle(R.string.txtNewGroup);
-
     }
 
     @Override
@@ -50,9 +49,9 @@ public class AddGroupActivity extends AppCompatActivity {
             walletRepo = new WalletRepo(getApplicationContext());
             Group groupToAdd = new Group();
             groupToAdd.setGroupName(txtGroupName.getText().toString());
-            if (btnBorrowLoan.isSelected()) {
+            if (btnBorrowLoan.isChecked()) {
                 groupType = GroupType.LOAN;
-            } else if (btnCashIn.isSelected()) {
+            } else if (btnCashIn.isChecked()) {
                 groupType = GroupType.CASH_IN;
             } else {
                 groupType = GroupType.CASH_OUT;
@@ -60,7 +59,10 @@ public class AddGroupActivity extends AppCompatActivity {
             groupToAdd.setGroupType(groupType);
             walletRepo.addGroup(groupToAdd);
 
-            Toast.makeText(this, "Save Group", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this.getApplicationContext(), AddDealActivity.class);
+            startActivity(intent);
+
+            Toast.makeText(this, "Save Group:" + groupToAdd.getId(), Toast.LENGTH_SHORT).show();
         }
 
         return super.onOptionsItemSelected(item);

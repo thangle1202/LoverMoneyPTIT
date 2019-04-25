@@ -12,10 +12,8 @@ import io.realm.annotations.Required;
 
 public class Wallet extends RealmObject implements Serializable {
 
-    @PrimaryKey
-    private long id;
+    private int id;
     private String walletName;
-    @Required
     private Double balance; // ngan sach cua vi
     private String desc;
 
@@ -28,11 +26,11 @@ public class Wallet extends RealmObject implements Serializable {
         this.desc = desc;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

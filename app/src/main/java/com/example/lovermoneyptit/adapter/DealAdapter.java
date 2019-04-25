@@ -21,6 +21,7 @@ public class DealAdapter extends RecyclerView.Adapter {
 
     private List<Deal> deals;
     private Context mContext;
+    private View.OnClickListener mOnClickListener;
 
     public DealAdapter(List<Deal> deals, Context mContext) {
         this.deals = deals;
@@ -45,17 +46,25 @@ public class DealAdapter extends RecyclerView.Adapter {
         return deals.size();
     }
 
+    public View.OnClickListener getmOnClickListener() {
+        return mOnClickListener;
+    }
+
+    public void setmOnClickListener(View.OnClickListener mOnClickListener) {
+        this.mOnClickListener = mOnClickListener;
+    }
+
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView ivGroup;
         TextView txtCreatedDate;
         TextView txtValue;
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            ivGroup = itemView.findViewById(R.id.ivGroup);
             txtCreatedDate = itemView.findViewById(R.id.txtCreatedDate);
             txtValue = itemView.findViewById(R.id.txtValue);
+            itemView.setTag(this);
+            itemView.setOnClickListener(mOnClickListener);
         }
     }
 }

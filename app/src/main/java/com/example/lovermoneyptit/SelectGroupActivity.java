@@ -11,18 +11,26 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.lovermoneyptit.adapter.SelectGroupPageAdapter;
+import com.example.lovermoneyptit.repository.WalletRepo;
 
 public class SelectGroupActivity extends AppCompatActivity implements
         borrowLoanFragment.OnFragmentInteractionListener,
         CashInFragment.OnFragmentInteractionListener,
         CashOutFragment.OnFragmentInteractionListener {
 
+    static final int REQUEST_CODE_GROUP_BORROW = 4;
+    static final int REQUEST_CODE_GROUP_CASH_IN = 5;
+    static final int REQUEST_CODE_GROUP_CASH_OUT = 6;
+
     private Toolbar toolbar;
+    private WalletRepo walletRepo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_group);
+
+        walletRepo = new WalletRepo(this.getApplicationContext());
 
         toolbar = findViewById(R.id.toolbarSelectGroup);
         setSupportActionBar(toolbar);
@@ -32,8 +40,8 @@ public class SelectGroupActivity extends AppCompatActivity implements
         ViewPager viewPager = findViewById(R.id.selectGroupPager);
         SelectGroupPageAdapter selectGroupPageAdapter = new SelectGroupPageAdapter(getSupportFragmentManager());
         selectGroupPageAdapter.add(new borrowLoanFragment(), "đi vay & cho vay");
-        selectGroupPageAdapter.add(new CashInFragment(), "khoản chi");
-        selectGroupPageAdapter.add(new CashOutFragment(), "khoản thu");
+        selectGroupPageAdapter.add(new CashInFragment(), "khoản thu");
+        selectGroupPageAdapter.add(new CashOutFragment(), "khoản chi");
         viewPager.setAdapter(selectGroupPageAdapter);
 
         // tab layout

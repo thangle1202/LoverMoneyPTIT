@@ -1,5 +1,6 @@
 package com.example.lovermoneyptit;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
@@ -40,7 +41,10 @@ public class SelectWalletActivity extends AppCompatActivity {
 
             Intent intent = new Intent(getApplicationContext(), AddDealActivity.class);
             intent.putExtra("walletName", thisItem.getWalletName());
-            startActivity(intent);
+            // put object to addDealActivity
+            intent.putExtra("wallet", thisItem);
+            setResult(AddDealActivity.REQUEST_CODE_SELECT_WALLET, intent);
+            finish();
         }
     };
 

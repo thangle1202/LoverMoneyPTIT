@@ -12,14 +12,22 @@ public class Deal implements Serializable {
     private long value; // so tien da giao dich
     private int idGroup;
     private int idWallet;
-    private Date createdDate; // ngay giao dich
+    private String createdDate; // ngay giao dich
     private String desc;
     private int dealType; // loai giao dich: thu tien or chi tien
 
     public Deal() {
     }
 
-    public Deal(int id, long value, int idGroup, int idWallet, Date createdDate, String desc, int dealType) {
+    public Deal(long value, int idGroup, int idWallet, String createdDate, String desc) {
+        this.value = value;
+        this.idGroup = idGroup;
+        this.idWallet = idWallet;
+        this.createdDate = createdDate;
+        this.desc = desc;
+    }
+
+    public Deal(int id, long value, int idGroup, int idWallet, String createdDate, String desc, int dealType) {
         this.id = id;
         this.value = value;
         this.idGroup = idGroup;
@@ -61,11 +69,11 @@ public class Deal implements Serializable {
         this.idWallet = idWallet;
     }
 
-    public Date getCreatedDate() {
+    public String getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(Date createdDate) {
+    public void setCreatedDate(String createdDate) {
         this.createdDate = createdDate;
     }
 

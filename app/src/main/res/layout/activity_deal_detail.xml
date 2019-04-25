@@ -6,12 +6,12 @@
     android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbarAddDeal"
+        android:id="@+id/toolbarDealDetail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorWhite"
         android:elevation="4dp"
-        app:navigationIcon="@drawable/ic_arrow_back_black_24dp">
+        app:navigationIcon="@drawable/ic_close_black">
 
     </android.support.v7.widget.Toolbar>
 
@@ -75,12 +75,11 @@
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:id="@+id/txtGroup"
+                        android:id="@+id/txtDealGroup"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/height_icon_fragment_add_deal"
                         android:layout_marginBottom="0dp"
                         android:gravity="center_vertical"
-                        android:hint="@string/hint_select_group"
                         android:textSize="24sp" />
                 </LinearLayout>
 
@@ -89,7 +88,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_icon_fragment_add_deal"
                     android:layout_marginBottom="0dp"
-                    android:hint="@string/note"
                     android:textSize="24sp" />
 
                 <LinearLayout
@@ -103,7 +101,6 @@
                         android:layout_height="@dimen/height_icon_fragment_add_deal"
                         android:layout_marginBottom="0dp"
                         android:gravity="center_vertical"
-                        android:hint="@string/hint_select_date"
                         android:textSize="24sp" />
                 </LinearLayout>
 
@@ -118,7 +115,6 @@
                         android:layout_height="@dimen/height_icon_fragment_add_deal"
                         android:layout_marginBottom="0dp"
                         android:gravity="center_vertical"
-                        android:hint="@string/hint_select_wallet"
                         android:textSize="24sp" />
                 </LinearLayout>
             </LinearLayout>
@@ -128,6 +124,7 @@
     </android.support.v7.widget.CardView>
 
 </LinearLayout>
+
 
 
 

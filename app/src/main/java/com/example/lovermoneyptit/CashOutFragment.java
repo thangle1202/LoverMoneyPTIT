@@ -42,10 +42,22 @@ public class CashOutFragment extends Fragment {
     private List<Group> groups;
     private WalletRepo walletRepo;
     private SelectGroupCashOutAdapter selectGroupCashOutAdapter;
+
+    private static Group thisItem = new Group();
+
     private View.OnClickListener mOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) v.getTag();
+            int pos = viewHolder.getAdapterPosition();
+            thisItem = groups.get(pos);
 
+            Intent intent = new Intent(getActivity(), AddDealActivity.class);
+            intent.putExtra("groupName", thisItem.getGroupName());
+            // put object to addDealActivity
+            intent.putExtra("group", thisItem);
+            getActivity().setResult(AddDealActivity.REQUEST_CODE_SELECT_GROUP, intent);
+            getActivity().finish();
         }
     };
 
