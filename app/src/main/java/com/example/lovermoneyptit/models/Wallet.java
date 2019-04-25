@@ -2,15 +2,11 @@ package com.example.lovermoneyptit.models;
 
 import java.io.Serializable;
 
-import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
-import io.realm.annotations.Required;
-
 /**
  * Created by nguye on 3/20/2019.
  */
 
-public class Wallet extends RealmObject implements Serializable {
+public class Wallet implements Serializable {
 
     private int id;
     private String walletName;

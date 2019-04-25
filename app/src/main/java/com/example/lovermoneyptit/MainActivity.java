@@ -76,9 +76,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 toolbar.setTitle("tài khoản");
                 getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new AccountFragment()).commit();
                 break;
-            case R.id.nav_group:
-                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new GroupFragment()).commit();
-                break;
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;

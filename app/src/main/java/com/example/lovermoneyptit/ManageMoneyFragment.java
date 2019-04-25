@@ -1,40 +1,21 @@
 package com.example.lovermoneyptit;
 
-import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.lovermoneyptit.adapter.DealAdapter;
 import com.example.lovermoneyptit.models.Deal;
-import com.example.lovermoneyptit.models.Wallet;
-import com.example.lovermoneyptit.repository.RealmManager;
 import com.example.lovermoneyptit.repository.WalletRepo;
 
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.UUID;
-
-import io.realm.Realm;
-import io.realm.RealmResults;
 
 public class ManageMoneyFragment extends Fragment {
 

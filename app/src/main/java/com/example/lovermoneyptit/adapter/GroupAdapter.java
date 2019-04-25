@@ -33,7 +33,7 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHol
     @Override
     public void onBindViewHolder(GroupViewHolder holder, int position) {
         holder.txtGroup.setText(groups.get(position).getGroupName());
-        holder.ivGroup.setImageResource(groups.get(position).getImage());
+ //       holder.ivGroup.setImageResource(groups.get(position).getImage());
     }
 
     @Override
@@ -48,7 +48,7 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHol
 
         public GroupViewHolder(View groupView) {
             super(groupView);
-            ivGroup = groupView.findViewById(R.id.groupImage);
+            ivGroup = groupView.findViewById(R.id.imgGroup);
             txtGroup = groupView.findViewById(R.id.txtGroupName);
         }
     }
