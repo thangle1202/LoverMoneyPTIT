@@ -31,4 +31,5 @@
     <string name="txtCashOut">khoản chi</string>
     <string name="hint_group_name">tên nhóm</string>
     <string name="txtNewGroup">nhóm mới</string>
+    <string name="updateDeal">cập nhật giao dịch</string>
 </resources>

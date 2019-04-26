@@ -9,10 +9,15 @@ import android.os.Bundle;
 import android.widget.DatePicker;
 import android.widget.Toast;
 
+import com.example.lovermoneyptit.utils.FormatUtils;
+
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class DatePickerActivity extends DialogFragment {
 
+    public static String createdDate = "";
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -21,23 +26,20 @@ public class DatePickerActivity extends DialogFragment {
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
         int day = c.get(Calendar.DAY_OF_MONTH);
-        Bundle createdDateBunlde = new Bundle();
-        String createdDate = year + "/" + (month+1) + "/" + day;
-        createdDateBunlde.putString("createdDate", createdDate);
         DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), dateSetListener, year, month, day);
-        setArguments(createdDateBunlde);
         return datePickerDialog;
     }
 
     private DatePickerDialog.OnDateSetListener dateSetListener =
             new DatePickerDialog.OnDateSetListener() {
                 public void onDateSet(DatePicker view, int year, int month, int day) {
-                    Toast.makeText(getActivity(), "selected date is " + view.getYear() +
-                            " / " + (view.getMonth() + 1) +
-                            " / " + view.getDayOfMonth(), Toast.LENGTH_SHORT).show();
-                    String createdDate = view.getYear() +
-                            " / " + (view.getMonth() + 1) +
-                            " / " + view.getDayOfMonth();
+                    createdDate = view.getDayOfMonth() +
+                            "/" + (view.getMonth() + 1) +
+                            "/" + view.getYear();
+                    Toast.makeText(getActivity(), createdDate, Toast.LENGTH_SHORT).show();
+                    Date date = FormatUtils.getDateFromDatePicker(view);
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                    ((AddDealActivity) getActivity()).getTxtDealCreatedDate().setText(simpleDateFormat.format(date));
                 }
             };
 

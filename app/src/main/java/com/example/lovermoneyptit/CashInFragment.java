@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.example.lovermoneyptit.adapter.SelectGroupCashInAdapter;
 import com.example.lovermoneyptit.models.Group;
@@ -42,10 +43,22 @@ public class CashInFragment extends Fragment {
     private RecyclerView rcvGroupCashIn;
     private ImageButton btnAddgroup;
     private List<Group> groups;
+
+    private static Group thisItem = new Group();
+
     private View.OnClickListener mOnItemClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) v.getTag();
+            int pos = viewHolder.getAdapterPosition();
+            thisItem = groups.get(pos);
 
+            Intent intent = new Intent(getActivity(), AddDealActivity.class);
+            intent.putExtra("groupName", thisItem.getGroupName());
+            // put object to addDealActivity
+            intent.putExtra("group", thisItem);
+            getActivity().setResult(AddDealActivity.REQUEST_CODE_SELECT_GROUP, intent);
+            getActivity().finish();
         }
     };
 
@@ -101,8 +114,8 @@ public class CashInFragment extends Fragment {
 
         walletRepo = new WalletRepo(getActivity());
         groups = walletRepo.getGroupByType(GroupType.CASH_IN);
-
-        if(groups.size() >= 1){
+        Toast.makeText(getActivity().getApplicationContext(), "size cashin: " + groups.size(), Toast.LENGTH_SHORT).show();
+        if (groups.size() >= 1) {
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this.getContext());
             rcvGroupCashIn.setLayoutManager(layoutManager);
             selectGroupCashInAdapter = new SelectGroupCashInAdapter(groups, this.getContext());

@@ -41,6 +41,7 @@ public class borrowLoanFragment extends Fragment {
     private String mParam2;
 
     private List<Group> groups;
+    private List<Group> allGroups;
     private SelectGroupLoanAdapter selectGroupLoanAdapter;
     private RecyclerView rcvGroupLoan;
     private ImageButton btnAddgroup;
@@ -58,7 +59,10 @@ public class borrowLoanFragment extends Fragment {
 
             Intent intent = new Intent(getActivity(), AddDealActivity.class);
             intent.putExtra("groupName", thisItem.getGroupName());
-            startActivity(intent);
+            // put object to addDealActivity
+            intent.putExtra("group", thisItem);
+            getActivity().setResult(AddDealActivity.REQUEST_CODE_SELECT_GROUP, intent);
+            getActivity().finish();
         }
     };
 
@@ -105,10 +109,12 @@ public class borrowLoanFragment extends Fragment {
 
         // get data by LOAN group
         groups = walletRepo.getGroupByType(GroupType.LOAN);
+        allGroups = walletRepo.getAllGroup();
+
         Toast.makeText(getActivity(), "size:" + groups.size(), Toast.LENGTH_SHORT).show();
 
         // Inflate the layout for this fragment
-        if(groups.size() >= 1){
+        if (groups.size() >= 1) {
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this.getContext());
             rcvGroupLoan.setLayoutManager(layoutManager);
             selectGroupLoanAdapter = new SelectGroupLoanAdapter(groups, this.getContext());

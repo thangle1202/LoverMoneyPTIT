@@ -15,6 +15,11 @@ public class Group implements Serializable {
     public Group() {
     }
 
+    public Group(String groupName, int groupType){
+        this.groupName = groupName;
+        this.groupType = groupType;
+    }
+
     public Group(int id, String groupName, String image, int groupType) {
         this.id = id;
         this.groupName = groupName;

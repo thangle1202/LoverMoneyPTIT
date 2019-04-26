@@ -10,6 +10,7 @@ import android.util.Log;
 import com.example.lovermoneyptit.models.Deal;
 import com.example.lovermoneyptit.models.Group;
 import com.example.lovermoneyptit.models.Wallet;
+import com.example.lovermoneyptit.utils.GroupType;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -43,7 +44,6 @@ public class WalletRepo extends SQLiteOpenHelper {
     private static final String COLUMN_DEAL_ID_GROUP = "id_group";
     private static final String COLUMN_DEAL_CREATED_DATE = "created_date";
     private static final String COLUMN_DEAL_DESC = "description";
-    private static final String COLUMN_DEAL_TYPE = "deal_type";
 
     // create table
     private static final String CREATE_TABLE_WALLET = "CREATE TABLE IF NOT EXISTS " + TABLE_WALLET + "("
@@ -51,13 +51,13 @@ public class WalletRepo extends SQLiteOpenHelper {
             + COLUMN_BALANCE + " REAL, " + COLUMN_DESC + " TEXT)";
 
     private static final String CREATE_TABLE_GROUP = "CREATE TABLE IF NOT EXISTS " + TABLE_GROUP + "("
-            + COLUMN_GROUP_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + COLUMN_GROUP_NAME + " VARCHAR(45),"
+            + COLUMN_GROUP_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ," + COLUMN_GROUP_NAME + " VARCHAR(45),"
             + COLUMN_GROUP_IMAGE + " VARCHAR(45)," + COLUMN_GROUP_TYPE + " INTEGER)";
 
     private static final String CREATE_TABLE_DEAL = "CREATE TABLE IF NOT EXISTS " + TABLE_DEAL + "("
-            + COLUMN_DEAL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + COLUMN_DEAL_VALUE + " LONG,"
-            + COLUMN_DEAL_ID_WALLET + " INTEGER," + COLUMN_DEAL_ID_GROUP + " INTEGER, " + COLUMN_DEAL_CREATED_DATE + " DATETIME, "
-            + COLUMN_DEAL_DESC + " VARCHAR(45)," + COLUMN_DEAL_TYPE + " INTEGER" + ")";
+            + COLUMN_DEAL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ," + COLUMN_DEAL_VALUE + " LONG,"
+            + COLUMN_DEAL_ID_WALLET + " INTEGER," + COLUMN_DEAL_ID_GROUP + " INTEGER, " + COLUMN_DEAL_CREATED_DATE + " TEXT, "
+            + COLUMN_DEAL_DESC + " VARCHAR(45))";
 
     public WalletRepo(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -94,6 +94,28 @@ public class WalletRepo extends SQLiteOpenHelper {
 
             this.addWallet(wallet1);
             this.addWallet(wallet2);
+        }
+    }
+
+    public void initGroup() {
+        if (this.getGroupQuantity() == 0) {
+            Group group1 = new Group("Group 1", GroupType.CASH_OUT);
+            Group group2 = new Group("Group 2", GroupType.CASH_IN);
+            Group group3 = new Group("Group 3", GroupType.LOAN);
+
+            this.addGroup(group1);
+            this.addGroup(group2);
+            this.addGroup(group3);
+        }
+    }
+
+    public void initDeal() {
+        if (this.getDealQuantity() == 0) {
+            Deal deal1 = new Deal(1, 1, 1, "24/04/2019", "deal mac dinh");
+            Deal deal2 = new Deal(2, 1, 2, "24/04/2019", "deal mac dinh");
+
+            this.addDeal(deal1);
+            this.addDeal(deal2);
         }
     }
 
@@ -209,9 +231,19 @@ public class WalletRepo extends SQLiteOpenHelper {
                 new String[]{String.valueOf(wallet.getId())});
 
         //db.close();
-
         return result;
+    }
 
+    public int updateBalanceWallet(Wallet wallet) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_BALANCE, wallet.getBalance());
+
+        int result = db.update(TABLE_WALLET, values, COLUMN_ID + " = ?",
+                new String[]{String.valueOf(wallet.getId())});
+
+        //db.close();
+        return result;
     }
 
     public void deleteWallet(Wallet wallet) {
@@ -235,8 +267,25 @@ public class WalletRepo extends SQLiteOpenHelper {
         contentValues.put(COLUMN_GROUP_TYPE, group.getGroupType());
 
         db.insert(TABLE_GROUP, null, contentValues);
+        db.close();
+    }
+
+    public int getGroupQuantity() {
+
+        Log.i(TAG, "WalletRepo.getGroupQuantity ... ");
+
+        String query = "SELECT * FROM " + TABLE_GROUP;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        int result = cursor.getCount();
 
         db.close();
+        cursor.close();
+
+        return result;
     }
 
     public List<Group> getAllGroup() {
@@ -247,6 +296,7 @@ public class WalletRepo extends SQLiteOpenHelper {
         Cursor cursor = sqLiteDatabase.rawQuery(sql, null);
         while (cursor.moveToNext()) {
             Group group = new Group();
+            group.setId(cursor.getInt(0));
             group.setGroupName(cursor.getString(1));
             if (cursor.getString(2) != null) {
                 group.setImage(cursor.getString(2));
@@ -266,6 +316,7 @@ public class WalletRepo extends SQLiteOpenHelper {
         Cursor cursor = database.rawQuery(sql, null);
         while (cursor.moveToNext()) {
             Group group = new Group();
+            group.setId(cursor.getInt(0));
             group.setGroupName(cursor.getString(1));
             if (cursor.getString(2) != null) {
                 group.setImage(cursor.getString(2));
@@ -279,12 +330,12 @@ public class WalletRepo extends SQLiteOpenHelper {
     }
 
     public Group getGroupById(int groupId) {
+        Group group = new Group();
         SQLiteDatabase database = this.getReadableDatabase();
         String sql = "SELECT * FROM " + TABLE_GROUP + " WHERE id=" + groupId;
         Cursor cursor = database.rawQuery(sql, null);
-        Group group = new Group();
-        while (cursor.moveToFirst()) {
-            group.setId(groupId);
+        while (cursor.moveToNext()) {
+            group.setId(cursor.getInt(0));
             group.setGroupName(cursor.getString(1));
             if (cursor.getString(2) != null) {
                 group.setImage(cursor.getString(2));
@@ -328,12 +379,29 @@ public class WalletRepo extends SQLiteOpenHelper {
         contentValues.put(COLUMN_DEAL_ID_GROUP, deal.getIdGroup());
         contentValues.put(COLUMN_DEAL_CREATED_DATE, deal.getCreatedDate().toString());
         contentValues.put(COLUMN_DEAL_DESC, deal.getDesc());
-        contentValues.put(COLUMN_DEAL_TYPE, deal.getDealType());
 
         database.insert(TABLE_DEAL, null, contentValues);
 
         database.close();
 
+    }
+
+    public int getDealQuantity() {
+
+        Log.i(TAG, "WalletRepo.getDealQuantity ... ");
+
+        String query = "SELECT * FROM " + TABLE_DEAL;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        int result = cursor.getCount();
+
+        db.close();
+        cursor.close();
+
+        return result;
     }
 
     public int editDeal(Deal deal) {
@@ -343,7 +411,6 @@ public class WalletRepo extends SQLiteOpenHelper {
         values.put(COLUMN_DEAL_ID_WALLET, deal.getIdWallet());
         values.put(COLUMN_DEAL_ID_GROUP, deal.getIdGroup());
         values.put(COLUMN_DEAL_DESC, deal.getDesc());
-        values.put(COLUMN_DEAL_TYPE, deal.getDealType());
 
         int result = database.update(TABLE_DEAL, values, COLUMN_DEAL_ID + " = ?",
                 new String[]{String.valueOf(deal.getId())});
@@ -352,19 +419,18 @@ public class WalletRepo extends SQLiteOpenHelper {
     }
 
     public List<Deal> getAllDeal() throws ParseException {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         List<Deal> deals = new ArrayList<Deal>();
         String sql = "SELECT * FROM " + TABLE_DEAL;
         SQLiteDatabase database = this.getReadableDatabase();
         Cursor cursor = database.rawQuery(sql, null);
         while (cursor.moveToNext()) {
             Deal deal = new Deal();
+            deal.setId(cursor.getInt(0));
             deal.setValue(cursor.getLong(1));
             deal.setIdWallet(cursor.getInt(2));
             deal.setIdGroup(cursor.getInt(3));
-            deal.setCreatedDate(dateFormat.parse(cursor.getString(4)));
+            deal.setCreatedDate(cursor.getString(4));
             deal.setDesc(cursor.getString(5));
-            deal.setDealType(cursor.getInt(6));
 
             deals.add(deal);
         }
@@ -383,13 +449,12 @@ public class WalletRepo extends SQLiteOpenHelper {
         String sql = "SELECT * FROM " + TABLE_DEAL + " WHERE id=" + dealId;
         Cursor cursor = database.rawQuery(sql, null);
         Deal deal = new Deal();
-        while(cursor.moveToNext()){
+        while (cursor.moveToNext()) {
             deal.setValue(cursor.getLong(1));
             deal.setIdWallet(cursor.getInt(2));
             deal.setIdGroup(cursor.getInt(3));
-            deal.setCreatedDate(dateFormat.parse(cursor.getString(4)));
+            deal.setCreatedDate(cursor.getString(4));
             deal.setDesc(cursor.getString(5));
-            deal.setDealType(cursor.getInt(6));
         }
         return deal;
     }

@@ -1,5 +1,6 @@
 package com.example.lovermoneyptit;
 
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -81,7 +82,7 @@ public class AddWalletFragment extends Fragment {
                     switchFragment(view);
                 } else { // case edit
                     Wallet myWallet = new Wallet(walletName, Double.valueOf(walletBalance), walletDesc);
-                    myWallet.setId(Long.valueOf(txtWalletId.getText().toString()));
+                    myWallet.setId(Integer.valueOf(txtWalletId.getText().toString()));
                     walletRepo.updateWallet(myWallet);
 
                     // after edit wallet, redirect to wallet fragment
@@ -100,7 +101,7 @@ public class AddWalletFragment extends Fragment {
                 WalletRepo walletRepo = new WalletRepo(getActivity());
 
                 Wallet myWallet = new Wallet();
-                myWallet.setId(Long.valueOf(txtWalletId.getText().toString()));
+                myWallet.setId(Integer.valueOf(txtWalletId.getText().toString()));
                 walletRepo.deleteWallet(myWallet);
                 // after delete wallet, redirect to wallet fragment
                 Toast.makeText(getActivity(), "Xoa thanh cong!!", Toast.LENGTH_LONG).show();
