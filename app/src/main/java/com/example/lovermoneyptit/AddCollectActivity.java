@@ -78,12 +78,13 @@ public class AddCollectActivity extends AppCompatActivity {
                     debt.setPersonName(edtPerson.getText().toString());
                     debt.setIdWallet(wallet.getId());
                     debt.setValue(Long.valueOf(edtAmount.getText().toString()));
+                    debt.setDealType(2);
 
                     walletRepo.addDebt(debt);
 
-                    wallet.setBalance(wallet.getBalance()-Double.valueOf(edtAmount.getText().toString()));
+                    wallet.setBalance(wallet.getBalance()+Double.valueOf(edtAmount.getText().toString()));
                     int res=walletRepo.updateBalanceWallet(wallet);
-                    Toast.makeText(AddCollectActivity.this, "Saved "+res + wallet.getBalance(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddCollectActivity.this, "Saved " + wallet.getBalance(), Toast.LENGTH_SHORT).show();
                     Intent intent=new Intent(AddCollectActivity.this,MainActivity.class);
                     startActivity(intent);
 

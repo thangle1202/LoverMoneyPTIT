@@ -9,9 +9,11 @@
     tools:context="com.example.lovermoneyptit.AddPayActivity">
 
     <android.support.design.widget.AppBarLayout
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <android.support.v7.widget.Toolbar
+            app:title="Cho vay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -19,35 +21,123 @@
     </android.support.design.widget.AppBarLayout>
 
 
-    <TextView
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Di vay"/>
+        android:orientation="horizontal">
 
-    <EditText
+        <ImageView
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_mon"/>
+
+        <EditText
+            android:id="@+id/edt_sotien_tra"
+            android:layout_weight="4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numeric="integer"
+            android:hint="Số tiền"/>
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginBottom="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="0.00"/>
-    <EditText
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_weight="1"
+            android:src="@drawable/ic_des"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+        <EditText
+            android:id="@+id/edt_ghichu_tra"
+            android:layout_weight="4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Ghi chú"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginBottom="20dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_weight="1"
+            android:src="@drawable/ic_person"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+
+        <EditText
+            android:id="@+id/edt_nguoi_vay"
+            android:layout_weight="4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Người vay ?"/>
+
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Ghi chu"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/btn_choosedatepay"
+            android:layout_weight="1"
+            android:text="Ngày cho vay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_date"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_datepay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
         />
-    <EditText
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Vay cua ai"/>
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_choose_wall_pay"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Chọn ví" />
+        <ImageView
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_wa"/>
+    </LinearLayout>
+    <TextView
+        android:id="@+id/tv_choose_wallet_pay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        />
+
     <Button
-        android:layout_width="match_parent"
+        android:id="@+id/btn_tra"
+        android:layout_marginTop="60dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Ngay vay"/>
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Chon vi"/>
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Save"/>
+        android:text="Lưu"/>
     
 </LinearLayout>

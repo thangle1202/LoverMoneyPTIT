@@ -30,12 +30,7 @@ public class NeedToPay extends Fragment {
     WalletRepo repo;
     RecyclerView recyclerView;
     ArrayList<Debt> listCollects;
-    public NeedToPay() {
-
-
-        // Required empty public constructor
-    }
-
+    public NeedToPay() { }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

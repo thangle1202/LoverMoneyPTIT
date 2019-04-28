@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 
 import com.example.lovermoneyptit.adapter.AdapterRecyclerDebt;
 import com.example.lovermoneyptit.models.Debt;
+import com.example.lovermoneyptit.repository.WalletRepo;
 
 import java.util.ArrayList;
 
@@ -29,21 +30,9 @@ public class NeedToCollect extends Fragment {
     View view;
     RecyclerView recyclerView;
     ArrayList<Debt> listDebts;
+    WalletRepo walletRepo;
     public NeedToCollect() {
-        listDebts=new ArrayList<>();
-        listDebts.add(new Debt(1, 20000,  1,"20/03/2019", "Vay nang lai", "Hai", 1));
-        listDebts.add(new Debt(1, 20000,  1,"20/03/2019", "Vay nang lai", "Hai", 1));
-        listDebts.add(new Debt(1, 20000,  1,"20/03/2019", "Vay nang lai", "Hai", 1));
-        listDebts.add(new Debt(1, 20000,  1,"20/03/2019", "Vay nang lai", "Hai", 1));
-        listDebts.add(new Debt(1, 20000,  1,"20/03/2019", "Vay nang lai", "Hai", 1));
-        listDebts.add(new Debt(1, 20000,  1,"20/03/2019", "Vay nang lai", "Hai", 1));
-        listDebts.add(new Debt(1, 20000,  1,"20/03/2019", "Vay nang lai", "Hai", 1));
-        listDebts.add(new Debt(1, 20000,  1,"20/03/2019", "Vay nang lai", "Hai", 1));
-        listDebts.add(new Debt(1, 20000,  1,"20/03/2019", "Vay nang lai", "Hai", 1));
-        listDebts.add(new Debt(1, 20000,  1,"20/03/2019", "Vay nang lai", "Hai", 1));
-        listDebts.add(new Debt(1, 20000,  1,"20/03/2019", "Vay nang lai", "Hai", 1));
 
-        // Required empty public constructor
     }
 
 
@@ -51,6 +40,8 @@ public class NeedToCollect extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view=inflater.inflate(R.layout.fragment_need_to_collect, container, false);
         recyclerView=view.findViewById(R.id.recycler_collect);
+        walletRepo=new WalletRepo(getContext());
+        listDebts= (ArrayList<Debt>) walletRepo.getAllPayDebt();
         btnAddCollect=view.findViewById(R.id.btn_add_collect);
         btnAddCollect.setOnClickListener(new View.OnClickListener() {
             @Override

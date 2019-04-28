@@ -56,6 +56,7 @@ public class WalletRepo extends SQLiteOpenHelper {
     private static final String COLUMN_DEBT_PERSON_NAME= "PERSONNAME_tb";
     private static final String COLUMN_DEBT_CREATED_DATE = "created_date_tb";
     private static final String COLUMN_DEBT_DESC = "description_tb";
+    private static final String COLUMN_DEBT_TYPE = "type_tb";
 
     // create table
     private static final String CREATE_TABLE_WALLET = "CREATE TABLE IF NOT EXISTS " + TABLE_WALLET + "("
@@ -74,6 +75,7 @@ public class WalletRepo extends SQLiteOpenHelper {
     private static final String CREATE_TABLE_DEBT = "CREATE TABLE IF NOT EXISTS " + TABLE_DEBT + "("
             + COLUMN_DEBT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ," + COLUMN_DEBT_VALUE + " LONG,"
             + COLUMN_DEBT_ID_WALLET + " INTEGER," + COLUMN_DEBT_PERSON_NAME + "  VARCHAR(45), " + COLUMN_DEBT_CREATED_DATE + " TEXT, "
+            + COLUMN_DEBT_TYPE +" INTEGER, "
             + COLUMN_DEBT_DESC + " VARCHAR(45))";
 
 
@@ -108,8 +110,8 @@ public class WalletRepo extends SQLiteOpenHelper {
         int quantity = this.getWalletsQuantity();
         if (quantity == 0) {
 
-            Wallet wallet1 = new Wallet("Wallet 1", 12345.6d, "mo ta wallet 1");
-            Wallet wallet2 = new Wallet("Wallet 2", 6789.9d, "mo ta wallet 2");
+            Wallet wallet1 = new Wallet("Wallet 1", 1000.0d, "mo ta wallet 1");
+            Wallet wallet2 = new Wallet("Wallet 2", 50000.0d, "mo ta wallet 2");
 
             this.addWallet(wallet1);
             this.addWallet(wallet2);
@@ -140,10 +142,15 @@ public class WalletRepo extends SQLiteOpenHelper {
 
     public void initDebt(){
         if (this.getDebtQuantity()==0){
-            Debt debt=new Debt(1,100,1,"20/03/2019","Moi tao","Hai",0);
-            Debt debt1=new Debt(2,100,1,"22/03/2019","Moi tao","Hung",0);
+            Debt debt=new Debt(1,100,1,"20/03/2019","Moi tao","Hai",1);
+            Debt debt1=new Debt(2,100,1,"22/03/2019","Moi tao","Hung",1);
+            Debt debt2=new Debt(1,100,1,"20/03/2019","Moi tao","Thang",2);
+            Debt debt3=new Debt(2,100,1,"22/03/2019","Moi tao","Dat",2);
+
             this.addDebt(debt);
             this.addDebt(debt1);
+            this.addDebt(debt2);
+            this.addDebt(debt3);
         }
     }
     // wallet
@@ -198,7 +205,7 @@ public class WalletRepo extends SQLiteOpenHelper {
 
         List<Wallet> wallets = new ArrayList<>();
         // select wallets from db
-        String query = "SELECT * FROM " + TABLE_WALLET;
+        String query = "SELECT * FROM " + TABLE_WALLET ;
 
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -222,6 +229,8 @@ public class WalletRepo extends SQLiteOpenHelper {
         return wallets;
 
     }
+
+
 
     public int getWalletsQuantity() {
 
@@ -407,6 +416,7 @@ public class WalletRepo extends SQLiteOpenHelper {
         contentValues.put(COLUMN_DEBT_DESC,debt.getDesc());
         contentValues.put(COLUMN_DEBT_ID_WALLET,debt.getIdWallet());
         contentValues.put(COLUMN_DEBT_PERSON_NAME,debt.getPersonName());
+        contentValues.put(COLUMN_DEBT_TYPE, debt.getDealType());
         database.insert(TABLE_DEBT,null,contentValues);
         database.close();
     }
@@ -487,7 +497,7 @@ public class WalletRepo extends SQLiteOpenHelper {
 
     public List<Debt> getAllDebt(){
         List<Debt> debts=new ArrayList<>();
-        String sql="select * from "+TABLE_DEBT;
+        String sql="select * from "+TABLE_DEBT +" where "+COLUMN_DEBT_TYPE +"=2 ";
         SQLiteDatabase database=this.getReadableDatabase();
         Cursor cursor=database.rawQuery(sql,null);
         while (cursor.moveToNext()){
@@ -497,7 +507,28 @@ public class WalletRepo extends SQLiteOpenHelper {
             debt.setIdWallet(cursor.getInt(2));
             debt.setPersonName(cursor.getString(3));
             debt.setCreatedDate(cursor.getString(4));
-            debt.setDesc(cursor.getString(5));
+            debt.setDealType(cursor.getInt(5));
+            debt.setDesc(cursor.getString(6));
+
+            debts.add(debt);
+        }
+        return  debts;
+    }
+
+    public List<Debt> getAllPayDebt(){
+        List<Debt> debts=new ArrayList<>();
+        String sql="select * from "+TABLE_DEBT +" where "+COLUMN_DEBT_TYPE +"=1 ";
+        SQLiteDatabase database=this.getReadableDatabase();
+        Cursor cursor=database.rawQuery(sql,null);
+        while (cursor.moveToNext()){
+            Debt debt=new Debt();
+            debt.setId(cursor.getInt(0));
+            debt.setValue(cursor.getLong(1));
+            debt.setIdWallet(cursor.getInt(2));
+            debt.setPersonName(cursor.getString(3));
+            debt.setCreatedDate(cursor.getString(4));
+            debt.setDealType(cursor.getInt(5));
+            debt.setDesc(cursor.getString(6));
 
             debts.add(debt);
         }
