@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.lovermoneyptit.adapter.DebtAdapter;
+import com.example.lovermoneyptit.repository.WalletRepo;
 
 
 /**
@@ -18,8 +19,9 @@ import com.example.lovermoneyptit.adapter.DebtAdapter;
 public class DebtFragment extends Fragment {
 
     View view;
+    WalletRepo repo;
     public DebtFragment() {
-        // Required empty public constructor
+
     }
 
 
@@ -29,7 +31,9 @@ public class DebtFragment extends Fragment {
         // Inflate the layout for this fragment
         view=inflater.inflate(R.layout.fragment_debt, container, false);
         setupPager();
-
+        repo=new WalletRepo(getContext());
+        // Required empty public constructor
+        repo.initDebt();
         return view;
     }
 
@@ -37,8 +41,8 @@ public class DebtFragment extends Fragment {
         ViewPager viewPager=view.findViewById(R.id.debt_pager);
 
         DebtAdapter debtAdapter=new DebtAdapter(getActivity().getSupportFragmentManager());
-        debtAdapter.add(new NeedToPay(),"Must Pay");
-        debtAdapter.add(new NeedToCollect(),"Must Collect");
+        debtAdapter.add(new NeedToPay(),"Cần trả");
+        debtAdapter.add(new NeedToCollect(),"Cần thu");
         viewPager.setAdapter(debtAdapter);
 
         TabLayout tabLayout=view.findViewById(R.id.debt_tab);

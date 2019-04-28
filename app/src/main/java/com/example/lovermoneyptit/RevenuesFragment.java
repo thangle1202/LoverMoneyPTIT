@@ -26,4 +26,6 @@ public class RevenuesFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_revenues, container, false);
     }
 
+    public static class DatePickerDebt {
+    }
 }
