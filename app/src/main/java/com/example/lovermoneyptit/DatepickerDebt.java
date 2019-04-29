@@ -3,11 +3,8 @@ package com.example.lovermoneyptit;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.DatePicker;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.lovermoneyptit.utils.FormatUtils;
@@ -16,7 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class DatePickerActivity extends DialogFragment {
+public class DatepickerDebt extends DialogFragment {
 
     public static String createdDate = "";
 
@@ -40,7 +37,7 @@ public class DatePickerActivity extends DialogFragment {
                     Toast.makeText(getActivity(), createdDate, Toast.LENGTH_SHORT).show();
                     Date date = FormatUtils.getDateFromDatePicker(view);
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                    ((AddDealActivity) getActivity()).getTxtDealCreatedDate().setText(simpleDateFormat.format(date));
+                    ((AddCollectActivity) getActivity()).getDate().setText(simpleDateFormat.format(date));
                 }
             };
 
