@@ -11,7 +11,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-import com.example.lovermoneyptit.api.APIService;
+//import com.example.lovermoneyptit.api.APIService;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
         borrowLoanFragment.OnFragmentInteractionListener,
@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private NavigationView navigationView;
 
     // call
-    private APIService mAPIService;
+    //private APIService mAPIService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
