@@ -1,5 +1,8 @@
 package com.example.lovermoneyptit.models;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -8,23 +11,36 @@ import java.util.Date;
  */
 
 public class Deal implements Serializable {
+
+    @SerializedName("id")
+    @Expose
     private int id;
+    @SerializedName("value")
+    @Expose
     private long value; // so tien da giao dich
+    @SerializedName("idGroup")
+    @Expose
     private int idGroup;
+    @SerializedName("idWallet")
+    @Expose
     private int idWallet;
+    @SerializedName("idCreatedDate")
+    @Expose
     private String createdDate; // ngay giao dich
     private String desc;
     private int dealType; // loai giao dich: thu tien or chi tien
+    private int userId;
 
     public Deal() {
     }
 
-    public Deal(long value, int idGroup, int idWallet, String createdDate, String desc) {
+    public Deal(long value, int idGroup, int idWallet, String createdDate, String desc, int userId) {
         this.value = value;
         this.idGroup = idGroup;
         this.idWallet = idWallet;
         this.createdDate = createdDate;
         this.desc = desc;
+        this.userId = userId;
     }
 
     public Deal(int id, long value, int idGroup, int idWallet, String createdDate, String desc, int dealType) {
@@ -91,5 +107,13 @@ public class Deal implements Serializable {
 
     public void setDealType(int dealType) {
         this.dealType = dealType;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 }

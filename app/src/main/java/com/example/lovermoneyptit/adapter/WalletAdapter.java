@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.example.lovermoneyptit.R;
 import com.example.lovermoneyptit.models.Wallet;
+import com.example.lovermoneyptit.utils.FormatUtils;
 
 import java.util.List;
 
@@ -34,7 +35,7 @@ public class WalletAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         WalletAdapter.MyViewHolder myViewHolder = (WalletAdapter.MyViewHolder) holder;
         myViewHolder.txtItemWalletName.setText(wallets.get(position).getWalletName());
-        myViewHolder.txtItemWalletBalance.setText(wallets.get(position).getBalance().toString());
+        myViewHolder.txtItemWalletBalance.setText(FormatUtils.formatVnCurrence(wallets.get(position).getBalance().toString()));
     }
 
     @Override
@@ -61,7 +62,6 @@ public class WalletAdapter extends RecyclerView.Adapter {
             imgItemWallet = itemView.findViewById(R.id.imgItemWallet);
             txtItemWalletName = itemView.findViewById(R.id.txtItemWalletName);
             txtItemWalletBalance = itemView.findViewById(R.id.txtItemWalletBalance);
-            textView5 = itemView.findViewById(R.id.textView5);
 
             // onItemClickListener RecyclerView
             itemView.setTag(this);

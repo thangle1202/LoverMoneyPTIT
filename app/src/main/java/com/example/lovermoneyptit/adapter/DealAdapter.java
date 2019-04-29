@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.example.lovermoneyptit.R;
 import com.example.lovermoneyptit.models.Deal;
+import com.example.lovermoneyptit.utils.FormatUtils;
 
 import java.util.List;
 
@@ -38,7 +39,7 @@ public class DealAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         DealAdapter.MyViewHolder myViewHolder = (DealAdapter.MyViewHolder) holder;
         myViewHolder.txtCreatedDate.setText(deals.get(position).getCreatedDate().toString());
-        myViewHolder.txtValue.setText(String.valueOf(deals.get(position).getValue()));
+        myViewHolder.txtValue.setText(FormatUtils.formatVnCurrence(String.valueOf(deals.get(position).getValue())));
     }
 
     @Override

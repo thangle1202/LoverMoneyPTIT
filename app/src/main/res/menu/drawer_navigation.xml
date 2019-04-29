@@ -39,10 +39,11 @@
             android:title="Tài khoản">
 
         </item>
+
         <item
-            android:id="@+id/nav_group"
-            android:icon="@drawable/ic_group"
-            android:title="Group">
+            android:id="@+id/nav_syncData"
+            android:icon="@drawable/ic_sync"
+            android:title="Đồng bộ dữ liệu">
 
         </item>
     </group>

@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import com.example.lovermoneyptit.api.APIService;
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
         borrowLoanFragment.OnFragmentInteractionListener,
         CashInFragment.OnFragmentInteractionListener,
@@ -19,6 +21,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static Toolbar toolbar;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
+
+    // call
+    private APIService mAPIService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +81,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 toolbar.setTitle("tài khoản");
                 getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new AccountFragment()).commit();
                 break;
+            case R.id.nav_syncData:
+
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
