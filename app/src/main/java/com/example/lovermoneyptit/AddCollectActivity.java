@@ -1,9 +1,14 @@
 package com.example.lovermoneyptit;
 
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
+import android.provider.ContactsContract;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -45,6 +50,7 @@ public class AddCollectActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_collect);
         init();
+        getListContact();
         debt=new Debt();
         walletRepo = new WalletRepo(getApplicationContext());
 
@@ -92,6 +98,24 @@ public class AddCollectActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+
+    public void getListContact(){
+        Uri uri= ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
+        String[] projection={ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME_PRIMARY};
+        String selection=null;
+        String[] selectionArgs=null;
+        String sortOder=null;
+
+        ContentResolver resolver=getContentResolver();
+        Cursor cursor=resolver.query(uri,projection,selection,selectionArgs,sortOder);
+
+        while (cursor.moveToNext()){
+            String name=cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
+            Log.i("laydanhba",name);
+        }
+
     }
 
     Wallet wallet;
