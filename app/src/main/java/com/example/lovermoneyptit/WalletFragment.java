@@ -1,6 +1,7 @@
 package com.example.lovermoneyptit;
 
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,6 +9,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +42,7 @@ public class WalletFragment extends Fragment {
     private List<Wallet> wallets = new ArrayList<>();
     private WalletAdapter walletAdapter;
     static Wallet thisItem = new Wallet();
+    public static WalletRepo walletRepo;
 
     private View.OnClickListener mOnClickListener = new View.OnClickListener() {
         @Override
@@ -48,12 +51,42 @@ public class WalletFragment extends Fragment {
             int pos = viewHolder.getAdapterPosition();
             thisItem = wallets.get(pos);
 
-            FragmentManager fm = getFragmentManager();
-            FragmentTransaction fragmentTransaction = fm.beginTransaction();
-            fragmentTransaction.replace(R.id.frame_container, new AddWalletFragment(), null);
-            fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-            fragmentTransaction.addToBackStack(null);
-            fragmentTransaction.commit();
+            final Dialog dialog = new Dialog(getActivity());
+            dialog.setContentView(R.layout.dialog_edit_wallet);
+            final EditText txtWalletName = dialog.findViewById(R.id.txtWalletName);
+            final EditText txtWalletBalance = dialog.findViewById(R.id.txtWalletBalance);
+            final EditText txtWalletDesc = dialog.findViewById(R.id.txtWalletDesc);
+            Button btnConfirm = dialog.findViewById(R.id.btnConfirm);
+
+            txtWalletName.setText(thisItem.getWalletName());
+            txtWalletBalance.setText(thisItem.getBalance().toString());
+            txtWalletDesc.setText(thisItem.getDesc());
+
+            // confirm add wallet
+            btnConfirm.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Wallet walletToEdit = new Wallet();
+                    String walletName = txtWalletName.getText().toString().trim();
+                    Double walletBalance = Double.parseDouble(txtWalletBalance.getText().toString());
+                    String walletDesc = txtWalletDesc.getText().toString().trim();
+
+                    if("".equals(walletName) || "".equals(walletDesc) || walletBalance == null){
+                        Toast.makeText(getActivity(), "không được bỏ trống", Toast.LENGTH_SHORT).show();
+                    }
+
+                    walletToEdit.setWalletName(walletName);
+                    walletToEdit.setBalance(walletBalance);
+                    walletToEdit.setDesc(walletDesc);
+
+                    int res = walletRepo.updateWallet(walletToEdit);
+                    Log.i("result update: ", String.valueOf(res));
+                    dialog.dismiss();
+                }
+            });
+
+            dialog.show();
+
         }
     };
 
@@ -70,7 +103,7 @@ public class WalletFragment extends Fragment {
         // recyclerVie
         lvWallet = view.findViewById(R.id.lvWallet);
         // repository
-        WalletRepo walletRepo = new WalletRepo(getActivity());
+        walletRepo = new WalletRepo(getActivity());
         walletRepo.init();
 
         wallets = walletRepo.getAllWallets();
@@ -82,12 +115,37 @@ public class WalletFragment extends Fragment {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentManager fm = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fm.beginTransaction();
-                fragmentTransaction.replace(R.id.frame_container, new AddWalletFragment());
-                fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+                final Dialog dialog = new Dialog(getActivity());
+                dialog.setContentView(R.layout.dialog_add_wallet);
+                final EditText txtWalletName = dialog.findViewById(R.id.txtWalletName);
+                final EditText txtWalletBalance = dialog.findViewById(R.id.txtWalletBalance);
+                final EditText txtWalletDesc = dialog.findViewById(R.id.txtWalletDesc);
+                Button btnConfirm = dialog.findViewById(R.id.btnConfirm);
+
+                // confirm add wallet
+                btnConfirm.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Wallet walletToAdd = new Wallet();
+                        String walletName = txtWalletName.getText().toString();
+                        Double walletBalance = Double.parseDouble(txtWalletBalance.getText().toString());
+                        String walletDesc = txtWalletDesc.getText().toString();
+
+                        if("".equals(walletName) || "".equals(walletDesc) || walletBalance == null){
+                            Toast.makeText(getActivity(), "không được bỏ trống", Toast.LENGTH_SHORT).show();
+                        }
+
+                        walletToAdd.setWalletName(walletName);
+                        walletToAdd.setBalance(walletBalance);
+                        walletToAdd.setDesc(walletDesc);
+
+                        walletRepo.addWallet(walletToAdd);
+
+                        dialog.dismiss();
+                    }
+                });
+
+                dialog.show();
             }
         });
 
@@ -96,33 +154,6 @@ public class WalletFragment extends Fragment {
         walletAdapter = new WalletAdapter(wallets, this.getContext());
         walletAdapter.setmOnClickListener(mOnClickListener);
         lvWallet.setAdapter(walletAdapter);
-
-
-
-        // event listview
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//
-//            Toast.makeText(getActivity(), wallets.get(i).getWalletName(), Toast.LENGTH_LONG).show();
-//
-//            Bundle bundle = new Bundle();
-//            Wallet wallet = wallets.get(i);
-//
-//            bundle.putSerializable("dungnd", wallet);
-//
-//            FragmentTransaction ft = getFragmentManager().beginTransaction();
-//
-//            AddWalletFragment frag = new AddWalletFragment();
-//
-//            frag.setArguments(bundle);
-//
-//            ft.replace(R.id.frame_container, frag);
-//
-//            ft.commit();
-//
-//            }
-//        });
 
         return view;
 

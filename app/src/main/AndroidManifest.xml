@@ -3,6 +3,8 @@
     package="com.example.lovermoneyptit">
     <uses-permission android:name="android.permission.READ_CONTACTS"/>
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".application.BaseApplication"
         android:allowBackup="true"
@@ -11,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".DealDetailActivity"></activity>
+        <activity android:name=".LoginActivity"></activity>
+        <activity android:name=".DealDetailActivity" />
         <activity android:name=".AddGroupActivity" />
         <activity android:name=".SelectGroupActivity" />
         <activity android:name=".SelectWalletActivity" />

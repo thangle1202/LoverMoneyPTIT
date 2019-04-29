@@ -9,6 +9,7 @@ import android.util.Log;
 
 import com.example.lovermoneyptit.models.Deal;
 import com.example.lovermoneyptit.models.Debt;
+import com.example.lovermoneyptit.models.DealStatis;
 import com.example.lovermoneyptit.models.Group;
 import com.example.lovermoneyptit.models.Wallet;
 import com.example.lovermoneyptit.utils.GroupType;
@@ -45,6 +46,13 @@ public class WalletRepo extends SQLiteOpenHelper {
     private static final String COLUMN_DEAL_ID_GROUP = "id_group";
     private static final String COLUMN_DEAL_CREATED_DATE = "created_date";
     private static final String COLUMN_DEAL_DESC = "description";
+    private static final String COLUMN_DEAL_USER_ID = "id_user";
+
+    // user
+    private static final String TABLE_USER = "user";
+    private static final String COLUMN_USER_ID = "id";
+    private static final String COLUMN_USER_USERNAME = "username";
+    private static final String COLUMN_USER_PASSWORD = "password";
 
 
     //debt
@@ -70,13 +78,17 @@ public class WalletRepo extends SQLiteOpenHelper {
     private static final String CREATE_TABLE_DEAL = "CREATE TABLE IF NOT EXISTS " + TABLE_DEAL + "("
             + COLUMN_DEAL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ," + COLUMN_DEAL_VALUE + " LONG,"
             + COLUMN_DEAL_ID_WALLET + " INTEGER," + COLUMN_DEAL_ID_GROUP + " INTEGER, " + COLUMN_DEAL_CREATED_DATE + " TEXT, "
-            + COLUMN_DEAL_DESC + " VARCHAR(45))";
+            + COLUMN_DEAL_DESC + " VARCHAR(45)," + COLUMN_DEAL_USER_ID + " INTEGER)";
 
     private static final String CREATE_TABLE_DEBT = "CREATE TABLE IF NOT EXISTS " + TABLE_DEBT + "("
             + COLUMN_DEBT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ," + COLUMN_DEBT_VALUE + " LONG,"
             + COLUMN_DEBT_ID_WALLET + " INTEGER," + COLUMN_DEBT_PERSON_NAME + "  VARCHAR(45), " + COLUMN_DEBT_CREATED_DATE + " TEXT, "
             + COLUMN_DEBT_TYPE +" INTEGER, "
             + COLUMN_DEBT_DESC + " VARCHAR(45))";
+
+    private static final String CREATE_TABLE_USER = "CREATE TABLE IF NOT EXISTS " + TABLE_USER + "("
+            + COLUMN_USER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ," + COLUMN_USER_USERNAME + " TEXT,"
+            + COLUMN_USER_PASSWORD + " TEXT)";
 
 
     public WalletRepo(Context context) {
@@ -91,6 +103,7 @@ public class WalletRepo extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(CREATE_TABLE_DEBT);
         sqLiteDatabase.execSQL(CREATE_TABLE_GROUP);
         sqLiteDatabase.execSQL(CREATE_TABLE_DEAL);
+        sqLiteDatabase.execSQL(CREATE_TABLE_USER);
     }
 
     @Override
@@ -102,6 +115,8 @@ public class WalletRepo extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_GROUP);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_DEAL);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_DEBT);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_USER);
+
         onCreate(sqLiteDatabase);
     }
 
@@ -132,8 +147,8 @@ public class WalletRepo extends SQLiteOpenHelper {
 
     public void initDeal() {
         if (this.getDealQuantity() == 0) {
-            Deal deal1 = new Deal(1, 1, 1, "24/04/2019", "deal mac dinh");
-            Deal deal2 = new Deal(2, 1, 2, "24/04/2019", "deal mac dinh");
+            Deal deal1 = new Deal(1, 1, 1, "24/04/2019", "deal mac dinh", 1);
+            Deal deal2 = new Deal(2, 1, 2, "24/04/2019", "deal mac dinh", 1);
 
             this.addDeal(deal1);
             this.addDeal(deal2);
@@ -430,7 +445,7 @@ public class WalletRepo extends SQLiteOpenHelper {
         contentValues.put(COLUMN_DEAL_ID_GROUP, deal.getIdGroup());
         contentValues.put(COLUMN_DEAL_CREATED_DATE, deal.getCreatedDate().toString());
         contentValues.put(COLUMN_DEAL_DESC, deal.getDesc());
-
+        contentValues.put(COLUMN_DEAL_USER_ID, deal.getUserId());
         database.insert(TABLE_DEAL, null, contentValues);
 
         database.close();
@@ -580,6 +595,49 @@ public class WalletRepo extends SQLiteOpenHelper {
             deal.setDesc(cursor.getString(5));
         }
         return deal;
+    }
+
+    public List<DealStatis> getDealByGroup(int groupType) {
+        SQLiteDatabase database = this.getReadableDatabase();
+        List<DealStatis> listDealStatis = new ArrayList<DealStatis>();
+        String sql = "SELECT deal.value, group_deal.group_name FROM 'deal' inner join 'group_deal' on deal.id_group = group_deal.id where group_deal.group_type = " + groupType;
+        Cursor cursor = database.rawQuery(sql, null);
+        while (cursor.moveToNext()) {
+            DealStatis dealStatis = new DealStatis();
+            dealStatis.setDealValue(cursor.getLong(0));
+            dealStatis.setGroupName(cursor.getString(1));
+
+            listDealStatis.add(dealStatis);
+        }
+        return listDealStatis;
+    }
+
+
+    // user
+    public User login(String username, String password) {
+        User user = new User();
+        SQLiteDatabase database = this.getReadableDatabase();
+        String sql = "SELECT * FROM user WHERE username='" + username + "' AND password='" + password + "'";
+        Cursor userFomrSQLite = database.rawQuery(sql, null);
+        if (userFomrSQLite.moveToFirst()) {
+            user.setId(userFomrSQLite.getInt(0));
+            user.setUsername(userFomrSQLite.getString(1));
+            user.setPassword(userFomrSQLite.getString(2));
+
+            return user;
+        }
+        return null;
+    }
+
+    public void addUser(){
+        SQLiteDatabase database = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COLUMN_USER_USERNAME, "thuannd");
+        contentValues.put(COLUMN_USER_PASSWORD, "123");
+
+        database.insert(TABLE_USER, null, contentValues);
+
+        database.close();
     }
 
 }

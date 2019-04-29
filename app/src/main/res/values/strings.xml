@@ -32,4 +32,14 @@
     <string name="hint_group_name">tên nhóm</string>
     <string name="txtNewGroup">nhóm mới</string>
     <string name="updateDeal">cập nhật giao dịch</string>
+    <string name="txtTitleEditWallet">Cập nhật tài khoản</string>
+    <string name="txtTitleAddWallet">Thêm tài khoản</string>
+    <string name="txtAdd">thêm</string>
+    <string name="txtCancel">hủy</string>
+    <string name="txtEdit">cập nhật</string>
+    <string name="txtTitleLogin">Đăng Nhập</string>
+    <string name="txtHintUsername">tài khoản</string>
+    <string name="txtHintPassword">mật khẩu</string>
+    <string name="txtSaveAccount">nhớ đăng nhập</string>
+    <string name="btnLogin">Đăng nhập</string>
 </resources>

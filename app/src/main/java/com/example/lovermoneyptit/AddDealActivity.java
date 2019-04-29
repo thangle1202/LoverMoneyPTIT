@@ -2,6 +2,7 @@ package com.example.lovermoneyptit;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.ActionBar;
@@ -20,6 +21,7 @@ import com.example.lovermoneyptit.models.Group;
 import com.example.lovermoneyptit.models.Wallet;
 import com.example.lovermoneyptit.repository.WalletRepo;
 import com.example.lovermoneyptit.utils.FormatUtils;
+import com.example.lovermoneyptit.utils.GroupType;
 
 import java.text.SimpleDateFormat;
 
@@ -42,6 +44,8 @@ public class AddDealActivity extends AppCompatActivity implements
     WalletRepo walletRepo;
     Wallet wallet = null;
     Group group = null;
+
+    SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +100,8 @@ public class AddDealActivity extends AppCompatActivity implements
             }
         });
 
+        // sharedPreferences
+        preferences = getSharedPreferences("user", MODE_PRIVATE);
 
     }
 
@@ -145,13 +151,19 @@ public class AddDealActivity extends AppCompatActivity implements
                     || "".equals(txtGroup.getText().toString()) || "".equals(txtSelectWallet.getText().toString())) {
                 Toast.makeText(getApplicationContext(), "không được để trống!", Toast.LENGTH_SHORT).show();
             } else {
+                int userId = preferences.getInt("userId", 1);
                 dealToAdd.setDesc(txtDesc.getText().toString());
                 dealToAdd.setValue(Long.valueOf(txtDealValue.getText().toString()));
                 dealToAdd.setCreatedDate(txtDealCreatedDate.getText().toString());
                 dealToAdd.setIdWallet(wallet.getId());
                 dealToAdd.setIdGroup(group.getId());
+                dealToAdd.setUserId(userId);
                 walletRepo.addDeal(dealToAdd);
-                wallet.setBalance(wallet.getBalance() - Double.valueOf(txtDealValue.getText().toString()));
+                if (group.getGroupType() == GroupType.CASH_IN) {
+                    wallet.setBalance(wallet.getBalance() + Double.valueOf(txtDealValue.getText().toString()));
+                } else if (group.getGroupType() == GroupType.CASH_OUT) {
+                    wallet.setBalance(wallet.getBalance() - Double.valueOf(txtDealValue.getText().toString()));
+                }
                 int res = walletRepo.updateBalanceWallet(wallet);
                 Toast.makeText(this, "Save Deal: " + res + wallet.getBalance(), Toast.LENGTH_SHORT).show();
 
