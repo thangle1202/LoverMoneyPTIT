@@ -2,15 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:id="@+id/re_linear_adapt">
+    android:layout_height="100dp"
+    android:id="@+id/re_linear_adapt"
+
+    >
 
 
     <android.support.v7.widget.AppCompatImageView
         android:id="@+id/item_image"
+        android:padding="10dp"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:src="@mipmap/ic_launcher"
+        android:src="@mipmap/ic_money_debt_round"
         />
 
     <LinearLayout
@@ -21,22 +24,26 @@
         android:padding="5dp">
 
         <TextView
+            android:textSize="19sp"
+            android:textStyle="bold"
             android:id="@+id/item_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Ngay 20/03/2019"
-            android:layout_margin="5dp"/>
+            android:layout_margin="3dp"/>
         <TextView
+            android:textStyle="italic"
+            android:textSize="16sp"
             android:id="@+id/item_person_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Nguyen Ba Trung"
-            android:layout_margin="5dp"/>
+            android:layout_margin="3dp"/>
         <TextView
             android:id="@+id/item_amount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="500.000"
-            android:layout_margin="5dp"/>
+            android:layout_margin="3dp"/>
     </LinearLayout>
 </LinearLayout>

@@ -20,7 +20,8 @@
         <activity android:name=".SelectWalletActivity" />
         <activity android:name=".AddDealActivity" />
         <activity android:name=".AddCollectActivity" />
-        <activity android:name=".AddPayActivity" />
+        <activity android:name=".AddPayActivity"
+            />
         <activity android:name=".DatePickerActivity" />
         <activity
             android:name=".MainActivity"

@@ -1,12 +1,17 @@
 package com.example.lovermoneyptit;
 
 import android.content.Intent;
+import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +28,8 @@ public class AddPayActivity extends AppCompatActivity {
     Button btnSave,btnChooseDate,btnChooseWallet;
     Wallet wallet;
     Debt debt;
+    Toolbar toolbar;
+    ImageView imgDate,imgWallet;
     WalletRepo walletRepo;
     public void init(){
         tvDate=findViewById(R.id.tv_datepay);
@@ -30,6 +37,9 @@ public class AddPayActivity extends AppCompatActivity {
         btnSave=findViewById(R.id.btn_tra);
         btnChooseDate=findViewById(R.id.btn_choosedatepay);
         btnChooseWallet=findViewById(R.id.btn_choose_wall_pay);
+        imgDate=findViewById(R.id.img_date_pay);
+        toolbar=findViewById(R.id.toobar_pay);
+        imgWallet=findViewById(R.id.img_wallet_pay);
         edtAmount=findViewById(R.id.edt_sotien_tra);
         edtDes=findViewById(R.id.edt_ghichu_tra);
         edtPerSon=findViewById(R.id.edt_nguoi_vay);
@@ -41,6 +51,10 @@ public class AddPayActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_pay);
 
         init();
+        //Toolbar toolbar=findViewById(R.id.toobar_pay);
+        //ActionBar appBarLayout=getSupportActionBar();
+        setSupportActionBar(toolbar);
+        toolbar.setTitle("Cho vay");
         walletRepo = new WalletRepo(getApplicationContext());
         btnChooseDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,6 +70,23 @@ public class AddPayActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), SelectWalletActivity.class);
                 startActivityForResult(intent, AddDealActivity.REQUEST_CODE_SELECT);
+            }
+        });
+
+
+        imgWallet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), SelectWalletActivity.class);
+                startActivityForResult(intent, AddDealActivity.REQUEST_CODE_SELECT);
+            }
+        });
+
+        imgDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogFragment newFragment = new DatepikerPay();
+                newFragment.show(getSupportFragmentManager(), "date picker");
             }
         });
 
@@ -89,6 +120,16 @@ public class AddPayActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        // handle arrow click here
+        if (id == android.R.id.home) {
+            onBackPressed();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

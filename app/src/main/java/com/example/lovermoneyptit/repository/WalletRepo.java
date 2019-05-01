@@ -11,6 +11,7 @@ import com.example.lovermoneyptit.models.Deal;
 import com.example.lovermoneyptit.models.Debt;
 import com.example.lovermoneyptit.models.DealStatis;
 import com.example.lovermoneyptit.models.Group;
+import com.example.lovermoneyptit.models.User;
 import com.example.lovermoneyptit.models.Wallet;
 import com.example.lovermoneyptit.utils.GroupType;
 

@@ -13,131 +13,172 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <android.support.v7.widget.Toolbar
+            android:id="@+id/toobar_collect"
             app:title="Đi vay"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@color/colorWhite"
+            app:navigationIcon="@drawable/ic_arrow_back_black_24dp">
+        >
 
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
 
     <LinearLayout
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_mon"/>
-
-        <EditText
-            android:id="@+id/edt_sotien_vay"
-            android:layout_weight="4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:numeric="integer"
-            android:hint="Số tiền"/>
-
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_marginBottom="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:layout_weight="1"
-            android:src="@drawable/ic_des"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
-        <EditText
-            android:id="@+id/edt_ghichu_vay"
-            android:layout_weight="4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="Ghi chú"
-            />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_marginBottom="20dp"
-        android:orientation="horizontal"
+        android:padding="10dp"
+        android:orientation="vertical"
+        android:layout_weight="10"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <ImageView
-            android:layout_weight="1"
-            android:src="@drawable/ic_person"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
 
-        <EditText
-            android:id="@+id/edt_nguoi_cho_vay"
-            android:layout_weight="4"
-            android:layout_width="wrap_content"
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:src="@mipmap/ic_money_debt_foreground"/>
+
+            <EditText
+                android:id="@+id/edt_sotien_vay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:numeric="integer"
+                android:hint="Số tiền"/>
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginBottom="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:src="@mipmap/ic_ghichu_debt_foreground"
+                android:layout_width="100dp"
+                android:layout_height="match_parent" />
+            <EditText
+                android:id="@+id/edt_ghichu_vay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Ghi chú"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="60dp">
+            <ImageView
+                android:src="@mipmap/ic_nguoi_debt_foreground"
+                android:layout_width="100dp"
+                android:layout_height="match_parent" />
+
+            <EditText
+                android:id="@+id/edt_nguoi_cho_vay"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:hint="Vay của?"/>
+
+            <TextView
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" Chọn từ danh bạ"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/btn_choosedateborrow"
+                android:text="Chọn ngày vay"
+                android:layout_width="300dp"
+                android:textAllCaps="false"
+                android:layout_gravity="center"
+                android:textColor="@color/colorWhite"
+                android:background="@drawable/input_debt"
+                android:layout_height="wrap_content"
+                />
+            <ImageView
+                android:id="@+id/img_date_borrow"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@mipmap/ic_lich_debt_foreground"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_datecollect"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Vay của?"/>
+            android:gravity="center"
+            android:textSize="17sp"
+            android:textStyle="italic"
+
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_choose_wall_borrow"
+                android:layout_width="300dp"
+                android:background="@drawable/input_debt"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorWhite"
+                android:layout_gravity="center"
+                android:textAllCaps="false"
+                android:text="Chọn ví" />
+            <ImageView
+                android:padding="10dp"
+                android:id="@+id/img_wallet_borrow"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@mipmap/icon_wallet"/>
+        </LinearLayout>
+        <TextView
+            android:id="@+id/tv_choose_wallet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="17sp"
+            android:textStyle="italic"
+            />
 
     </LinearLayout>
+
 
     <LinearLayout
+        android:layout_weight="2"
+        android:orientation="horizontal"
+        android:layout_gravity="bottom"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <Button
-            android:id="@+id/btn_choosedateborrow"
-            android:layout_weight="1"
-            android:text="Chọn ngày vay"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <ImageView
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_date"/>
-    </LinearLayout>
-
-<TextView
-    android:id="@+id/tv_datecollect"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:gravity="center"
-    />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content">
 
         <Button
-            android:id="@+id/btn_choose_wall_borrow"
-            android:layout_weight="1"
+            android:id="@+id/btn_vay"
+            android:layout_gravity="center"
+            android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Chọn ví" />
-        <ImageView
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_wa"/>
-    </LinearLayout>
-    <TextView
-        android:id="@+id/tv_choose_wallet"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        />
+            android:layout_marginLeft="300dp"
+            android:textColor="@color/colorWhite"
+            android:textAllCaps="false"
+            android:background="@drawable/add_debt"
+            android:text="Lưu"/>
 
-    <Button
-        android:id="@+id/btn_vay"
-        android:layout_marginTop="60dp"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Lưu"/>
+    </LinearLayout>
 
 </LinearLayout>
