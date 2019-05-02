@@ -1,12 +1,22 @@
 package com.example.lovermoneyptit;
 
+import android.Manifest;
+import android.content.ContentResolver;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.provider.ContactsContract;
 import android.support.design.widget.AppBarLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -21,9 +31,11 @@ import com.example.lovermoneyptit.repository.WalletRepo;
 
 import org.w3c.dom.Text;
 
-public class AddPayActivity extends AppCompatActivity {
+import java.util.ArrayList;
 
-    TextView tvDate,tvWallet;
+public class AddPayActivity extends AppCompatActivity {
+    public ArrayList<String> listContacts=new ArrayList<>();
+    TextView tvDate,tvWallet,tvContact;
     EditText edtAmount,edtPerSon,edtDes;
     Button btnSave,btnChooseDate,btnChooseWallet;
     Wallet wallet;
@@ -41,16 +53,25 @@ public class AddPayActivity extends AppCompatActivity {
         toolbar=findViewById(R.id.toobar_pay);
         imgWallet=findViewById(R.id.img_wallet_pay);
         edtAmount=findViewById(R.id.edt_sotien_tra);
+        tvContact=findViewById(R.id.tv_choose_contact_pay);
         edtDes=findViewById(R.id.edt_ghichu_tra);
         edtPerSon=findViewById(R.id.edt_nguoi_vay);
     }
 
+    public static final int READ_CONTACTS_CODE=1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_pay);
 
         init();
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS)
+                != PackageManager.PERMISSION_GRANTED)
+        {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.READ_CONTACTS},
+                    READ_CONTACTS_CODE);
+        }
         //Toolbar toolbar=findViewById(R.id.toobar_pay);
         //ActionBar appBarLayout=getSupportActionBar();
         setSupportActionBar(toolbar);
@@ -120,6 +141,84 @@ public class AddPayActivity extends AppCompatActivity {
             }
         });
 
+        tvContact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                readContact();
+                ShowAlertDialogWithListview();
+            }
+        });
+
+    }
+
+
+    public void ShowAlertDialogWithListview()
+    {
+
+        //Create sequence of items
+        final CharSequence[] Animals = listContacts.toArray(new String[listContacts.size()]);
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        dialogBuilder.setTitle("Chọn tên");
+        dialogBuilder.setItems(Animals, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int item) {
+                String selectedText = Animals[item].toString();  //Selected item in listview
+                edtPerSon.setText(selectedText);
+            }
+        });
+        //Create alert dialog object via builder
+        AlertDialog alertDialogObject = dialogBuilder.create();
+        //Show the dialog
+        alertDialogObject.show();
+    }
+
+    public void readContact(){
+        StringBuilder stringBuilder=new StringBuilder();
+        ContentResolver contentResolver=getContentResolver();
+
+        Cursor cursor = contentResolver.query(ContactsContract.Contacts.CONTENT_URI,null, null, null, null);
+        if (cursor.getCount()>0){
+            while (cursor.moveToNext()){
+
+
+                String id=cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));
+                String name=cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
+                int hasNumber=Integer.parseInt(cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER)));
+
+                if (hasNumber>0){
+                    Cursor cursor1=contentResolver.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,null
+                            ,ContactsContract.CommonDataKinds.Phone.CONTACT_ID+ " = ?",
+                            new String[]{id}, null);
+                    while (cursor1.moveToNext()){
+                        String phoneNumber=cursor1.getString(cursor1.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                        stringBuilder.append("Contact ").append(name).append(", phone number: ").append(phoneNumber).append("\n\n");
+                        listContacts.add(name);
+                    }
+                    cursor1.close();
+                }
+            }
+
+        }
+        cursor.close();
+
+        Log.i("contactsss",stringBuilder.toString());
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case READ_CONTACTS_CODE:
+            {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(getApplicationContext(), "Contacts permission granted", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    Toast.makeText(getApplicationContext(), "Contacts permission denied", Toast.LENGTH_SHORT).show();
+                }
+                return;
+            }
+        }
     }
 
     @Override

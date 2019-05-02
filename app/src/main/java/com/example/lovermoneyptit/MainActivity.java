@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_drawer, R.string.close_drawer);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-        getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new HomeFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new ManageMoneyFragment()).commit();
 
     }
 
@@ -57,28 +57,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()) {
-            case R.id.nav_home:
-                toolbar.setTitle("MoneyLover");
-                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new HomeFragment()).commit();
-                break;
+//            case R.id.nav_home:
+//                toolbar.setTitle("MoneyLover");
+//                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new HomeFragment()).commit();
+//                break;
             case R.id.nav_manage_money:
-                toolbar.setTitle("giao dich");
+                toolbar.setTitle("Giao Dịch");
                 getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new ManageMoneyFragment()).commit();
                 break;
             case R.id.nav_chart:
-                toolbar.setTitle("xu hướng");
+                toolbar.setTitle("Xu Hướng");
                 getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new ChartFragment()).commit();
                 break;
             case R.id.nav_wallet:
-                toolbar.setTitle("quản lý ví");
+                toolbar.setTitle("Quản Lý Ví");
                 getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new WalletFragment()).commit();
                 break;
             case R.id.nav_debt:
-                toolbar.setTitle("quản lý nợ");
+                toolbar.setTitle("Quản Lý Nợ");
                 getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new DebtFragment()).commit();
                 break;
             case R.id.nav_account:
-                toolbar.setTitle("tài khoản");
+                toolbar.setTitle("Tài Khoản");
                 getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new AccountFragment()).commit();
                 break;
             case R.id.nav_syncData:

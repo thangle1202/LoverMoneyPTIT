@@ -88,6 +88,7 @@
                 android:layout_height="wrap_content"
                 android:hint="Người vay ?"/>
             <TextView
+                android:id="@+id/tv_choose_contact_pay"
                 android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

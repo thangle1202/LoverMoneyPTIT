@@ -3,12 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
     <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_home"
-            android:icon="@drawable/ic_home"
-            android:title="Trang chính">
+        <!--<item-->
+            <!--android:id="@+id/nav_home"-->
+            <!--android:icon="@drawable/ic_home"-->
+            <!--android:title="Trang chính">-->
 
-        </item>
+        <!--</item>-->
         <item
             android:id="@+id/nav_manage_money"
             android:icon="@drawable/ic_manage_money"

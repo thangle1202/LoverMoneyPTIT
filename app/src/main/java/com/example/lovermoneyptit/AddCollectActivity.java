@@ -1,11 +1,17 @@
 package com.example.lovermoneyptit;
 
+import android.Manifest;
 import android.content.ContentResolver;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.ContactsContract;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -23,11 +29,15 @@ import com.example.lovermoneyptit.models.Group;
 import com.example.lovermoneyptit.models.Wallet;
 import com.example.lovermoneyptit.repository.WalletRepo;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Logger;
+
 public class AddCollectActivity extends AppCompatActivity {
 
     Button btnChooseDate;
     Button btnChooseWallet;
-    TextView tvDate;
+    TextView tvDate,tvChooseContact;
     ImageView imgWallet,imgDate;
     EditText edtAmount,edtPerson,edtDes;
     Button btnBorrow;
@@ -45,6 +55,7 @@ public class AddCollectActivity extends AppCompatActivity {
         imgDate=findViewById(R.id.img_date_borrow);
         imgWallet=findViewById(R.id.img_wallet_borrow);
         wallet=new Wallet();
+        tvChooseContact=findViewById(R.id.tv_choose_contact);
         toolbar=findViewById(R.id.toobar_collect);
         txtSelectWallet=findViewById(R.id.tv_choose_wallet);
     }
@@ -58,6 +69,13 @@ public class AddCollectActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_collect);
         init();
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS)
+                != PackageManager.PERMISSION_GRANTED)
+        {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.READ_CONTACTS},
+                    READ_CONTACTS_CODE);
+        }
 //        getContactList();
         debt=new Debt();
         walletRepo = new WalletRepo(getApplicationContext());
@@ -121,8 +139,35 @@ public class AddCollectActivity extends AppCompatActivity {
 
             }
         });
+        tvChooseContact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                readContact();
+                ShowAlertDialogWithListview();
+            }
+        });
     }
 
+    public ArrayList<String> listContacts=new ArrayList<>();
+
+    public void ShowAlertDialogWithListview()
+    {
+
+        //Create sequence of items
+        final CharSequence[] Animals = listContacts.toArray(new String[listContacts.size()]);
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        dialogBuilder.setTitle("Chọn tên");
+        dialogBuilder.setItems(Animals, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int item) {
+                String selectedText = Animals[item].toString();  //Selected item in listview
+                edtPerson.setText(selectedText);
+            }
+        });
+        //Create alert dialog object via builder
+        AlertDialog alertDialogObject = dialogBuilder.create();
+        //Show the dialog
+        alertDialogObject.show();
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -135,38 +180,55 @@ public class AddCollectActivity extends AppCompatActivity {
 
     }
 
-    private void getContactList() {
-        ContentResolver cr = getContentResolver();
-        Cursor cur = cr.query(ContactsContract.Contacts.CONTENT_URI,
-                null, null, null, null);
 
-        if ((cur != null ? cur.getCount() : 0) > 0) {
-            while (cur != null && cur.moveToNext()) {
-                String id = cur.getString(
-                        cur.getColumnIndex(ContactsContract.Contacts._ID));
-                String name = cur.getString(cur.getColumnIndex(
-                        ContactsContract.Contacts.DISPLAY_NAME));
-
-                if (cur.getInt(cur.getColumnIndex(
-                        ContactsContract.Contacts.HAS_PHONE_NUMBER)) > 0) {
-                    Cursor pCur = cr.query(
-                            ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-                            null,
-                            ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ?",
-                            new String[]{id}, null);
-                    while (pCur.moveToNext()) {
-                        String phoneNo = pCur.getString(pCur.getColumnIndex(
-                                ContactsContract.CommonDataKinds.Phone.NUMBER));
-                        Log.i("thangle111", "Name: " + name);
-                        Log.i("thangle111", "Phone Number: " + phoneNo);
-                    }
-                    pCur.close();
+    public static final int READ_CONTACTS_CODE=1;
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case READ_CONTACTS_CODE:
+            {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(getApplicationContext(), "Contacts permission granted", Toast.LENGTH_SHORT).show();
                 }
+                else
+                {
+                    Toast.makeText(getApplicationContext(), "Contacts permission denied", Toast.LENGTH_SHORT).show();
+                }
+                return;
             }
         }
-        if(cur!=null){
-            cur.close();
+    }
+
+    public void readContact(){
+        StringBuilder stringBuilder=new StringBuilder();
+        ContentResolver contentResolver=getContentResolver();
+
+        Cursor cursor = contentResolver.query(ContactsContract.Contacts.CONTENT_URI,null, null, null, null);
+        if (cursor.getCount()>0){
+            while (cursor.moveToNext()){
+
+
+            String id=cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));
+            String name=cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
+            int hasNumber=Integer.parseInt(cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER)));
+
+            if (hasNumber>0){
+                Cursor cursor1=contentResolver.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,null
+                ,ContactsContract.CommonDataKinds.Phone.CONTACT_ID+ " = ?",
+                        new String[]{id}, null);
+                while (cursor1.moveToNext()){
+                    String phoneNumber=cursor1.getString(cursor1.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                    stringBuilder.append("Contact ").append(name).append(", phone number: ").append(phoneNumber).append("\n\n");
+                    listContacts.add(name);
+                }
+                cursor1.close();
+            }
+            }
+
         }
+        cursor.close();
+
+        Log.i("contactsss",stringBuilder.toString());
     }
 
     public void getListContact(){
