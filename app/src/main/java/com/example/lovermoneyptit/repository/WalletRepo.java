@@ -62,7 +62,7 @@ public class WalletRepo extends SQLiteOpenHelper {
     private static final String COLUMN_DEBT_ID = "id_tb";
     private static final String COLUMN_DEBT_VALUE = "value_tb";
     private static final String COLUMN_DEBT_ID_WALLET = "id_wallet_tb";
-    private static final String COLUMN_DEBT_PERSON_NAME= "PERSONNAME_tb";
+    private static final String COLUMN_DEBT_PERSON_NAME = "PERSONNAME_tb";
     private static final String COLUMN_DEBT_CREATED_DATE = "created_date_tb";
     private static final String COLUMN_DEBT_DESC = "description_tb";
     private static final String COLUMN_DEBT_TYPE = "type_tb";
@@ -79,12 +79,14 @@ public class WalletRepo extends SQLiteOpenHelper {
     private static final String CREATE_TABLE_DEAL = "CREATE TABLE IF NOT EXISTS " + TABLE_DEAL + "("
             + COLUMN_DEAL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ," + COLUMN_DEAL_VALUE + " LONG,"
             + COLUMN_DEAL_ID_WALLET + " INTEGER," + COLUMN_DEAL_ID_GROUP + " INTEGER, " + COLUMN_DEAL_CREATED_DATE + " TEXT, "
-            + COLUMN_DEAL_DESC + " VARCHAR(45)," + COLUMN_DEAL_USER_ID + " INTEGER)";
+            + COLUMN_DEAL_DESC + " VARCHAR(45)," + COLUMN_DEAL_USER_ID + " INTEGER" +
+            ", FOREIGN KEY (id_group) REFERENCES group_deal(id), " +
+            "  FOREIGN KEY (id_wallet) REFERENCES WALLET(ID))";
 
     private static final String CREATE_TABLE_DEBT = "CREATE TABLE IF NOT EXISTS " + TABLE_DEBT + "("
             + COLUMN_DEBT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ," + COLUMN_DEBT_VALUE + " LONG,"
             + COLUMN_DEBT_ID_WALLET + " INTEGER," + COLUMN_DEBT_PERSON_NAME + "  VARCHAR(45), " + COLUMN_DEBT_CREATED_DATE + " TEXT, "
-            + COLUMN_DEBT_TYPE +" INTEGER, "
+            + COLUMN_DEBT_TYPE + " INTEGER, "
             + COLUMN_DEBT_DESC + " VARCHAR(45))";
 
     private static final String CREATE_TABLE_USER = "CREATE TABLE IF NOT EXISTS " + TABLE_USER + "("
@@ -94,6 +96,11 @@ public class WalletRepo extends SQLiteOpenHelper {
 
     public WalletRepo(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    }
+
+    @Override
+    public void onOpen(SQLiteDatabase db) {
+        db.execSQL("PRAGMA foreign_keys=ON");
     }
 
     @Override
@@ -148,20 +155,20 @@ public class WalletRepo extends SQLiteOpenHelper {
 
     public void initDeal() {
         if (this.getDealQuantity() == 0) {
-            Deal deal1 = new Deal(1, 1, 1, "24/04/2019", "deal mac dinh", 1);
-            Deal deal2 = new Deal(2, 1, 2, "24/04/2019", "deal mac dinh", 1);
+            Deal deal1 = new Deal(1l, 1, 1, "24/04/2019", "deal mac dinh", 1);
+            Deal deal2 = new Deal(2l, 1, 2, "24/04/2019", "deal mac dinh", 1);
 
             this.addDeal(deal1);
             this.addDeal(deal2);
         }
     }
 
-    public void initDebt(){
-        if (this.getDebtQuantity()==0){
-            Debt debt=new Debt(1,100,1,"20/03/2019","Moi tao","Hai",1);
-            Debt debt1=new Debt(2,100,1,"22/03/2019","Moi tao","Hung",1);
-            Debt debt2=new Debt(1,100,1,"20/03/2019","Moi tao","Thang",2);
-            Debt debt3=new Debt(2,100,1,"22/03/2019","Moi tao","Dat",2);
+    public void initDebt() {
+        if (this.getDebtQuantity() == 0) {
+            Debt debt = new Debt(1, 100, 1, "20/03/2019", "Moi tao", "Hai", 1);
+            Debt debt1 = new Debt(2, 100, 1, "22/03/2019", "Moi tao", "Hung", 1);
+            Debt debt2 = new Debt(1, 100, 1, "20/03/2019", "Moi tao", "Thang", 2);
+            Debt debt3 = new Debt(2, 100, 1, "22/03/2019", "Moi tao", "Dat", 2);
 
             this.addDebt(debt);
             this.addDebt(debt1);
@@ -169,6 +176,7 @@ public class WalletRepo extends SQLiteOpenHelper {
             this.addDebt(debt3);
         }
     }
+
     // wallet
     public void addWallet(Wallet wallet) {
 
@@ -221,7 +229,7 @@ public class WalletRepo extends SQLiteOpenHelper {
 
         List<Wallet> wallets = new ArrayList<>();
         // select wallets from db
-        String query = "SELECT * FROM " + TABLE_WALLET ;
+        String query = "SELECT * FROM " + TABLE_WALLET;
 
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -245,7 +253,6 @@ public class WalletRepo extends SQLiteOpenHelper {
         return wallets;
 
     }
-
 
 
     public int getWalletsQuantity() {
@@ -424,16 +431,16 @@ public class WalletRepo extends SQLiteOpenHelper {
     }
 
     //debt
-    public void addDebt(Debt debt){
-        SQLiteDatabase database=this.getWritableDatabase();
-        ContentValues contentValues=new ContentValues();
-        contentValues.put(COLUMN_DEBT_VALUE,debt.getValue());
-        contentValues.put(COLUMN_DEBT_CREATED_DATE,debt.getCreatedDate());
-        contentValues.put(COLUMN_DEBT_DESC,debt.getDesc());
-        contentValues.put(COLUMN_DEBT_ID_WALLET,debt.getIdWallet());
-        contentValues.put(COLUMN_DEBT_PERSON_NAME,debt.getPersonName());
+    public void addDebt(Debt debt) {
+        SQLiteDatabase database = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COLUMN_DEBT_VALUE, debt.getValue());
+        contentValues.put(COLUMN_DEBT_CREATED_DATE, debt.getCreatedDate());
+        contentValues.put(COLUMN_DEBT_DESC, debt.getDesc());
+        contentValues.put(COLUMN_DEBT_ID_WALLET, debt.getIdWallet());
+        contentValues.put(COLUMN_DEBT_PERSON_NAME, debt.getPersonName());
         contentValues.put(COLUMN_DEBT_TYPE, debt.getDealType());
-        database.insert(TABLE_DEBT,null,contentValues);
+        database.insert(TABLE_DEBT, null, contentValues);
         database.close();
     }
 
@@ -453,7 +460,7 @@ public class WalletRepo extends SQLiteOpenHelper {
 
     }
 
-    public int getDebtQuantity(){
+    public int getDebtQuantity() {
 
         Log.i(TAG, "WalletRepo.getDebtQuantity ... ");
 
@@ -511,13 +518,13 @@ public class WalletRepo extends SQLiteOpenHelper {
         return result;
     }
 
-    public List<Debt> getAllDebt(){
-        List<Debt> debts=new ArrayList<>();
-        String sql="select * from "+TABLE_DEBT +" where "+COLUMN_DEBT_TYPE +"=2 ";
-        SQLiteDatabase database=this.getReadableDatabase();
-        Cursor cursor=database.rawQuery(sql,null);
-        while (cursor.moveToNext()){
-            Debt debt=new Debt();
+    public List<Debt> getAllDebt() {
+        List<Debt> debts = new ArrayList<>();
+        String sql = "select * from " + TABLE_DEBT + " where " + COLUMN_DEBT_TYPE + "=2 ";
+        SQLiteDatabase database = this.getReadableDatabase();
+        Cursor cursor = database.rawQuery(sql, null);
+        while (cursor.moveToNext()) {
+            Debt debt = new Debt();
             debt.setId(cursor.getInt(0));
             debt.setValue(cursor.getLong(1));
             debt.setIdWallet(cursor.getInt(2));
@@ -528,16 +535,16 @@ public class WalletRepo extends SQLiteOpenHelper {
 
             debts.add(debt);
         }
-        return  debts;
+        return debts;
     }
 
-    public List<Debt> getAllPayDebt(){
-        List<Debt> debts=new ArrayList<>();
-        String sql="select * from "+TABLE_DEBT +" where "+COLUMN_DEBT_TYPE +"=1 ";
-        SQLiteDatabase database=this.getReadableDatabase();
-        Cursor cursor=database.rawQuery(sql,null);
-        while (cursor.moveToNext()){
-            Debt debt=new Debt();
+    public List<Debt> getAllPayDebt() {
+        List<Debt> debts = new ArrayList<>();
+        String sql = "select * from " + TABLE_DEBT + " where " + COLUMN_DEBT_TYPE + "=1 ";
+        SQLiteDatabase database = this.getReadableDatabase();
+        Cursor cursor = database.rawQuery(sql, null);
+        while (cursor.moveToNext()) {
+            Debt debt = new Debt();
             debt.setId(cursor.getInt(0));
             debt.setValue(cursor.getLong(1));
             debt.setIdWallet(cursor.getInt(2));
@@ -548,7 +555,7 @@ public class WalletRepo extends SQLiteOpenHelper {
 
             debts.add(debt);
         }
-        return  debts;
+        return debts;
     }
 
     public List<Deal> getAllDeal() throws ParseException {
@@ -564,13 +571,13 @@ public class WalletRepo extends SQLiteOpenHelper {
             deal.setIdGroup(cursor.getInt(3));
             deal.setCreatedDate(cursor.getString(4));
             deal.setDesc(cursor.getString(5));
-
+            deal.setUserId(cursor.getInt(6));
             deals.add(deal);
         }
         return deals;
     }
 
-    public void deleteDebt(Debt debt){
+    public void deleteDebt(Debt debt) {
         SQLiteDatabase database = this.getWritableDatabase();
         database.delete(TABLE_DEBT, COLUMN_DEBT_ID + "= ? ",
                 new String[]{String.valueOf(debt.getId())});
@@ -598,6 +605,7 @@ public class WalletRepo extends SQLiteOpenHelper {
         return deal;
     }
 
+    // thong ke
     public List<DealStatis> getDealByGroup(int groupType) {
         SQLiteDatabase database = this.getReadableDatabase();
         List<DealStatis> listDealStatis = new ArrayList<DealStatis>();
@@ -612,6 +620,7 @@ public class WalletRepo extends SQLiteOpenHelper {
         }
         return listDealStatis;
     }
+
 
 
     // user
@@ -630,7 +639,7 @@ public class WalletRepo extends SQLiteOpenHelper {
         return null;
     }
 
-    public void addUser(){
+    public void addUser() {
         SQLiteDatabase database = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COLUMN_USER_USERNAME, "thuannd");
@@ -639,6 +648,30 @@ public class WalletRepo extends SQLiteOpenHelper {
         database.insert(TABLE_USER, null, contentValues);
 
         database.close();
+    }
+
+    public List<Deal> getAllDealForSyncData() {
+        try {
+            List<Deal> dealFromSQLite = this.getAllDeal();
+            List<Deal> dealForMySQL = new ArrayList<Deal>();
+            for(Deal d : dealFromSQLite){
+                Deal deal = new Deal();
+                deal.setId(d.getId());
+                deal.setDesc(d.getDesc());
+                deal.setValue(d.getValue());
+                deal.setCreatedDate(d.getCreatedDate());
+                deal.setGroup(this.getGroupById(d.getIdGroup()));
+                deal.setWallet(this.findWalletById(d.getIdWallet()));
+                deal.setUserId(d.getUserId());
+
+                dealForMySQL.add(deal);
+            }
+
+            return dealForMySQL;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return null;
     }
 
 }

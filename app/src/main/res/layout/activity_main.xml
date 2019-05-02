@@ -39,7 +39,7 @@
         android:layout_gravity="start"
         app:headerLayout="@layout/header_drawer_nav"
         app:menu="@menu/drawer_navigation"
-        >
+        android:background="@color/colorWhite">
 
     </android.support.design.widget.NavigationView>
 

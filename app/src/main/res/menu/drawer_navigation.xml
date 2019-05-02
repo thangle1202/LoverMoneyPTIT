@@ -33,12 +33,6 @@
             android:title="Quản lý nợ">
 
         </item>
-        <item
-            android:id="@+id/nav_account"
-            android:icon="@drawable/ic_account"
-            android:title="Tài khoản">
-
-        </item>
 
         <item
             android:id="@+id/nav_syncData"

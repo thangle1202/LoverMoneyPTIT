@@ -34,7 +34,8 @@
             android:layout_marginTop="20dp"
             android:hint="ngân sách"
             android:inputType="number"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:enabled="false"/>
 
         <EditText
             android:id="@+id/txtWalletDesc"

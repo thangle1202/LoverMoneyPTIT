@@ -17,6 +17,6 @@ public class BaseApplication extends Application{
         walletRepo.initGroup();
         walletRepo.initDeal();
         walletRepo.init();
-//        walletRepo.addUser();
+        walletRepo.addUser();
     }
 }
