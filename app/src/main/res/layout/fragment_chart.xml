@@ -17,12 +17,13 @@
         android:layout_marginLeft="0dp"
         android:layout_marginTop="0dp"
         android:layout_marginEnd="0dp"
-        android:layout_marginRight="0dp">
+        android:layout_marginRight="0dp"
+        app:cardUseCompatPadding="true">
 
         <Spinner
             android:id="@+id/spinnerChart"
             android:layout_width="match_parent"
-            android:layout_height="80dp" />
+            android:layout_height="78dp" />
 
     </android.support.v7.widget.CardView>
 
@@ -46,13 +47,29 @@
             android:id="@+id/piechart"
             android:layout_width="300dp"
             android:layout_height="300dp"
-            android:layout_gravity="center_horizontal" />
-
+            android:layout_gravity="center_horizontal"/>
     </android.support.v7.widget.CardView>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="218dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="96dp"
+        android:layout_marginLeft="96dp"
+        android:layout_marginTop="388dp"
+        android:layout_marginEnd="97dp"
+        android:layout_marginRight="97dp"
+        android:gravity="center"
+        android:text="Xu hướng theo nhóm giao dịch" />
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="305dp"
+        android:layout_height="284dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
@@ -60,18 +77,34 @@
         android:layout_alignParentRight="true"
         android:layout_marginStart="0dp"
         android:layout_marginLeft="0dp"
-        android:layout_marginTop="404dp"
+        android:layout_marginTop="426dp"
         android:layout_marginEnd="0dp"
         android:layout_marginRight="0dp"
         app:cardUseCompatPadding="true">
 
         <com.github.mikephil.charting.charts.BarChart
             android:id="@+id/barChart"
-            android:layout_width="387dp"
-            android:layout_height="300dp"
+            android:layout_width="match_parent"
+            android:layout_height="265dp"
             android:layout_gravity="center_horizontal" />
-
     </android.support.v7.widget.CardView>
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="218dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="708dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginRight="0dp"
+        android:gravity="center"
+        android:text="Xu hướng theo ngày giao dịch" />
 
 
 </RelativeLayout>

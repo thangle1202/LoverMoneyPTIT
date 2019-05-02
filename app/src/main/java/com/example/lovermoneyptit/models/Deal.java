@@ -14,27 +14,32 @@ public class Deal implements Serializable {
 
     @SerializedName("id")
     @Expose
-    private int id;
+    private Integer id;
     @SerializedName("value")
     @Expose
-    private long value; // so tien da giao dich
-    @SerializedName("idGroup")
+    private Long value;
+    private Integer idWallet;
+    private Integer idGroup;
+    @SerializedName("createdDate")
     @Expose
-    private int idGroup;
-    @SerializedName("idWallet")
+    private String createdDate;
+    @SerializedName("userId")
     @Expose
-    private int idWallet;
-    @SerializedName("idCreatedDate")
-    @Expose
-    private String createdDate; // ngay giao dich
-    private String desc;
-    private int dealType; // loai giao dich: thu tien or chi tien
     private int userId;
+    @SerializedName("description")
+    @Expose
+    private String desc;
+    @SerializedName("walletDTO")
+    @Expose
+    private Wallet wallet;
+    @SerializedName("groupDTO")
+    @Expose
+    private Group group;
 
     public Deal() {
     }
 
-    public Deal(long value, int idGroup, int idWallet, String createdDate, String desc, int userId) {
+    public Deal(Long value, Integer idGroup, Integer idWallet, String createdDate, String desc, Integer userId) {
         this.value = value;
         this.idGroup = idGroup;
         this.idWallet = idWallet;
@@ -43,45 +48,44 @@ public class Deal implements Serializable {
         this.userId = userId;
     }
 
-    public Deal(int id, long value, int idGroup, int idWallet, String createdDate, String desc, int dealType) {
+    public Deal(Integer id, Long value, Integer idGroup, Integer idWallet, String createdDate, String desc) {
         this.id = id;
         this.value = value;
         this.idGroup = idGroup;
         this.idWallet = idWallet;
         this.createdDate = createdDate;
         this.desc = desc;
-        this.dealType = dealType;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public long getValue() {
+    public Long getValue() {
         return value;
     }
 
-    public void setValue(long value) {
+    public void setValue(Long value) {
         this.value = value;
     }
 
-    public int getIdGroup() {
+    public Integer getIdGroup() {
         return idGroup;
     }
 
-    public void setIdGroup(int idGroup) {
+    public void setIdGroup(Integer idGroup) {
         this.idGroup = idGroup;
     }
 
-    public int getIdWallet() {
+    public Integer getIdWallet() {
         return idWallet;
     }
 
-    public void setIdWallet(int idWallet) {
+    public void setIdWallet(Integer idWallet) {
         this.idWallet = idWallet;
     }
 
@@ -101,19 +105,27 @@ public class Deal implements Serializable {
         this.desc = desc;
     }
 
-    public int getDealType() {
-        return dealType;
-    }
-
-    public void setDealType(int dealType) {
-        this.dealType = dealType;
-    }
-
-    public int getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
+    }
+
+    public Wallet getWallet() {
+        return wallet;
+    }
+
+    public void setWallet(Wallet wallet) {
+        this.wallet = wallet;
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
     }
 }

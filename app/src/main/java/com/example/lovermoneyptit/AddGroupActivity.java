@@ -48,21 +48,26 @@ public class AddGroupActivity extends AppCompatActivity {
             // add group to db
             walletRepo = new WalletRepo(getApplicationContext());
             Group groupToAdd = new Group();
-            groupToAdd.setGroupName(txtGroupName.getText().toString());
-            if (btnBorrowLoan.isChecked()) {
-                groupType = GroupType.LOAN;
-            } else if (btnCashIn.isChecked()) {
-                groupType = GroupType.CASH_IN;
+            if (txtGroupName.getText().toString() == null) {
+                Toast.makeText(getApplicationContext(), "không được để trống!", Toast.LENGTH_SHORT).show();
             } else {
-                groupType = GroupType.CASH_OUT;
+                groupToAdd.setGroupName(txtGroupName.getText().toString());
+                if (btnBorrowLoan.isChecked()) {
+                    groupType = GroupType.LOAN;
+                } else if (btnCashIn.isChecked()) {
+                    groupType = GroupType.CASH_IN;
+                } else {
+                    groupType = GroupType.CASH_OUT;
+                }
+                groupToAdd.setGroupType(groupType);
+
+                walletRepo.addGroup(groupToAdd);
+
+                Intent intent = new Intent(this.getApplicationContext(), AddDealActivity.class);
+                startActivity(intent);
+
+                Toast.makeText(this, "Save Group:" + groupToAdd.getId(), Toast.LENGTH_SHORT).show();
             }
-            groupToAdd.setGroupType(groupType);
-            walletRepo.addGroup(groupToAdd);
-
-            Intent intent = new Intent(this.getApplicationContext(), AddDealActivity.class);
-            startActivity(intent);
-
-            Toast.makeText(this, "Save Group:" + groupToAdd.getId(), Toast.LENGTH_SHORT).show();
         }
 
         return super.onOptionsItemSelected(item);
