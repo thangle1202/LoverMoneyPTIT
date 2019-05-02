@@ -4,7 +4,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="10dp"
     app:cardUseCompatPadding="true">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -16,7 +15,8 @@
             android:id="@+id/walletImage"
             android:layout_width="@dimen/height_icon_fragment_add_deal"
             android:layout_height="@dimen/height_icon_fragment_add_deal"
-            android:src="@mipmap/icon_wallet" />
+            android:src="@mipmap/icon_wallet"
+            android:layout_marginRight="30dp"/>
 
         <LinearLayout
             android:layout_width="500dp"
