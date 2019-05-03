@@ -6,20 +6,23 @@
     android:gravity="bottom"
     android:orientation="vertical"
     android:padding="16dp"
-    android:backgroundTint="@color/colorTabSelected">
+    android:backgroundTint="#8BC34A">
 
     <ImageView
-        android:layout_width="106dp"
-        android:layout_height="83dp"
+        android:layout_marginTop="20dp"
+        android:layout_width="95dp"
+        android:layout_height="85dp"
         android:layout_gravity="center"
         android:src="@mipmap/ic_avatar" />
 
     <TextView
+        android:textColor="@color/colorWhite"
         android:id="@+id/txtCurrentUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Le Van Thang"
-        android:textSize="24sp"
+        android:layout_marginTop="5dp"
+        android:textSize="21sp"
         android:layout_gravity="center"/>
 
 </LinearLayout>

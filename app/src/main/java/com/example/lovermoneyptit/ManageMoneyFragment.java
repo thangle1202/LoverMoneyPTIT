@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.example.lovermoneyptit.adapter.DealAdapter;
@@ -22,7 +23,7 @@ public class ManageMoneyFragment extends Fragment {
     private RecyclerView recyclerView;
     private List<Deal> deals;
     private DealAdapter dealAdapter;
-    private ImageButton btnAddDeal;
+    private Button btnAddDeal;
 
     private WalletRepo walletRepo;
 

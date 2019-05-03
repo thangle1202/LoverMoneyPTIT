@@ -13,23 +13,23 @@
     <string name="delete_button_title">Xoa</string>
 
     <!--Deal-->
-    <string name="hint_select_date">chọn ngày</string>
-    <string name="hint_select_wallet">chọn ví</string>
-    <string name="hint_select_group">chọn nhóm</string>
+    <string name="hint_select_date">Chọn ngày</string>
+    <string name="hint_select_wallet">Chọn ví</string>
+    <string name="hint_select_group">Chọn nhóm</string>
     <string name="txtPay">Trả nợ</string>
     <string name="txtDebt">Thu nợ</string>
     <string name="txtLoan">Cho vay</string>
-    <string name="txtBorrow">vay/nợ</string>
+    <string name="txtBorrow">Vay/nợ</string>
     <string name="txtAddRevenue">Nhóm thu mới</string>
     <string name="note">Ghi chú</string>
     <string name="addDeal">Thêm giao dịch</string>
     <string name="save">Lưu</string>
-    <string name="selectGroup">chọn nhóm</string>
-    <string name="selectWallet">chọn ví</string>
+    <string name="selectGroup">Chọn nhóm</string>
+    <string name="selectWallet">Chọn ví</string>
     <string name="txtSearch">tìm kiếm</string>
-    <string name="txtCashIn">khoản thu</string>
-    <string name="txtCashOut">khoản chi</string>
-    <string name="hint_group_name">tên nhóm</string>
+    <string name="txtCashIn">Khoản thu</string>
+    <string name="txtCashOut">Khoản chi</string>
+    <string name="hint_group_name">Tên nhóm</string>
     <string name="txtNewGroup">nhóm mới</string>
     <string name="updateDeal">cập nhật giao dịch</string>
     <string name="txtTitleEditWallet">Cập nhật tài khoản</string>
