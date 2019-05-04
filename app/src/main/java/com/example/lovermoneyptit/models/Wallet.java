@@ -1,5 +1,8 @@
 package com.example.lovermoneyptit.models;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 /**
@@ -8,9 +11,17 @@ import java.io.Serializable;
 
 public class Wallet implements Serializable {
 
+    @SerializedName("id")
+    @Expose
     private int id;
+    @SerializedName("walletName")
+    @Expose
     private String walletName;
+    @SerializedName("balance")
+    @Expose
     private Double balance; // ngan sach cua vi
+    @SerializedName("desc")
+    @Expose
     private String desc;
 
     public Wallet() {

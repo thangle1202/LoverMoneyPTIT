@@ -1,5 +1,8 @@
 package com.example.lovermoneyptit.models;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 /**
@@ -7,15 +10,24 @@ import java.io.Serializable;
  */
 
 public class Group implements Serializable {
+
+    @SerializedName("id")
+    @Expose
     private int id;
+    @SerializedName("groupName")
+    @Expose
     private String groupName;
+    @SerializedName("groupImage")
+    @Expose
     private String image; // anh dai dien cua nhom giao dich
+    @SerializedName("groupType")
+    @Expose
     private int groupType; // loai nhom
 
     public Group() {
     }
 
-    public Group(String groupName, int groupType){
+    public Group(String groupName, int groupType) {
         this.groupName = groupName;
         this.groupType = groupType;
     }

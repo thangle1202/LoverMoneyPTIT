@@ -15,12 +15,13 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.lovermoneyptit.api.APIService;
+import com.example.lovermoneyptit.api.MoneyService;
 import com.example.lovermoneyptit.api.APIUtils;
 import com.example.lovermoneyptit.models.Deal;
+import com.example.lovermoneyptit.models.Group;
+import com.example.lovermoneyptit.models.Wallet;
 import com.example.lovermoneyptit.repository.WalletRepo;
 
-import java.text.ParseException;
 import java.util.List;
 
 import retrofit2.Call;
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private TextView txtCurrentUser;
 
     // call service
-    private APIService mAPIService;
+    private MoneyService mMoneyService;
     private WalletRepo walletRepo;
 
     private SharedPreferences preferences;
@@ -59,13 +60,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         txtCurrentUser = headerLayout.findViewById(R.id.txtCurrentUser);
         preferences = getSharedPreferences("user", MODE_PRIVATE);
         String currentUsername = preferences.getString("username", "");
-        if(currentUsername != null){
+        if (currentUsername != null) {
             txtCurrentUser.setText(currentUsername);
         }
 
         // sync data
         walletRepo = new WalletRepo(getApplicationContext());
-        mAPIService = APIUtils.getAPIService();
+        mMoneyService = APIUtils.getAPIService();
 
     }
 
@@ -131,13 +132,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     // sync data
-    public void syncData(List<Deal> dealList) {
-        mAPIService.syncDeal(dealList).enqueue(new Callback<Void>() {
+    public void syncData(List<?> dealList) {
+
+        // sync deal
+        mMoneyService.syncDeal((List<Deal>) dealList).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
                     Toast.makeText(getApplicationContext(), "đồng bộ thành công: " + response.code(), Toast.LENGTH_SHORT).show();
                 }
+                Toast.makeText(getApplicationContext(), "đồng bộ thành công: " + response.code(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -145,6 +149,37 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Toast.makeText(getApplicationContext(), "đồng bộ thất bại!", Toast.LENGTH_SHORT).show();
             }
         });
+
+        // sync group
+        mMoneyService.syncGroup((List<Group>) dealList).enqueue(new Callback<Group>() {
+            @Override
+            public void onResponse(Call<Group> call, Response<Group> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(getApplicationContext(), "đồng bộ thành công: " + response.code(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Group> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "đồng bộ thất bại!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // sync wallet
+        mMoneyService.syncWallet((List<Wallet>) dealList).enqueue(new Callback<Wallet>() {
+            @Override
+            public void onResponse(Call<Wallet> call, Response<Wallet> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(getApplicationContext(), "đồng bộ thành công: " + response.code(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Wallet> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "đồng bộ thất bại!", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
+
 
 }

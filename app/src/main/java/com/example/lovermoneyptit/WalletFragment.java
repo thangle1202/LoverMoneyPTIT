@@ -104,7 +104,6 @@ public class WalletFragment extends Fragment {
         lvWallet = view.findViewById(R.id.lvWallet);
         // repository
         walletRepo = new WalletRepo(getActivity());
-        walletRepo.init();
 
         wallets = walletRepo.getAllWallets();
 

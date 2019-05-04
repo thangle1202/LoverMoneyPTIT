@@ -14,9 +14,9 @@ public class BaseApplication extends Application{
     public void onCreate() {
         super.onCreate();
         WalletRepo walletRepo = new WalletRepo(getApplicationContext());
-        walletRepo.initGroup();
-        walletRepo.initDeal();
-        walletRepo.init();
+//        walletRepo.initGroup();
+//        walletRepo.initDeal();
+//        walletRepo.init();
         walletRepo.addUser();
     }
 }

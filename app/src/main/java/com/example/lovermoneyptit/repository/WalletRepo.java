@@ -79,9 +79,7 @@ public class WalletRepo extends SQLiteOpenHelper {
     private static final String CREATE_TABLE_DEAL = "CREATE TABLE IF NOT EXISTS " + TABLE_DEAL + "("
             + COLUMN_DEAL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ," + COLUMN_DEAL_VALUE + " LONG,"
             + COLUMN_DEAL_ID_WALLET + " INTEGER," + COLUMN_DEAL_ID_GROUP + " INTEGER, " + COLUMN_DEAL_CREATED_DATE + " TEXT, "
-            + COLUMN_DEAL_DESC + " VARCHAR(45)," + COLUMN_DEAL_USER_ID + " INTEGER" +
-            ", FOREIGN KEY (id_group) REFERENCES group_deal(id), " +
-            "  FOREIGN KEY (id_wallet) REFERENCES WALLET(ID))";
+            + COLUMN_DEAL_DESC + " VARCHAR(45)," + COLUMN_DEAL_USER_ID + " INTEGER)";
 
     private static final String CREATE_TABLE_DEBT = "CREATE TABLE IF NOT EXISTS " + TABLE_DEBT + "("
             + COLUMN_DEBT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ," + COLUMN_DEBT_VALUE + " LONG,"
@@ -460,6 +458,29 @@ public class WalletRepo extends SQLiteOpenHelper {
 
     }
 
+    public void addBatchDeal(List<Deal> deals) {
+        SQLiteDatabase database = this.getWritableDatabase();
+        database.beginTransaction();
+        try {
+            for (Deal d : deals) {
+                ContentValues contentValues = new ContentValues();
+                contentValues.put(COLUMN_DEAL_VALUE, d.getValue());
+                contentValues.put(COLUMN_DEAL_ID_WALLET, d.getWallet().getId());
+                contentValues.put(COLUMN_DEAL_ID_GROUP, d.getGroup().getId());
+                contentValues.put(COLUMN_DEAL_CREATED_DATE, d.getCreatedDate().toString());
+                contentValues.put(COLUMN_DEAL_DESC, d.getDesc());
+                contentValues.put(COLUMN_DEAL_USER_ID, d.getUserId());
+
+                database.insert(TABLE_DEAL, null, contentValues);
+            }
+            database.setTransactionSuccessful();
+        } catch (Exception e) {
+            Log.e("Error in transaction", e.toString());
+        } finally {
+            database.endTransaction();
+        }
+    }
+
     public int getDebtQuantity() {
 
         Log.i(TAG, "WalletRepo.getDebtQuantity ... ");
@@ -622,7 +643,6 @@ public class WalletRepo extends SQLiteOpenHelper {
     }
 
 
-
     // user
     public User login(String username, String password) {
         User user = new User();
@@ -654,7 +674,7 @@ public class WalletRepo extends SQLiteOpenHelper {
         try {
             List<Deal> dealFromSQLite = this.getAllDeal();
             List<Deal> dealForMySQL = new ArrayList<Deal>();
-            for(Deal d : dealFromSQLite){
+            for (Deal d : dealFromSQLite) {
                 Deal deal = new Deal();
                 deal.setId(d.getId());
                 deal.setDesc(d.getDesc());

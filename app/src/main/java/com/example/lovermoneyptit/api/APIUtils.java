@@ -4,11 +4,11 @@ public class APIUtils {
 
     private APIUtils() {}
 
-    public static final String BASE_URL = "http://192.168.1.6:8080/";
+    public static final String BASE_URL = "http://192.168.56.1:8080/";
 
-    public static APIService getAPIService() {
+    public static MoneyService getAPIService() {
 
-        return RetrofitClient.getClient(BASE_URL).create(APIService.class);
+        return RetrofitClient.getClient(BASE_URL).create(MoneyService.class);
     }
 
 }
