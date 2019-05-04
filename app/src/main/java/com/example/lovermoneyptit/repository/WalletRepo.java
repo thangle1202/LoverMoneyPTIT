@@ -633,11 +633,13 @@ public class WalletRepo extends SQLiteOpenHelper {
         return deal;
     }
 
-    // thong ke
+    // thong ke theo nhom giao dich
     public List<DealStatis> getDealByGroup(int groupType) {
         SQLiteDatabase database = this.getReadableDatabase();
         List<DealStatis> listDealStatis = new ArrayList<DealStatis>();
-        String sql = "SELECT deal.value, group_deal.group_name FROM 'deal' inner join 'group_deal' on deal.id_group = group_deal.id where group_deal.group_type = " + groupType;
+        String sql = "SELECT SUM(value) as total, group_deal.group_name FROM 'deal' inner join 'group_deal' " +
+                " on deal.id_group=group_deal.id where group_deal.group_type=" + groupType + " GROUP BY id_group";
+        //String sql = "SELECT deal.value, group_deal.group_name FROM 'deal' inner join 'group_deal' on deal.id_group = group_deal.id where group_deal.group_type = " + groupType;
         Cursor cursor = database.rawQuery(sql, null);
         while (cursor.moveToNext()) {
             DealStatis dealStatis = new DealStatis();
@@ -649,6 +651,20 @@ public class WalletRepo extends SQLiteOpenHelper {
         return listDealStatis;
     }
 
+    public List<Deal> statisDealByCreatedDate(){
+        SQLiteDatabase database = this.getReadableDatabase();
+        List<Deal> deals = new ArrayList<Deal>();
+        String sql = "SELECT SUM(value) as total, created_date FROM deal GROUP BY " + COLUMN_DEAL_CREATED_DATE;
+        Cursor cursor = database.rawQuery(sql, null);
+        while(cursor.moveToNext()){
+            Deal deal = new Deal();
+            deal.setValue(cursor.getLong(0));
+            deal.setCreatedDate(cursor.getString(1));
+
+            deals.add(deal);
+        }
+        return deals;
+    }
 
     // user
     public User login(String username, String password) {
