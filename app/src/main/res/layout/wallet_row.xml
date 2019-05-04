@@ -12,30 +12,35 @@
         android:orientation="horizontal">
 
         <ImageView
+            android:padding="10dp"
             android:id="@+id/walletImage"
-            android:layout_width="@dimen/height_icon_fragment_add_deal"
+            android:layout_width="100dp"
             android:layout_height="@dimen/height_icon_fragment_add_deal"
             android:src="@mipmap/icon_wallet"
-            android:layout_marginRight="30dp"/>
+            />
 
         <LinearLayout
-            android:layout_width="500dp"
+
+            android:layout_width="match_parent"
             android:layout_height="@dimen/height_icon_fragment_add_deal"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:gravity="center"
+            >
 
             <TextView
                 android:id="@+id/txtWalletName"
-                android:layout_width="500dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="tien mat"
-                android:textSize="24sp" />
+                android:text="Tiền mặt"
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/txtAmount"
-                android:layout_width="500dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="1,234,567"
-                android:textSize="24sp" />
+                android:textStyle="bold"
+                android:textSize="21sp" />
         </LinearLayout>
 
 

@@ -27,7 +27,7 @@
 
     <LinearLayout
         android:padding="10dp"
-        android:layout_weight="10"
+        android:layout_weight="3"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -40,7 +40,7 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="100dp"
+                android:layout_width="75dp"
                 android:layout_height="match_parent"
                 android:src="@mipmap/ic_money_debt_foreground"/>
                 />
@@ -62,7 +62,7 @@
 
             <ImageView
                 android:src="@mipmap/ic_ghichu_debt_foreground"
-                android:layout_width="100dp"
+                android:layout_width="75dp"
                 android:layout_height="match_parent" />
             <EditText
                 android:id="@+id/edt_ghichu_tra"
@@ -79,7 +79,7 @@
             android:layout_height="60dp">
             <ImageView
                 android:src="@mipmap/ic_nguoi_debt_foreground"
-                android:layout_width="100dp"
+                android:layout_width="75dp"
                 android:layout_height="match_parent" />
 
             <EditText
@@ -88,6 +88,7 @@
                 android:layout_height="wrap_content"
                 android:hint="Người vay ?"/>
             <TextView
+                android:id="@+id/tv_choose_contact_pay"
                 android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -160,16 +161,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_weight="2"
+        android:gravity="center_horizontal"
+        android:layout_weight="3"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/btn_tra"
-            android:layout_width="wrap_content"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="300dp"
             android:gravity="center"
             android:textColor="@color/colorWhite"
             android:textAllCaps="false"

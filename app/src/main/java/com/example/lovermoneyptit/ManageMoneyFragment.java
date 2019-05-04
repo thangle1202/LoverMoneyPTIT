@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -31,7 +32,7 @@ public class ManageMoneyFragment extends Fragment {
     private RecyclerView recyclerView;
     private static List<Deal> deals;
     private DealAdapter dealAdapter;
-    private ImageButton btnAddDeal;
+    private Button btnAddDeal;
 
     private WalletRepo walletRepo;
     private MoneyService moneyService;

@@ -33,7 +33,8 @@ public class DebtFragment extends Fragment {
         setupPager();
         repo=new WalletRepo(getContext());
         // Required empty public constructor
-        repo.initDebt();
+        //repo.initDebt();
+
         return view;
     }
 

@@ -37,7 +37,7 @@ import java.util.List;
 public class WalletFragment extends Fragment {
 
 
-    private ImageButton btnAdd;
+    private Button btnAdd;
     private RecyclerView lvWallet;
     private List<Wallet> wallets = new ArrayList<>();
     private WalletAdapter walletAdapter;

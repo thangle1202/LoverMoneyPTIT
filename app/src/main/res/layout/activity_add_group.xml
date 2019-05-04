@@ -26,28 +26,26 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="100dp"
                 android:layout_height="match_parent"
+                android:gravity="center_vertical"
                 android:orientation="vertical">
 
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_icon_fragment_add_deal"
-                    android:src="@mipmap/icons_selecdt_gr" />
+                    android:src="@mipmap/ic_group" />
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/height_icon_fragment_add_deal" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="500dp"
-                android:layout_height="match_parent"
+                android:layout_height="247dp"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -59,7 +57,6 @@
                         android:id="@+id/txtGroupName"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/height_icon_fragment_add_deal"
-                        android:layout_marginBottom="0dp"
                         android:gravity="center_vertical"
                         android:hint="@string/hint_group_name"
                         android:textSize="24sp" />
@@ -67,13 +64,14 @@
 
                 <RadioGroup
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/height_icon_fragment_add_deal"
-                    android:orientation="horizontal">
+                    android:layout_height="@dimen/height_icon_fragment_add_deal_2"
+                    android:orientation="vertical">
 
                     <RadioButton
                         android:id="@+id/btnBorrowLoan"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
                         android:text="@string/txtBorrow"
                         android:textSize="24sp" />
 
@@ -81,6 +79,7 @@
                         android:id="@+id/btnCashIn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
                         android:text="@string/txtCashIn"
                         android:textSize="24sp" />
 

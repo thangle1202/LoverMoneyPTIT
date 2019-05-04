@@ -3,28 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
     <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_home"
-            android:icon="@drawable/ic_home"
-            android:title="Trang chính">
+        <!--<item-->
+            <!--android:id="@+id/nav_home"-->
+            <!--android:icon="@drawable/ic_home"-->
+            <!--android:title="Trang chính">-->
 
-        </item>
+        <!--</item>-->
         <item
             android:id="@+id/nav_manage_money"
             android:icon="@drawable/ic_manage_money"
             android:title="Quản lý giao dịch">
-
-        </item>
-        <item
-            android:id="@+id/nav_chart"
-            android:icon="@drawable/ic_chart"
-            android:title="Xu hướng">
-
-        </item>
-        <item
-            android:id="@+id/nav_wallet"
-            android:icon="@drawable/ic_wallet"
-            android:title="Quản lý ví">
 
         </item>
         <item
@@ -34,6 +22,20 @@
 
         </item>
 
+        <item
+            android:id="@+id/nav_wallet"
+            android:icon="@drawable/ic_wallet"
+            android:title="Quản lý ví">
+
+        </item>
+
+
+        <item
+            android:id="@+id/nav_chart"
+            android:icon="@drawable/ic_chart"
+            android:title="Xu hướng">
+
+        </item>
         <item
             android:id="@+id/nav_syncData"
             android:icon="@drawable/ic_sync"

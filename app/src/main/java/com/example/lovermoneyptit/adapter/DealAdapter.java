@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.example.lovermoneyptit.R;
 import com.example.lovermoneyptit.models.Deal;
+import com.example.lovermoneyptit.repository.WalletRepo;
 import com.example.lovermoneyptit.utils.FormatUtils;
 
 import java.util.List;
@@ -22,7 +23,9 @@ public class DealAdapter extends RecyclerView.Adapter {
 
     private List<Deal> deals;
     private Context mContext;
+    private WalletRepo walletRepo;
     private View.OnClickListener mOnClickListener;
+
 
     public DealAdapter(List<Deal> deals, Context mContext) {
         this.deals = deals;
@@ -32,6 +35,7 @@ public class DealAdapter extends RecyclerView.Adapter {
     @Override
     public DealAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.deal_row, parent, false);
+        walletRepo=new WalletRepo(mContext);
         return new MyViewHolder(view);
     }
 
@@ -40,6 +44,7 @@ public class DealAdapter extends RecyclerView.Adapter {
         DealAdapter.MyViewHolder myViewHolder = (DealAdapter.MyViewHolder) holder;
         myViewHolder.txtCreatedDate.setText(deals.get(position).getCreatedDate().toString());
         myViewHolder.txtValue.setText(FormatUtils.formatVnCurrence(String.valueOf(deals.get(position).getValue())));
+        myViewHolder.txtTypedeal.setText(walletRepo.getGroupById(deals.get(position).getIdGroup()).getGroupName());
     }
 
     @Override
@@ -64,11 +69,13 @@ public class DealAdapter extends RecyclerView.Adapter {
 
         TextView txtCreatedDate;
         TextView txtValue;
+        TextView txtTypedeal;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             txtCreatedDate = itemView.findViewById(R.id.txtCreatedDate);
             txtValue = itemView.findViewById(R.id.txtValue);
+            txtTypedeal=itemView.findViewById(R.id.item_person_name_deal);
             itemView.setTag(this);
             itemView.setOnClickListener(mOnClickListener);
         }

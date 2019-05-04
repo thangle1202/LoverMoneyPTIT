@@ -598,10 +598,17 @@ public class WalletRepo extends SQLiteOpenHelper {
         return deals;
     }
 
-    public void deleteDebt(Debt debt) {
+    public void deleteDebtById(int id){
         SQLiteDatabase database = this.getWritableDatabase();
         database.delete(TABLE_DEBT, COLUMN_DEBT_ID + "= ? ",
+                new String[]{String.valueOf(id)});
+    }
+
+    public void deleteDebt(Debt debt) {
+        SQLiteDatabase database = this.getWritableDatabase();
+        database.delete(TABLE_DEBT, COLUMN_DEBT_ID + " = ? ",
                 new String[]{String.valueOf(debt.getId())});
+
     }
 
     public void deleteDeal(Deal deal) {
