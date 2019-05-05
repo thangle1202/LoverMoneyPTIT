@@ -19,7 +19,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText txtUsername, txtPassword;
     private CheckBox btnSaveAccount;
     private Button btnLogin;
-
+    private Button btnReg;
     private WalletRepo walletRepo;
     private SharedPreferences preferences;
 
@@ -32,7 +32,7 @@ public class LoginActivity extends AppCompatActivity {
         txtPassword = findViewById(R.id.txtPassword);
         btnSaveAccount = findViewById(R.id.btnSaveAccount);
         btnLogin = findViewById(R.id.btnLogin);
-
+        btnReg=findViewById(R.id.btnReg);
         walletRepo = new WalletRepo(getApplicationContext());
         walletRepo.addUser();
         preferences = getSharedPreferences("user", MODE_PRIVATE);
@@ -60,6 +60,13 @@ public class LoginActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(getApplicationContext(), "tài khoản hoặc mật khẩu không chính xác!", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+        btnReg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i=new Intent(LoginActivity.this,Register.class);
+                startActivity(i);
             }
         });
 

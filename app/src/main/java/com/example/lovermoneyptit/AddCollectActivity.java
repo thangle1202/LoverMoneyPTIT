@@ -132,8 +132,10 @@ public class AddCollectActivity extends AppCompatActivity {
                     wallet.setBalance(wallet.getBalance()+Double.valueOf(edtAmount.getText().toString()));
                     int res=walletRepo.updateBalanceWallet(wallet);
                     Toast.makeText(AddCollectActivity.this, "Saved " + wallet.getBalance(), Toast.LENGTH_SHORT).show();
-                    Intent intent=new Intent(AddCollectActivity.this,MainActivity.class);
-                    startActivity(intent);
+
+                    onBackPressed();
+//                    Intent intent=new Intent(AddCollectActivity.this,MainActivity.class);
+//                    startActivity(intent);
 
                 }
 
@@ -231,22 +233,6 @@ public class AddCollectActivity extends AppCompatActivity {
         Log.i("contactsss",stringBuilder.toString());
     }
 
-    public void getListContact(){
-        Uri uri= ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
-        String[] projection={ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME_PRIMARY};
-        String selection=null;
-        String[] selectionArgs=null;
-        String sortOder=null;
-
-        ContentResolver resolver=getContentResolver();
-        Cursor cursor=resolver.query(uri,projection,selection,selectionArgs,sortOder);
-
-        while (cursor.moveToNext()){
-            String name=cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
-            Log.i("laydanhba",name);
-        }
-
-    }
 
     Wallet wallet;
     TextView txtSelectWallet;

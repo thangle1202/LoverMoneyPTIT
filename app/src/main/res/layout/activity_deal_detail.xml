@@ -36,27 +36,35 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_icon_fragment_add_deal"
-                    android:src="@mipmap/icons8_note" />
+                    android:src="@mipmap/ic_money_debt_foreground"
+                    />
+
+                <ImageView
+                    android:padding="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_icon_fragment_add_deal"
+                    android:src="@mipmap/ic_group"
+                    />
 
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_icon_fragment_add_deal"
-                    android:src="@mipmap/icons_selecdt_gr" />
+                    android:src="@mipmap/ic_ghichu_debt_foreground"
+                    />
 
                 <ImageView
+                    android:padding="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_icon_fragment_add_deal"
-                    android:src="@mipmap/icons8_note" />
+                    android:src="@mipmap/ic_lich_debt_foreground"
+                    />
 
                 <ImageView
+                    android:padding="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_icon_fragment_add_deal"
-                    android:src="@mipmap/icons8_date_picker" />
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/height_icon_fragment_add_deal"
-                    android:src="@mipmap/icons8_wallet" />
+                    android:src="@mipmap/icon_wallet"
+                    />
             </LinearLayout>
 
             <LinearLayout
@@ -65,6 +73,8 @@
                 android:orientation="vertical">
 
                 <EditText
+                    android:hint="Số tiền"
+                    android:padding="10dp"
                     android:id="@+id/txtDealValue"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_icon_fragment_add_deal"
@@ -77,20 +87,25 @@
                     android:layout_height="wrap_content">
 
                     <TextView
+                        android:textStyle="bold"
+                        android:hint="@string/hint_select_group"
                         android:id="@+id/txtDealGroup"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/height_icon_fragment_add_deal"
                         android:layout_marginBottom="0dp"
                         android:gravity="center_vertical"
-                        android:textSize="24sp" />
+                        android:padding="10dp"
+                        android:textSize="22sp" />
                 </LinearLayout>
 
                 <EditText
+                    android:hint="@string/note"
+                    android:padding="10dp"
                     android:id="@+id/txtDesc"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_icon_fragment_add_deal"
                     android:layout_marginBottom="0dp"
-                    android:textSize="24sp" />
+                    />
 
                 <LinearLayout
                     android:id="@+id/datePickerLayout"
@@ -98,12 +113,15 @@
                     android:layout_height="wrap_content">
 
                     <TextView
+                        android:hint="@string/hint_select_date"
+                        android:padding="10dp"
                         android:id="@+id/txtDealCreatedDate"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/height_icon_fragment_add_deal"
                         android:layout_marginBottom="0dp"
                         android:gravity="center_vertical"
-                        android:textSize="24sp" />
+                        android:textStyle="bold"
+                        android:textSize="22sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -112,11 +130,14 @@
                     android:layout_height="wrap_content">
 
                     <TextView
+                        android:hint="@string/hint_select_wallet"
+                        android:padding="10dp"
                         android:id="@+id/txtSelectWallet"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/height_icon_fragment_add_deal"
                         android:layout_marginBottom="0dp"
                         android:gravity="center_vertical"
+                        android:textStyle="bold"
                         android:textSize="24sp" />
                 </LinearLayout>
             </LinearLayout>

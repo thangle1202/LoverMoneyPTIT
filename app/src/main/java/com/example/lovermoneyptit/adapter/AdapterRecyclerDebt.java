@@ -51,18 +51,31 @@ public class AdapterRecyclerDebt extends RecyclerView.Adapter{
         );
         walletRepo=new WalletRepo(context);
         final ViewHolder holder=new ViewHolder(view);
+
         holder.linearLayout_item.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                int x=holder.getAdapterPosition();
-                listDebt.remove(x);
-                Toast.makeText(context, "Just Click: "+x, Toast.LENGTH_SHORT).show();
-                notifyItemRemoved(x);
-                notifyItemRangeChanged(x, listDebt.size());
+
+                int x=listDebt.get(holder.getAdapterPosition()).getId();
                 walletRepo.deleteDebtById(x);
+                listDebt.remove(holder.getAdapterPosition());
+                notifyDataSetChanged();
+
+                Toast.makeText(context, "Click!kkkk "+x, Toast.LENGTH_SHORT).show();
                 return true;
             }
         });
+//        holder.linearLayout_item.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                int x=listDebt.get(holder.getAdapterPosition()).getId();
+//                walletRepo.deleteDebtById(x);
+//                listDebt.remove(holder.getAdapterPosition());
+//                notifyDataSetChanged();
+//
+//                Toast.makeText(context, "Click! "+x, Toast.LENGTH_SHORT).show();
+//            }
+//        });
         return holder;
     }
 

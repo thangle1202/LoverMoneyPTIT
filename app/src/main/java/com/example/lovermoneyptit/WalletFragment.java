@@ -47,7 +47,7 @@ public class WalletFragment extends Fragment {
     private View.OnClickListener mOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) v.getTag();
+            final RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) v.getTag();
             int pos = viewHolder.getAdapterPosition();
             thisItem = wallets.get(pos);
 
@@ -72,16 +72,18 @@ public class WalletFragment extends Fragment {
                     String walletDesc = txtWalletDesc.getText().toString().trim();
 
                     if("".equals(walletName) || "".equals(walletDesc) || walletBalance == null){
-                        Toast.makeText(getActivity(), "không được bỏ trống", Toast.LENGTH_SHORT).show();
-                    }
+                        Toast.makeText(getActivity(), "Không được bỏ trống", Toast.LENGTH_SHORT).show();
+                    }else{
 
+                    walletToEdit.setId(viewHolder.getAdapterPosition()+1);
                     walletToEdit.setWalletName(walletName);
                     walletToEdit.setBalance(walletBalance);
                     walletToEdit.setDesc(walletDesc);
 
-                    int res = walletRepo.updateWallet(walletToEdit);
-                    Log.i("result update: ", String.valueOf(res));
+                    walletRepo.updateWallet(walletToEdit);
+
                     dialog.dismiss();
+                    }
                 }
             });
 

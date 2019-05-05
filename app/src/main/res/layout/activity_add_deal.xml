@@ -198,7 +198,8 @@
                     android:padding="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_icon_fragment_add_deal"
-                    android:src="@mipmap/icon_wallet"                    />
+                    android:src="@mipmap/icon_wallet"
+                    />
             </LinearLayout>
 
             <LinearLayout
@@ -208,7 +209,7 @@
 
                 <EditText
                     android:padding="10dp"
-                    android:hint="So tien"
+                    android:hint="Số tiền"
                     android:id="@+id/txtDealValue"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_icon_fragment_add_deal"

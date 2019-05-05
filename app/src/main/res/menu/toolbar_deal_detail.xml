@@ -3,12 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.lovermoneyptit.DealDetailActivity" >
 
-    <item
-        android:id="@+id/btnShare"
-        android:orderInCategory="100"
-        android:icon="@drawable/ic_share_black"
-        android:title="@string/txtSearch"
-        app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/btnUpdate"

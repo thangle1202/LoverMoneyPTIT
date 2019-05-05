@@ -274,6 +274,10 @@ public class WalletRepo extends SQLiteOpenHelper {
 
     }
 
+    public void updateWalletById(int id){
+
+    }
+
     public int updateWallet(Wallet wallet) {
 
         Log.i(TAG, "WalletRepo.updateWallet ... " + wallet.getWalletName());
@@ -289,7 +293,7 @@ public class WalletRepo extends SQLiteOpenHelper {
         int result = db.update(TABLE_WALLET, values, COLUMN_ID + " = ?",
                 new String[]{String.valueOf(wallet.getId())});
 
-        //db.close();
+        db.close();
         return result;
     }
 
@@ -579,8 +583,10 @@ public class WalletRepo extends SQLiteOpenHelper {
 
     public void deleteDebtById(int id){
         SQLiteDatabase database = this.getWritableDatabase();
-        database.delete(TABLE_DEBT, COLUMN_DEBT_ID + "= ? ",
+        int x=database.delete(TABLE_DEBT, COLUMN_DEBT_ID + " = ? ",
                 new String[]{String.valueOf(id)});
+        Log.i("xoa","->"+x);
+        database.close();
     }
 
     public void deleteDebt(Debt debt) {

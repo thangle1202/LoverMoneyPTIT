@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="300dp"
     android:layout_height="match_parent"
-    android:background="@color/colorWhite"
+    android:background="@drawable/dialog"
     android:orientation="vertical"
-    android:padding="5dp">
+    android:gravity="center_vertical"
+    android:padding="3dp">
 
     <TextView
         android:layout_width="match_parent"
@@ -12,8 +14,10 @@
         android:gravity="center"
         android:paddingBottom="10dp"
         android:text="@string/txtTitleEditWallet"
-        android:textSize="32sp"
-        android:textStyle="bold" />
+        android:textColor="#6916BB"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,38 +25,53 @@
         android:orientation="vertical">
 
         <EditText
+            android:textColor="@color/colorWhite"
+            android:layout_marginTop="10dp"
             android:id="@+id/txtWalletName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="tài khoản"
-            android:textSize="24sp" />
+            android:hint="Tên ví"
+            android:paddingLeft="10dp"
+            android:textSize="22sp" />
 
         <EditText
+            android:textColor="@color/colorWhite"
+            android:paddingLeft="10dp"
             android:id="@+id/txtWalletBalance"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:hint="ngân sách"
+            android:hint="Ngân sách"
             android:inputType="number"
-            android:textSize="24sp"
+            android:textSize="22sp"
             android:enabled="false"/>
 
         <EditText
+            android:textColor="@color/colorWhite"
+            android:paddingLeft="10dp"
             android:id="@+id/txtWalletDesc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:hint="mô tả"
-            android:textSize="24sp" />
+            android:hint="Mô tả"
+            android:textSize="22sp" />
     </LinearLayout>
 
     <Button
+
+        android:textAllCaps="false"
+        android:textSize="16sp"
+        android:layout_marginTop="30dp"
         android:id="@+id/btnConfirm"
-        android:layout_width="match_parent"
+        android:layout_width="200dp"
+        android:layout_gravity="center"
+        android:gravity="center"
         android:layout_height="wrap_content"
         android:text="@string/txtEdit"
-        android:textSize="24sp"
-        android:background="@color/colorTabSelected"/>
+        android:textColor="@color/colorWhite"
+        android:background="@drawable/add_debt"
+        android:layout_marginBottom="30dp"
+        />
 
 
 </LinearLayout>
