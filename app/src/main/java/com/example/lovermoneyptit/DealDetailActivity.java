@@ -12,9 +12,15 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.lovermoneyptit.api.APIUtils;
+import com.example.lovermoneyptit.api.MoneyService;
 import com.example.lovermoneyptit.models.Deal;
 import com.example.lovermoneyptit.models.Group;
 import com.example.lovermoneyptit.repository.WalletRepo;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class DealDetailActivity extends AppCompatActivity {
 
@@ -51,10 +57,16 @@ public class DealDetailActivity extends AppCompatActivity {
 
         // bind data
         txtDealValue.setText(String.valueOf(deal.getValue()));
-        txtDealGroup.setText(walletRepo.getGroupById(deal.getIdGroup()).getGroupName());
+        if(deal.getIdGroup() != null && deal.getIdWallet() != null){ // if sqlite have data
+            txtDealGroup.setText(walletRepo.getGroupById(deal.getIdGroup()).getGroupName());
+            txtWallet.setText(walletRepo.findWalletById(deal.getIdWallet()).getWalletName());
+        } else{ // get data from server
+            txtDealGroup.setText(deal.getGroup().getGroupName());
+            txtWallet.setText(deal.getWallet().getWalletName());
+        }
         txtDealDesc.setText(deal.getDesc());
         txtCreatedDate.setText(deal.getCreatedDate());
-        txtWallet.setText(walletRepo.findWalletById(deal.getIdWallet()).getWalletName());
+
     }
 
     @Override
@@ -92,4 +104,5 @@ public class DealDetailActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.toolbar_deal_detail, menu);
         return super.onCreateOptionsMenu(menu);
     }
+
 }

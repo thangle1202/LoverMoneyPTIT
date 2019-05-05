@@ -88,12 +88,9 @@ public class ChartFragment extends Fragment {
 
             }
         });
-        try {
-            dealList = walletRepo.getAllDeal();
-            loadBarChart(new ArrayList(), dealList);
-        } catch (ParseException ex) {
-            ex.printStackTrace();
-        }
+        dealList = walletRepo.statisDealByCreatedDate();
+        loadBarChart(new ArrayList(), dealList);
+
 
         return view;
     }
@@ -110,14 +107,14 @@ public class ChartFragment extends Fragment {
         pieChart.animateXY(5000, 5000);
     }
 
-    public void loadBarChart(ArrayList NoOfEmp, List<Deal> deals){
+    public void loadBarChart(ArrayList NoOfEmp, List<Deal> deals) {
         int i = 0;
-        for(Deal d : deals){
+        for (Deal d : deals) {
             NoOfEmp.add(new BarEntry(i, d.getValue()));
             i++;
         }
         List<String> labels = new ArrayList<String>();
-        for(Deal d : deals){
+        for (Deal d : deals) {
             labels.add(d.getCreatedDate());
         }
         BarDataSet bardataset = new BarDataSet(NoOfEmp, "Giao dịch");

@@ -60,6 +60,11 @@ public class DealAdapter extends RecyclerView.Adapter {
         this.mOnClickListener = mOnClickListener;
     }
 
+    public void updateDeals(List<Deal> dealFromServer){
+        this.deals = dealFromServer;
+        notifyDataSetChanged();
+    }
+
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView txtCreatedDate;
