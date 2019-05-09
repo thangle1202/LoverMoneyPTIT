@@ -272,7 +272,7 @@ public class WalletRepo extends SQLiteOpenHelper {
 
     }
 
-    public void updateWalletById(int id){
+    public void updateWalletById(int id) {
 
     }
 
@@ -285,7 +285,7 @@ public class WalletRepo extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
 
         values.put(COLUMN_NAME, wallet.getWalletName());
-        values.put(COLUMN_BALANCE, wallet.getBalance());
+//        values.put(COLUMN_BALANCE, wallet.getBalance());
         values.put(COLUMN_DESC, wallet.getDesc());
 
         int result = db.update(TABLE_WALLET, values, COLUMN_ID + " = ?",
@@ -462,6 +462,46 @@ public class WalletRepo extends SQLiteOpenHelper {
 
     }
 
+    public void addBatchWallet(List<Wallet> wallets) {
+        SQLiteDatabase database = this.getWritableDatabase();
+        database.beginTransaction();
+        try {
+            for (Wallet d : wallets) {
+                ContentValues contentValues = new ContentValues();
+                contentValues.put(COLUMN_NAME, d.getWalletName());
+                contentValues.put(COLUMN_BALANCE, d.getBalance());
+                contentValues.put(COLUMN_DESC, d.getDesc());
+
+
+                database.insert(TABLE_WALLET, null, contentValues);
+            }
+            database.setTransactionSuccessful();
+        } catch (Exception e) {
+            Log.e("Error in transaction", e.toString());
+        } finally {
+            database.endTransaction();
+        }
+    }
+
+    public void addBatchGroup(List<Group> groups) {
+        SQLiteDatabase database = this.getWritableDatabase();
+        database.beginTransaction();
+        try {
+            for (Group d : groups) {
+                ContentValues contentValues = new ContentValues();
+                contentValues.put(COLUMN_GROUP_NAME, d.getGroupName());
+                contentValues.put(COLUMN_GROUP_TYPE, d.getGroupType());
+
+                database.insert(TABLE_GROUP, null, contentValues);
+            }
+            database.setTransactionSuccessful();
+        } catch (Exception e) {
+            Log.e("Error in transaction", e.toString());
+        } finally {
+            database.endTransaction();
+        }
+    }
+
     public void addBatchDeal(List<Deal> deals) {
         SQLiteDatabase database = this.getWritableDatabase();
         database.beginTransaction();
@@ -602,11 +642,11 @@ public class WalletRepo extends SQLiteOpenHelper {
         return deals;
     }
 
-    public void deleteDebtById(int id){
+    public void deleteDebtById(int id) {
         SQLiteDatabase database = this.getWritableDatabase();
-        int x=database.delete(TABLE_DEBT, COLUMN_DEBT_ID + " = ? ",
+        int x = database.delete(TABLE_DEBT, COLUMN_DEBT_ID + " = ? ",
                 new String[]{String.valueOf(id)});
-        Log.i("xoa","->"+x);
+        Log.i("xoa", "->" + x);
         database.close();
     }
 
@@ -657,12 +697,12 @@ public class WalletRepo extends SQLiteOpenHelper {
         return listDealStatis;
     }
 
-    public List<Deal> statisDealByCreatedDate(){
+    public List<Deal> statisDealByCreatedDate() {
         SQLiteDatabase database = this.getReadableDatabase();
         List<Deal> deals = new ArrayList<Deal>();
         String sql = "SELECT SUM(value) as total, created_date FROM deal GROUP BY " + COLUMN_DEAL_CREATED_DATE;
         Cursor cursor = database.rawQuery(sql, null);
-        while(cursor.moveToNext()){
+        while (cursor.moveToNext()) {
             Deal deal = new Deal();
             deal.setValue(cursor.getLong(0));
             deal.setCreatedDate(cursor.getString(1));
@@ -721,6 +761,18 @@ public class WalletRepo extends SQLiteOpenHelper {
             ex.printStackTrace();
         }
         return null;
+    }
+
+    public void deleteAllGroup(){
+        SQLiteDatabase database = this.getWritableDatabase();
+        database.execSQL("DELETE FROM " + TABLE_GROUP);
+        database.close();
+    }
+
+    public void deleteAllWallet(){
+        SQLiteDatabase database = this.getWritableDatabase();
+        database.execSQL("DELETE FROM " + TABLE_WALLET);
+        database.close();
     }
 
 }

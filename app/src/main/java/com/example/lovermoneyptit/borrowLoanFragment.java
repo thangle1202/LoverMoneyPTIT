@@ -16,11 +16,17 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.lovermoneyptit.adapter.SelectGroupLoanAdapter;
+import com.example.lovermoneyptit.api.APIUtils;
+import com.example.lovermoneyptit.api.MoneyService;
 import com.example.lovermoneyptit.models.Group;
 import com.example.lovermoneyptit.repository.WalletRepo;
 import com.example.lovermoneyptit.utils.GroupType;
 
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -41,11 +47,12 @@ public class borrowLoanFragment extends Fragment {
     private String mParam2;
 
     private List<Group> groups;
-    private List<Group> allGroups;
     private SelectGroupLoanAdapter selectGroupLoanAdapter;
     private RecyclerView rcvGroupLoan;
     private ImageButton btnAddgroup;
     private WalletRepo walletRepo;
+
+    private MoneyService moneyService;
 
     private static Group thisItem = new Group();
 
@@ -107,11 +114,15 @@ public class borrowLoanFragment extends Fragment {
             }
         });
 
+        // service
+        moneyService = APIUtils.getAPIService();
+
         // get data by LOAN group
         groups = walletRepo.getGroupByType(GroupType.LOAN);
-        allGroups = walletRepo.getAllGroup();
 
-        Toast.makeText(getActivity(), "size:" + groups.size(), Toast.LENGTH_SHORT).show();
+        if(groups.size() == 0){
+            getGroupFromServer();
+        }
 
         // Inflate the layout for this fragment
         if (groups.size() >= 1) {
@@ -121,6 +132,8 @@ public class borrowLoanFragment extends Fragment {
             selectGroupLoanAdapter.setmOnClickListener(mOnItemClickListener);
             rcvGroupLoan.setAdapter(selectGroupLoanAdapter);
         }
+
+
         return view;
     }
 
@@ -161,6 +174,24 @@ public class borrowLoanFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    public void getGroupFromServer(){
+        moneyService.getAllGroupFromServer().enqueue(new Callback<List<Group>>() {
+            @Override
+            public void onResponse(Call<List<Group>> call, Response<List<Group>> response) {
+                if(response.isSuccessful()){
+                    groups = response.body();
+                    walletRepo.addBatchGroup(groups);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Group>> call, Throwable t) {
+                Toast.makeText(getActivity(), "đồng bộ failed!", Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
 
 

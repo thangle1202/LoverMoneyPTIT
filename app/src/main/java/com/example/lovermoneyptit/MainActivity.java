@@ -10,6 +10,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -90,10 +91,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()) {
-//            case R.id.nav_home:
-//                toolbar.setTitle("MoneyLover");
-//                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new HomeFragment()).commit();
-//                break;
             case R.id.nav_manage_money:
                 toolbar.setTitle("Giao Dịch");
                 getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new ManageMoneyFragment()).commit();
@@ -112,7 +109,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_syncData:
                 try {
-                    List<Deal> deals = walletRepo.getAllDealForSyncData();
+                    List<Wallet> wallets = walletRepo.getAllWallets();
+                    for(Wallet wallet : wallets){
+                        Log.d("id wallet", "" + wallet.getId());
+                    }
+                    if(wallets.size() > 0){
+                        syncWallet(wallets);
+                    }
+                    List<Group> groups = walletRepo.getAllGroup();
+                    if(groups.size() > 0){
+                        syncGroup(groups);
+                    }
+//                    List<Deal> deals = walletRepo.getAllDealForSyncData();
+                    List<Deal> deals = walletRepo.getAllDeal();
                     if (deals.size() > 0) {
                         syncData(deals);
                     } else {
@@ -151,9 +160,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Toast.makeText(getApplicationContext(), "đồng bộ thất bại!", Toast.LENGTH_SHORT).show();
             }
         });
+    }
 
+    public void syncGroup(List<Group> groups) {
         // sync group
-        mMoneyService.syncGroup((List<Group>) dealList).enqueue(new Callback<Group>() {
+        mMoneyService.syncGroup(groups).enqueue(new Callback<Group>() {
             @Override
             public void onResponse(Call<Group> call, Response<Group> response) {
                 if (response.isSuccessful()) {
@@ -166,9 +177,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Toast.makeText(getApplicationContext(), "đồng bộ thất bại!", Toast.LENGTH_SHORT).show();
             }
         });
+    }
 
+    public void syncWallet(List<Wallet> wallets) {
         // sync wallet
-        mMoneyService.syncWallet((List<Wallet>) dealList).enqueue(new Callback<Wallet>() {
+        mMoneyService.syncWallet(wallets).enqueue(new Callback<Wallet>() {
             @Override
             public void onResponse(Call<Wallet> call, Response<Wallet> response) {
                 if (response.isSuccessful()) {
@@ -182,6 +195,5 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
     }
-
 
 }

@@ -34,7 +34,7 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin = findViewById(R.id.btnLogin);
         btnReg=findViewById(R.id.btnReg);
         walletRepo = new WalletRepo(getApplicationContext());
-        walletRepo.addUser();
+//        walletRepo.addUser();
         preferences = getSharedPreferences("user", MODE_PRIVATE);
 
 

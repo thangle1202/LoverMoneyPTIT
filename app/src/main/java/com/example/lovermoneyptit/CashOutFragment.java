@@ -11,13 +11,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.example.lovermoneyptit.adapter.SelectGroupCashOutAdapter;
+import com.example.lovermoneyptit.api.APIUtils;
+import com.example.lovermoneyptit.api.MoneyService;
 import com.example.lovermoneyptit.models.Group;
 import com.example.lovermoneyptit.repository.WalletRepo;
 import com.example.lovermoneyptit.utils.GroupType;
 
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -42,6 +49,8 @@ public class CashOutFragment extends Fragment {
     private List<Group> groups;
     private WalletRepo walletRepo;
     private SelectGroupCashOutAdapter selectGroupCashOutAdapter;
+
+    private MoneyService moneyService;
 
     private static Group thisItem = new Group();
 
@@ -111,8 +120,11 @@ public class CashOutFragment extends Fragment {
             }
         });
 
+        moneyService = APIUtils.getAPIService();
+
         walletRepo = new WalletRepo(getActivity());
         groups = walletRepo.getGroupByType(GroupType.CASH_OUT);
+
         if (groups.size() >= 1) {
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this.getContext());
             rcvGroupCashOut.setLayoutManager(layoutManager);
@@ -161,4 +173,23 @@ public class CashOutFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+    public void getGroupFromServer(){
+        moneyService.getAllGroupFromServer().enqueue(new Callback<List<Group>>() {
+            @Override
+            public void onResponse(Call<List<Group>> call, Response<List<Group>> response) {
+                if(response.isSuccessful()){
+                    groups = response.body();
+                    walletRepo.addBatchGroup(groups);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Group>> call, Throwable t) {
+                Toast.makeText(getActivity(), "đồng bộ failed!", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+    }
+
 }

@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.example.lovermoneyptit.R;
 import com.example.lovermoneyptit.models.Deal;
 import com.example.lovermoneyptit.models.Wallet;
+import com.example.lovermoneyptit.utils.FormatUtils;
 
 import java.util.List;
 
@@ -35,7 +36,7 @@ public class SelectWalletAdapter extends RecyclerView.Adapter{
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         SelectWalletAdapter.MyViewHolder myViewHolder = (SelectWalletAdapter.MyViewHolder) holder;
         myViewHolder.txtWalletName.setText(wallets.get(position).getWalletName());
-        myViewHolder.txtAmount.setText(String.valueOf(wallets.get(position).getBalance()));
+        myViewHolder.txtAmount.setText(FormatUtils.formatVnCurrence(String.valueOf(wallets.get(position).getBalance())));
     }
 
     @Override

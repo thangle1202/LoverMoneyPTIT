@@ -45,6 +45,11 @@ public class DealAdapter extends RecyclerView.Adapter {
         myViewHolder.txtCreatedDate.setText(deals.get(position).getCreatedDate().toString());
         myViewHolder.txtValue.setText(FormatUtils.formatVnCurrence(String.valueOf(deals.get(position).getValue())));
         myViewHolder.txtTypedeal.setText(walletRepo.getGroupById(deals.get(position).getIdGroup()).getGroupName());
+//        if(walletRepo.getGroupById(deals.get(position).getIdGroup()).getGroupName() != null){
+//            myViewHolder.txtTypedeal.setText(walletRepo.getGroupById(deals.get(position).getIdGroup()).getGroupName());
+//        } else{
+//            myViewHolder.txtTypedeal.setText(deals.get(position).getGroup().getGroupName());
+//        }
     }
 
     @Override

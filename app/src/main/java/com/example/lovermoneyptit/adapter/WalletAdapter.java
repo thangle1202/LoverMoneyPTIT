@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.lovermoneyptit.R;
+import com.example.lovermoneyptit.models.Group;
 import com.example.lovermoneyptit.models.Wallet;
 import com.example.lovermoneyptit.utils.FormatUtils;
 
@@ -49,6 +50,11 @@ public class WalletAdapter extends RecyclerView.Adapter {
 
     public void setmOnClickListener(View.OnClickListener mOnClickListener) {
         this.mOnClickListener = mOnClickListener;
+    }
+
+    public void updateWallets(List<Wallet> walletFromServer){
+        this.wallets = walletFromServer;
+        notifyDataSetChanged();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {

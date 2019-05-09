@@ -11,7 +11,7 @@ import java.io.Serializable;
 
 public class Wallet implements Serializable {
 
-    @SerializedName("id")
+    @SerializedName("idWalletLocal")
     @Expose
     private int id;
     @SerializedName("walletName")

@@ -48,7 +48,7 @@ public class AddGroupActivity extends AppCompatActivity {
             // add group to db
             walletRepo = new WalletRepo(getApplicationContext());
             Group groupToAdd = new Group();
-            if (txtGroupName.getText().toString() == null) {
+            if ("".equals(txtGroupName.getText().toString())) {
                 Toast.makeText(getApplicationContext(), "không được để trống!", Toast.LENGTH_SHORT).show();
             } else {
                 groupToAdd.setGroupName(txtGroupName.getText().toString());

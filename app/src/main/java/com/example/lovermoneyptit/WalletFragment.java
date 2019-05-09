@@ -23,18 +23,26 @@ import android.widget.Toast;
 
 import com.example.lovermoneyptit.adapter.DealAdapter;
 import com.example.lovermoneyptit.adapter.WalletAdapter;
+import com.example.lovermoneyptit.api.APIUtils;
+import com.example.lovermoneyptit.api.MoneyService;
 import com.example.lovermoneyptit.custom.WalletArrayAdapter;
+import com.example.lovermoneyptit.models.Group;
 import com.example.lovermoneyptit.models.Wallet;
 import com.example.lovermoneyptit.repository.WalletRepo;
+import com.example.lovermoneyptit.utils.FormatUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class WalletFragment extends Fragment {
+public class WalletFragment extends Fragment implements View.OnClickListener {
 
 
     private Button btnAdd;
@@ -43,6 +51,8 @@ public class WalletFragment extends Fragment {
     private WalletAdapter walletAdapter;
     static Wallet thisItem = new Wallet();
     public static WalletRepo walletRepo;
+
+    private MoneyService moneyService;
 
     private View.OnClickListener mOnClickListener = new View.OnClickListener() {
         @Override
@@ -59,7 +69,7 @@ public class WalletFragment extends Fragment {
             Button btnConfirm = dialog.findViewById(R.id.btnConfirm);
 
             txtWalletName.setText(thisItem.getWalletName());
-            txtWalletBalance.setText(thisItem.getBalance().toString());
+            txtWalletBalance.setText(FormatUtils.formatVnCurrence(thisItem.getBalance().toString()));
             txtWalletDesc.setText(thisItem.getDesc());
 
             // confirm add wallet
@@ -68,20 +78,20 @@ public class WalletFragment extends Fragment {
                 public void onClick(View v) {
                     Wallet walletToEdit = new Wallet();
                     String walletName = txtWalletName.getText().toString().trim();
-                    Double walletBalance = Double.parseDouble(txtWalletBalance.getText().toString());
+//                    Double walletBalance = Double.parseDouble(txtWalletBalance.getText().toString());
                     String walletDesc = txtWalletDesc.getText().toString().trim();
 
-                    if("".equals(walletName) || "".equals(walletDesc) || walletBalance == null){
+                    if("".equals(walletName) || "".equals(walletDesc)){
                         Toast.makeText(getActivity(), "Không được bỏ trống", Toast.LENGTH_SHORT).show();
                     }else{
 
                     walletToEdit.setId(viewHolder.getAdapterPosition()+1);
                     walletToEdit.setWalletName(walletName);
-                    walletToEdit.setBalance(walletBalance);
+//                    walletToEdit.setBalance(walletBalance);
                     walletToEdit.setDesc(walletDesc);
 
                     walletRepo.updateWallet(walletToEdit);
-
+                    showWallet(walletRepo.getAllWallets());
                     dialog.dismiss();
                     }
                 }
@@ -107,57 +117,71 @@ public class WalletFragment extends Fragment {
         // repository
         walletRepo = new WalletRepo(getActivity());
 
-        wallets = walletRepo.getAllWallets();
+        // service
+        moneyService = APIUtils.getAPIService();
 
         // map component variable with component
         btnAdd = view.findViewById(R.id.btnAddWallet);
 
         // button event onclick
-        btnAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final Dialog dialog = new Dialog(getActivity());
-                dialog.setContentView(R.layout.dialog_add_wallet);
-                final EditText txtWalletName = dialog.findViewById(R.id.txtWalletName);
-                final EditText txtWalletBalance = dialog.findViewById(R.id.txtWalletBalance);
-                final EditText txtWalletDesc = dialog.findViewById(R.id.txtWalletDesc);
-                Button btnConfirm = dialog.findViewById(R.id.btnConfirm);
+        btnAdd.setOnClickListener(this);
 
-                // confirm add wallet
-                btnConfirm.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Wallet walletToAdd = new Wallet();
-                        String walletName = txtWalletName.getText().toString();
-                        Double walletBalance = Double.parseDouble(txtWalletBalance.getText().toString());
-                        String walletDesc = txtWalletDesc.getText().toString();
+        wallets = walletRepo.getAllWallets();
+        showWallet(wallets);
 
-                        if("".equals(walletName) || "".equals(walletDesc) || walletBalance == null){
-                            Toast.makeText(getActivity(), "không được bỏ trống", Toast.LENGTH_SHORT).show();
-                        }
 
-                        walletToAdd.setWalletName(walletName);
-                        walletToAdd.setBalance(walletBalance);
-                        walletToAdd.setDesc(walletDesc);
 
-                        walletRepo.addWallet(walletToAdd);
+        return view;
 
-                        dialog.dismiss();
-                    }
-                });
+    }
 
-                dialog.show();
-            }
-        });
-
+    public void showWallet(List<Wallet> wallets){
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this.getContext());
         lvWallet.setLayoutManager(layoutManager);
         walletAdapter = new WalletAdapter(wallets, this.getContext());
         walletAdapter.setmOnClickListener(mOnClickListener);
         lvWallet.setAdapter(walletAdapter);
-
-        return view;
-
     }
+
+    @Override
+    public void onClick(View v) {
+        showDialog();
+    }
+
+    public void showDialog(){
+        final Dialog dialog = new Dialog(getActivity());
+        dialog.setContentView(R.layout.dialog_add_wallet);
+        final EditText txtWalletName = dialog.findViewById(R.id.txtWalletName);
+        final EditText txtWalletBalance = dialog.findViewById(R.id.txtWalletBalance);
+        final EditText txtWalletDesc = dialog.findViewById(R.id.txtWalletDesc);
+        Button btnConfirm = dialog.findViewById(R.id.btnConfirm);
+
+        // confirm add wallet
+        btnConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Wallet walletToAdd = new Wallet();
+                String walletName = txtWalletName.getText().toString();
+                Double walletBalance = Double.parseDouble(txtWalletBalance.getText().toString());
+                String walletDesc = txtWalletDesc.getText().toString();
+
+                if("".equals(walletName) || "".equals(walletDesc) || walletBalance == null){
+                    Toast.makeText(getActivity(), "không được bỏ trống", Toast.LENGTH_SHORT).show();
+                }
+
+                walletToAdd.setWalletName(walletName);
+                walletToAdd.setBalance(walletBalance);
+                walletToAdd.setDesc(walletDesc);
+
+                walletRepo.addWallet(walletToAdd);
+                dialog.dismiss();
+                showWallet(walletRepo.getAllWallets());
+            }
+        });
+
+        dialog.show();
+    }
+
+
 
 }

@@ -30,4 +30,10 @@ public interface MoneyService {
     @POST("/money-lover/groups")
     Call<Group> syncGroup(@Body List<Group> groups);
 
+    @GET("/money-lover/wallets")
+    Call<List<Wallet>> getAllWalletFromServer();
+
+    @GET("/money-lover/groups")
+    Call<List<Group>> getAllGroupFromServer();
+
 }

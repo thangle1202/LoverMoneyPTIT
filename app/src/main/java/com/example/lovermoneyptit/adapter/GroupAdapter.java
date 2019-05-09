@@ -9,13 +9,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.lovermoneyptit.R;
+import com.example.lovermoneyptit.models.Deal;
 import com.example.lovermoneyptit.models.Group;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHolder> {
 
-    ArrayList<Group> groups;
+    List<Group> groups;
     Context context;
 
     public GroupAdapter(ArrayList<Group> groups, Context context) {
@@ -34,6 +36,11 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHol
     public void onBindViewHolder(GroupViewHolder holder, int position) {
         holder.txtGroup.setText(groups.get(position).getGroupName());
  //       holder.ivGroup.setImageResource(groups.get(position).getImage());
+    }
+
+    public void updateGroups(List<Group> groupFromServer){
+        this.groups = groupFromServer;
+        notifyDataSetChanged();
     }
 
     @Override

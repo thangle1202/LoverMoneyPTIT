@@ -12,13 +12,17 @@ import java.util.Date;
 
 public class Deal implements Serializable {
 
-    @SerializedName("id")
+    @SerializedName("idDealLocal")
     @Expose
     private Integer id;
     @SerializedName("value")
     @Expose
     private Long value;
+    @SerializedName("walletId")
+    @Expose
     private Integer idWallet;
+    @SerializedName("groupId")
+    @Expose
     private Integer idGroup;
     @SerializedName("createdDate")
     @Expose
@@ -29,11 +33,11 @@ public class Deal implements Serializable {
     @SerializedName("description")
     @Expose
     private String desc;
-    @SerializedName("walletDTO")
-    @Expose
+//    @SerializedName("walletDTO")
+//    @Expose
     private Wallet wallet;
-    @SerializedName("groupDTO")
-    @Expose
+//    @SerializedName("groupDTO")
+//    @Expose
     private Group group;
 
     public Deal() {

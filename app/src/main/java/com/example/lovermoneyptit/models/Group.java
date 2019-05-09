@@ -11,7 +11,7 @@ import java.io.Serializable;
 
 public class Group implements Serializable {
 
-    @SerializedName("id")
+    @SerializedName("idGroupLocal")
     @Expose
     private int id;
     @SerializedName("groupName")

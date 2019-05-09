@@ -19,8 +19,7 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:padding="5dp"
-            android:src="@mipmap/ic_lich_debt_foreground"
-            />
+            android:src="@mipmap/ic_lich_debt_foreground"/>
 
 
         <LinearLayout
@@ -44,7 +43,6 @@
                 android:id="@+id/item_person_name_deal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Nguyen Ba Trung"
                 android:layout_margin="3dp"/>
             <TextView
                 android:id="@+id/txtValue"
@@ -53,24 +51,6 @@
                 android:text="500.000"
                 android:layout_margin="3dp"/>
         </LinearLayout>
-
-
-        <!--<TextView-->
-            <!--android:id="@+id/txtCreatedDate"-->
-            <!--android:layout_width="214dp"-->
-            <!--android:layout_height="match_parent"-->
-
-            <!--android:gravity="center"-->
-            <!--android:textColor="@color/colorBlack"-->
-            <!--android:textSize="20sp" />-->
-
-        <!--<TextView-->
-            <!--android:id="@+id/txtValue"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-
-            <!--android:textColor="@color/colorRed"-->
-            <!--android:textSize="20sp" />-->
 
     </LinearLayout>
 

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,8 @@ import com.example.lovermoneyptit.adapter.DealAdapter;
 import com.example.lovermoneyptit.api.APIUtils;
 import com.example.lovermoneyptit.api.MoneyService;
 import com.example.lovermoneyptit.models.Deal;
+import com.example.lovermoneyptit.models.Group;
+import com.example.lovermoneyptit.models.Wallet;
 import com.example.lovermoneyptit.repository.WalletRepo;
 
 import java.text.ParseException;
@@ -82,6 +85,8 @@ public class ManageMoneyFragment extends Fragment {
             dealAdapter = new DealAdapter(deals, this.getContext());
             if (deals.size() == 0) {
                 getDealByUserId(preferences.getInt("userId", 1));
+                getGroupFromServer();
+                getWalletFromServer();
             }
             dealAdapter.setmOnClickListener(mOnClicklistener);
             recyclerView.setAdapter(dealAdapter);
@@ -113,7 +118,48 @@ public class ManageMoneyFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<Deal>> call, Throwable t) {
-                    Toast.makeText(getActivity(), "Không thể lấy dữ liệu!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Không thể lấy dữ liệu!" + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.d("err:", t.getMessage());
+            }
+        });
+    }
+
+    public void getWalletFromServer(){
+        moneyService.getAllWalletFromServer().enqueue(new Callback<List<Wallet>>() {
+            @Override
+            public void onResponse(Call<List<Wallet>> call, Response<List<Wallet>> response) {
+                if(response.isSuccessful()){
+                    //walletRepo.deleteAllWallet();
+                    walletRepo.addBatchWallet(response.body());
+                    for(Wallet wallet : response.body()){
+                        Log.d("idWallet: ", ""+wallet.getId());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Wallet>> call, Throwable t) {
+                Toast.makeText(getActivity(), "đồng bộ failed! ", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void getGroupFromServer(){
+        moneyService.getAllGroupFromServer().enqueue(new Callback<List<Group>>() {
+            @Override
+            public void onResponse(Call<List<Group>> call, Response<List<Group>> response) {
+                if(response.isSuccessful()){
+                    //walletRepo.deleteAllGroup();
+                    walletRepo.addBatchGroup(response.body());
+                    for(Group wallet : response.body()){
+                        Log.d("idGroup: ", ""+wallet.getId());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Group>> call, Throwable t) {
+                Toast.makeText(getActivity(), "đồng bộ failed!", Toast.LENGTH_SHORT).show();
             }
         });
     }
