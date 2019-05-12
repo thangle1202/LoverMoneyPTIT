@@ -1,6 +1,7 @@
 package com.example.lovermoneyptit;
 
 import android.content.SharedPreferences;
+import android.net.ParseException;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -109,24 +110,47 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_syncData:
                 try {
-                    List<Wallet> wallets = walletRepo.getAllWallets();
-                    for(Wallet wallet : wallets){
-                        Log.d("id wallet", "" + wallet.getId());
-                    }
-                    if(wallets.size() > 0){
-                        syncWallet(wallets);
-                    }
-                    List<Group> groups = walletRepo.getAllGroup();
-                    if(groups.size() > 0){
-                        syncGroup(groups);
-                    }
-//                    List<Deal> deals = walletRepo.getAllDealForSyncData();
-                    List<Deal> deals = walletRepo.getAllDeal();
-                    if (deals.size() > 0) {
-                        syncData(deals);
-                    } else {
-                        Toast.makeText(getApplicationContext(), "không có dữ liệu!", Toast.LENGTH_SHORT).show();
-                    }
+
+                    Thread thread2 = new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                // List<Deal> deals = walletRepo.getAllDealForSyncData();
+                                List<Deal> deals = walletRepo.getAllDeal();
+                                if (deals.size() > 0) {
+                                    syncData(deals);
+                                } else {
+                                    Toast.makeText(getApplicationContext(), "không có dữ liệu!", Toast.LENGTH_SHORT).show();
+                                }
+                                Log.d("thread", 2 + "");
+                            } catch (java.text.ParseException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+
+                    Thread thread1 = new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            List<Wallet> wallets = walletRepo.getAllWallets();
+                            for (Wallet wallet : wallets) {
+                                Log.d("id wallet", "" + wallet.getId());
+                            }
+                            if (wallets.size() > 0) {
+                                syncWallet(wallets);
+                            }
+                            List<Group> groups = walletRepo.getAllGroup();
+                            if (groups.size() > 0) {
+                                syncGroup(groups);
+                            }
+                            Log.d("thread", 1 + "");
+                        }
+                    });
+
+                    thread1.start();
+                    Thread.sleep(1000);
+                    thread2.start();
+
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
@@ -150,14 +174,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
-                    Toast.makeText(getApplicationContext(), "đồng bộ thành công: " + response.code(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "đồng bộ thành công!", Toast.LENGTH_SHORT).show();
                 }
-                Toast.makeText(getApplicationContext(), "đồng bộ thành công: " + response.code(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "đồng bộ thất bại!", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -174,7 +196,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             @Override
             public void onFailure(Call<Group> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "đồng bộ thất bại!", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -191,9 +212,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             @Override
             public void onFailure(Call<Wallet> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "đồng bộ thất bại!", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
+
+    public synchronized void syncGroupAndWallet() {
+        List<Wallet> wallets = walletRepo.getAllWallets();
+        for (Wallet wallet : wallets) {
+            Log.d("id wallet", "" + wallet.getId());
+        }
+        if (wallets.size() > 0) {
+            syncWallet(wallets);
+        }
+        List<Group> groups = walletRepo.getAllGroup();
+        if (groups.size() > 0) {
+            syncGroup(groups);
+        }
+    }
 }

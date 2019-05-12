@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -45,7 +46,7 @@ public class CashOutFragment extends Fragment {
     private String mParam2;
 
     private RecyclerView rcvGroupCashOut;
-    private ImageButton btnAddGroup;
+    private FloatingActionButton btnAddGroup;
     private List<Group> groups;
     private WalletRepo walletRepo;
     private SelectGroupCashOutAdapter selectGroupCashOutAdapter;
@@ -120,18 +121,14 @@ public class CashOutFragment extends Fragment {
             }
         });
 
-        moneyService = APIUtils.getAPIService();
-
         walletRepo = new WalletRepo(getActivity());
         groups = walletRepo.getGroupByType(GroupType.CASH_OUT);
 
-        if (groups.size() >= 1) {
-            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this.getContext());
-            rcvGroupCashOut.setLayoutManager(layoutManager);
-            selectGroupCashOutAdapter = new SelectGroupCashOutAdapter(groups, this.getActivity());
-            selectGroupCashOutAdapter.setmOnClickListener(mOnClickListener);
-            rcvGroupCashOut.setAdapter(selectGroupCashOutAdapter);
-        }
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this.getContext());
+        rcvGroupCashOut.setLayoutManager(layoutManager);
+        selectGroupCashOutAdapter = new SelectGroupCashOutAdapter(groups, this.getActivity());
+        selectGroupCashOutAdapter.setmOnClickListener(mOnClickListener);
+        rcvGroupCashOut.setAdapter(selectGroupCashOutAdapter);
         return view;
     }
 
@@ -172,24 +169,6 @@ public class CashOutFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
-    }
-
-    public void getGroupFromServer(){
-        moneyService.getAllGroupFromServer().enqueue(new Callback<List<Group>>() {
-            @Override
-            public void onResponse(Call<List<Group>> call, Response<List<Group>> response) {
-                if(response.isSuccessful()){
-                    groups = response.body();
-                    walletRepo.addBatchGroup(groups);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Group>> call, Throwable t) {
-                Toast.makeText(getActivity(), "đồng bộ failed!", Toast.LENGTH_SHORT).show();
-
-            }
-        });
     }
 
 }

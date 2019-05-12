@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -49,7 +50,7 @@ public class borrowLoanFragment extends Fragment {
     private List<Group> groups;
     private SelectGroupLoanAdapter selectGroupLoanAdapter;
     private RecyclerView rcvGroupLoan;
-    private ImageButton btnAddgroup;
+    private FloatingActionButton btnAddgroup;
     private WalletRepo walletRepo;
 
     private MoneyService moneyService;
@@ -120,9 +121,9 @@ public class borrowLoanFragment extends Fragment {
         // get data by LOAN group
         groups = walletRepo.getGroupByType(GroupType.LOAN);
 
-        if(groups.size() == 0){
-            getGroupFromServer();
-        }
+//        if(groups.size() == 0){
+//            getGroupFromServer();
+//        }
 
         // Inflate the layout for this fragment
         if (groups.size() >= 1) {
@@ -188,7 +189,6 @@ public class borrowLoanFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<Group>> call, Throwable t) {
-                Toast.makeText(getActivity(), "đồng bộ failed!", Toast.LENGTH_SHORT).show();
 
             }
         });

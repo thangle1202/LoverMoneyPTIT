@@ -1,55 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ManageMoneyFragment"
-    >
+    tools:context=".ManageMoneyFragment">
 
     <android.support.v7.widget.RecyclerView
-        android:layout_weight="10"
         android:id="@+id/rcvDeal"
         android:layout_width="match_parent"
-        android:layout_height="350dp"
-        />
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_weight="10" />
 
-    <LinearLayout
-        android:layout_weight="1"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:background="#EEEEEE"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_weight="1"-->
+        <!--android:background="#EEEEEE"-->
+        <!--android:gravity="center"-->
+        <!--android:orientation="horizontal">-->
 
-        <Button
-            android:id="@+id/btnAddDeal"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textAllCaps="false"
-            android:background="@drawable/input_debt"
-            android:textColor="@color/colorWhite"
-            android:text=" Thêm" />
-    </LinearLayout>
+        <!--<Button-->
+            <!--android:id="@+id/btnAddDeal"-->
+            <!--android:layout_width="300dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:background="@drawable/input_debt"-->
+            <!--android:text="Thêm"-->
+            <!--android:textAllCaps="false"-->
+            <!--android:textColor="@color/colorWhite" />-->
+    <!--</LinearLayout>-->
 
-
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/btnAddDeal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="641dp"
+        android:layout_marginEnd="47dp"
+        android:layout_marginRight="47dp"
+        android:src="@mipmap/ic_add"
+        app:backgroundTint="@color/colorTabSelected"
+        app:fabSize="normal"
+        app:layout_anchor="@id/rcvDeal"
+        app:layout_anchorGravity="bottom|right|end" />
 
     <!--<ImageButton-->
-        <!--android:layout_weight="1"-->
-        <!--android:layout_gravity="right|bottom"-->
-        <!--android:id="@+id/btnAddDeal"-->
-        <!--android:layout_width="80dp"-->
-        <!--android:layout_height="80dp"-->
-        <!--android:layout_marginRight="50dp"-->
-        <!--android:layout_marginBottom="80dp"-->
-        <!--android:background="@drawable/round_add_deal_button"-->
-        <!--android:text="Button"-->
-        <!--android:src="@mipmap/ic_add"-->
-        <!--app:layout_constraintEnd_toEndOf="parent"-->
-        <!--app:layout_constraintStart_toStartOf="parent"-->
-        <!--app:layout_constraintTop_toBottomOf="@+id/rcvDeal" />-->
+    <!--android:layout_weight="1"-->
+    <!--android:layout_gravity="right|bottom"-->
+    <!--android:id="@+id/btnAddDeal"-->
+    <!--android:layout_width="80dp"-->
+    <!--android:layout_height="80dp"-->
+    <!--android:layout_marginRight="50dp"-->
+    <!--android:layout_marginBottom="80dp"-->
+    <!--android:background="@drawable/round_add_deal_button"-->
+    <!--android:text="Button"-->
+    <!--android:src="@mipmap/ic_add"-->
+    <!--app:layout_constraintEnd_toEndOf="parent"-->
+    <!--app:layout_constraintStart_toStartOf="parent"-->
+    <!--app:layout_constraintTop_toBottomOf="@+id/rcvDeal" />-->
 
-</LinearLayout>
+</RelativeLayout>

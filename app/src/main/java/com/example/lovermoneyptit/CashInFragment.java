@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -47,7 +48,7 @@ public class CashInFragment extends Fragment {
     private WalletRepo walletRepo;
     private SelectGroupCashInAdapter selectGroupCashInAdapter;
     private RecyclerView rcvGroupCashIn;
-    private ImageButton btnAddgroup;
+    private FloatingActionButton btnAddgroup;
     private List<Group> groups;
 
     private MoneyService moneyService;
@@ -120,22 +121,15 @@ public class CashInFragment extends Fragment {
             }
         });
 
-        moneyService = APIUtils.getAPIService();
-
         walletRepo = new WalletRepo(getActivity());
         groups = walletRepo.getGroupByType(GroupType.CASH_IN);
 
-        if(groups.size() == 0){
-            getGroupFromServer();
-        }
 
-        if (groups.size() >= 1) {
-            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this.getContext());
-            rcvGroupCashIn.setLayoutManager(layoutManager);
-            selectGroupCashInAdapter = new SelectGroupCashInAdapter(groups, this.getContext());
-            selectGroupCashInAdapter.setmOnClickListener(mOnItemClickListener);
-            rcvGroupCashIn.setAdapter(selectGroupCashInAdapter);
-        }
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this.getContext());
+        rcvGroupCashIn.setLayoutManager(layoutManager);
+        selectGroupCashInAdapter = new SelectGroupCashInAdapter(groups, this.getContext());
+        selectGroupCashInAdapter.setmOnClickListener(mOnItemClickListener);
+        rcvGroupCashIn.setAdapter(selectGroupCashInAdapter);
 
         return view;
     }
@@ -177,24 +171,6 @@ public class CashInFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
-    }
-
-    public void getGroupFromServer(){
-        moneyService.getAllGroupFromServer().enqueue(new Callback<List<Group>>() {
-            @Override
-            public void onResponse(Call<List<Group>> call, Response<List<Group>> response) {
-                if(response.isSuccessful()){
-                    groups = response.body();
-                    walletRepo.addBatchGroup(groups);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Group>> call, Throwable t) {
-                Toast.makeText(getActivity(), "đồng bộ failed!", Toast.LENGTH_SHORT).show();
-
-            }
-        });
     }
 
 

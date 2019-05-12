@@ -4,7 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -35,7 +38,7 @@ public class ManageMoneyFragment extends Fragment {
     private RecyclerView recyclerView;
     private static List<Deal> deals;
     private DealAdapter dealAdapter;
-    private Button btnAddDeal;
+    private FloatingActionButton btnAddDeal;
 
     private WalletRepo walletRepo;
     private MoneyService moneyService;
@@ -49,6 +52,7 @@ public class ManageMoneyFragment extends Fragment {
         public void onClick(View v) {
             RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) v.getTag();
             int pos = viewHolder.getAdapterPosition();
+            Log.d("position", pos + "");
             thisItem = deals.get(pos);
 
             Intent intent = new Intent(getActivity(), DealDetailActivity.class);
@@ -80,22 +84,30 @@ public class ManageMoneyFragment extends Fragment {
 
         try {
             deals = walletRepo.getAllDeal();
-            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this.getContext());
-            recyclerView.setLayoutManager(layoutManager);
-            dealAdapter = new DealAdapter(deals, this.getContext());
-            if (deals.size() == 0) {
-                getDealByUserId(preferences.getInt("userId", 1));
+            if(deals.size() == 0){
                 getGroupFromServer();
                 getWalletFromServer();
+                getDealByUserId(preferences.getInt("userId", 1));
             }
+            Log.d("size of deal", walletRepo.getAllDeal().size() + "");
+            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
+            recyclerView.setLayoutManager(layoutManager);
+            dealAdapter = new DealAdapter(deals, getActivity());
+
             dealAdapter.setmOnClickListener(mOnClicklistener);
             recyclerView.setAdapter(dealAdapter);
 
-        } catch (ParseException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
     }
 
     @Override
@@ -105,63 +117,68 @@ public class ManageMoneyFragment extends Fragment {
 
     // get deal from server
     public void getDealByUserId(int userId) {
+
         moneyService.getDealByUserId(userId).enqueue(new Callback<List<Deal>>() {
             @Override
             public void onResponse(Call<List<Deal>> call, Response<List<Deal>> response) {
-                if (response.isSuccessful()) {
-                    dealAdapter.updateDeals(response.body());
-                    deals = response.body();
-                    walletRepo.addBatchDeal(deals);
-                    Toast.makeText(getActivity(), "đồng bộ thành công: " + response.code(), Toast.LENGTH_SHORT).show();
+                if(response.isSuccessful()){
+                    try{
+                        for (Deal d : response.body()) {
+                            walletRepo.addDeal(d);
+                        }
+                        deals = walletRepo.getAllDeal();
+                        dealAdapter.updateDeals(deals);
+                        Toast.makeText(getActivity(), "dong bo thanh cong!", Toast.LENGTH_SHORT).show();
+                    }catch (Exception ex){
+                        ex.printStackTrace();
+                    }
                 }
             }
 
             @Override
             public void onFailure(Call<List<Deal>> call, Throwable t) {
-                Toast.makeText(getActivity(), "Không thể lấy dữ liệu!" + t.getMessage(), Toast.LENGTH_SHORT).show();
                 Log.d("err:", t.getMessage());
             }
         });
     }
 
-    public void getWalletFromServer(){
+    public void getWalletFromServer() {
         moneyService.getAllWalletFromServer().enqueue(new Callback<List<Wallet>>() {
             @Override
             public void onResponse(Call<List<Wallet>> call, Response<List<Wallet>> response) {
-                if(response.isSuccessful()){
-                    //walletRepo.deleteAllWallet();
+                if (response.isSuccessful()) {
+                    walletRepo.deleteAllWallet();
                     walletRepo.addBatchWallet(response.body());
-                    for(Wallet wallet : response.body()){
-                        Log.d("idWallet: ", ""+wallet.getId());
+                    for (Wallet wallet : response.body()) {
+                        Log.d("idWallet: ", "" + wallet.getId());
                     }
                 }
             }
 
             @Override
             public void onFailure(Call<List<Wallet>> call, Throwable t) {
-                Toast.makeText(getActivity(), "đồng bộ failed! ", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    public void getGroupFromServer(){
+    public void getGroupFromServer() {
         moneyService.getAllGroupFromServer().enqueue(new Callback<List<Group>>() {
             @Override
             public void onResponse(Call<List<Group>> call, Response<List<Group>> response) {
-                if(response.isSuccessful()){
-                    //walletRepo.deleteAllGroup();
+                if (response.isSuccessful()) {
+                    walletRepo.deleteAllGroup();
                     walletRepo.addBatchGroup(response.body());
-                    for(Group wallet : response.body()){
-                        Log.d("idGroup: ", ""+wallet.getId());
+                    for (Group wallet : response.body()) {
+                        Log.d("idGroup: ", "" + wallet.getId());
                     }
                 }
             }
 
             @Override
             public void onFailure(Call<List<Group>> call, Throwable t) {
-                Toast.makeText(getActivity(), "đồng bộ failed!", Toast.LENGTH_SHORT).show();
             }
         });
     }
+
 
 }

@@ -117,9 +117,6 @@ public class WalletFragment extends Fragment implements View.OnClickListener {
         // repository
         walletRepo = new WalletRepo(getActivity());
 
-        // service
-        moneyService = APIUtils.getAPIService();
-
         // map component variable with component
         btnAdd = view.findViewById(R.id.btnAddWallet);
 
@@ -128,8 +125,6 @@ public class WalletFragment extends Fragment implements View.OnClickListener {
 
         wallets = walletRepo.getAllWallets();
         showWallet(wallets);
-
-
 
         return view;
 
